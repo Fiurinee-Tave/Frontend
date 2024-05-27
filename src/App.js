@@ -21,7 +21,7 @@ const GlobalStyles = createGlobalStyle`
     display: flex;
     justify-content: center;
     background-color: #FFF3F3;
-    border: 1px solid blue;
+    
   }
   ::-webkit-scrollbar {
     display:none;
@@ -29,6 +29,18 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 function App() {
+  // 비회원
+  // "/"
+  // "/login"
+  // "/reco0~2"
+
+  // 회원
+  // +비회원
+  // "/id/mypage"
+  // "/id/mypage/recommend_log"
+
+  //추후에 로그인 구현 완료 시 수정 요망
+
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <GlobalStyles />

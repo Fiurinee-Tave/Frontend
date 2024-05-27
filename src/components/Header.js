@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
+  width: 100%;
   padding: 20px 50px;
   display: flex;
   align-items: center;
