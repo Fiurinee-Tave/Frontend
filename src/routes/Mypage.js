@@ -1,5 +1,6 @@
 import Header from "../components/Header";
 import Profile from "../components/Profile";
+import RecentLog from "../components/RecentLog";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -15,6 +16,7 @@ function Mypage() {
     <Wrapper>
       <Header />
       <Profile />
+      <RecentLog />
     </Wrapper>
   );
 }

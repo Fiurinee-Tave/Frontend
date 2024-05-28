@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import IconBirthday from "../Icons/IconBirthday";
+import IconBirthday from "../icons/IconBirthday";
 import Anniversary from "./Anniversary";
 
 const Wrapper = styled.div`
@@ -11,11 +11,19 @@ const Wrapper = styled.div`
   border-radius: 15px;
 `;
 
-const ProfileImage = styled.img`
+const ProfileImage = styled.div`
   width: 25%;
   height: 100%;
   margin-right: 15px;
   border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff8eb;
+`;
+
+const Image = styled.img`
+  width: 90%;
 `;
 
 const ProfileInfo = styled.div`
@@ -47,7 +55,9 @@ const Birthday = styled.div`
 function Profile() {
   return (
     <Wrapper>
-      <ProfileImage></ProfileImage>
+      <ProfileImage>
+        <Image />
+      </ProfileImage>
       <ProfileInfo>
         <UserInfo>
           <div>"mooni" profile</div>

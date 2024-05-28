@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import IconBirthday from "../Icons/IconBirthday";
+import IconBirthday from "../icons/IconBirthday";
 import { useState, useEffect } from "react";
 
+//다 뜯어고쳐,,,,,, 구려,,,,,,,,,,,
 const Wrapper = styled.div`
   width: 100%;
   height: 85%;
@@ -29,9 +30,36 @@ const AnniButton = styled.button`
 const Container = styled.div`
   width: 100%;
   height: calc(85% - 5px);
-  background-color: #f4f4f4;
-  padding: 15px;
-  border: 1px solid black;
+  background-color: #ebebeb;
+  padding: 15px 0;
+  display: flex;
+`;
+
+const AnniPage = styled.div`
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+`;
+
+const PageBtn = styled.button`
+  width: 5%;
+  height: 100%;
+  border: none;
+  background-color: #ebebeb;
+  color: #cccbcb;
+
+  cursor: pointer;
+`;
+
+const NullBtn = styled.button`
+  width: 5%;
+  height: 100%;
+  border: none;
+  background-color: none;
+  color: #cccbcb;
+  opacity: 0;
 `;
 
 const AnniItem = styled.button`
@@ -39,18 +67,14 @@ const AnniItem = styled.button`
   display: flex;
   gap: 10px;
   background-color: #dbe6f4;
-  border: none;
+  border: 1px solid #9ebfe5;
   border-radius: 50px;
   padding: 5px;
   padding-right: 10px;
-  margin-bottom: 15px;
+
   align-items: center;
   font-size: 18px;
   cursor: pointer;
-
-  &:last-child {
-    margin-bottom: 0px;
-  }
 `;
 
 const AnniText = styled.div``;
@@ -79,30 +103,14 @@ function Anniversary() {
   useEffect(() => {
     const list = data.slice(pageNumber * 3, pageNumber * 3 + 3);
 
-    // setAnniContainer(
-    //   list.map((v, i) => (
-    //     <Container key={i}>
-    //       {v.map((v) => (
-    //         <AnniItem key={v.id}>
-    //           <IconBirthday />
-    //           <AnniText>{v.text} : </AnniText>
-    //           <AnniDate>{v.BD}</AnniDate>
-    //         </AnniItem>
-    //       ))}
-    //     </Container>
-    //   ))
-    // );
-
     setAnniContainer(
-      <Container>
-        {list.map((v, i) => (
-          <AnniItem key={v.id}>
-            <IconBirthday />
-            <AnniText>{v.text} : </AnniText>
-            <AnniDate>{v.BD}</AnniDate>
-          </AnniItem>
-        ))}
-      </Container>
+      list.map((v, i) => (
+        <AnniItem key={v.id}>
+          <IconBirthday />
+          <AnniText>{v.text} : </AnniText>
+          <AnniDate>{v.BD}</AnniDate>
+        </AnniItem>
+      ))
     );
   }, [pageNumber]);
 
@@ -112,9 +120,25 @@ function Anniversary() {
         <div>곧 다가오는 기념일</div>
         <AnniButton>기념일 추가하기</AnniButton>
       </AnniSetting>
-      {anniContainer}
-      <button onClick={() => setPageNumber(pageNumber - 1)}>-</button>
-      <button onClick={() => setPageNumber(pageNumber + 1)}>+</button>
+      {pageNumber === 0 ? (
+        <Container>
+          <NullBtn></NullBtn>
+          <AnniPage>{anniContainer}</AnniPage>
+          <PageBtn onClick={() => setPageNumber(pageNumber + 1)}>▶</PageBtn>
+        </Container>
+      ) : Math.ceil(data.length / 3 - 1) === pageNumber ? (
+        <Container>
+          <PageBtn onClick={() => setPageNumber(pageNumber - 1)}>◀</PageBtn>
+          <AnniPage>{anniContainer}</AnniPage>
+          <NullBtn></NullBtn>
+        </Container>
+      ) : (
+        <Container>
+          <PageBtn onClick={() => setPageNumber(pageNumber - 1)}>◀</PageBtn>
+          <AnniPage>{anniContainer}</AnniPage>
+          <PageBtn onClick={() => setPageNumber(pageNumber + 1)}>▶</PageBtn>
+        </Container>
+      )}
     </Wrapper>
   );
 }
