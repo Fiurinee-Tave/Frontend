@@ -9,6 +9,7 @@ const Wrapper = styled.div`
   display: flex;
   background-color: white;
   border-radius: 15px;
+  box-shadow: 2px 2px 2px #c6c6c6;
 `;
 
 const ProfileImage = styled.div`
@@ -34,7 +35,7 @@ const ProfileInfo = styled.div`
   gap: 20px;
 `;
 
-const UserInfo = styled.div`
+const Title = styled.div`
   padding: 10px;
   padding-top: 0px;
   width: 100%;
@@ -56,16 +57,16 @@ function Profile() {
   return (
     <Wrapper>
       <ProfileImage>
-        <Image />
+        <Image src="/img/ProfileImage.png" />
       </ProfileImage>
       <ProfileInfo>
-        <UserInfo>
-          <div>"mooni" profile</div>
+        <Title>
+          <div>"user" profile</div>
           <Birthday>
             <IconBirthday />
             <div>2002.07.27</div>
           </Birthday>
-        </UserInfo>
+        </Title>
         <Anniversary />
       </ProfileInfo>
     </Wrapper>

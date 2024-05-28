@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import RecommendLogItem from "../items/RecommendLogItem";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   width: 70%;
@@ -9,9 +10,15 @@ const Wrapper = styled.div`
 const RecentLogText = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 `;
 
-const MovePageBtn = styled.button``;
+const MovePageBtn = styled.button`
+  border: none;
+  background: none;
+  font-size: 15px;
+  cursor: pointer;
+`;
 
 const Container = styled.div`
   display: flex;
@@ -20,11 +27,15 @@ const Container = styled.div`
 `;
 
 function RecentLog() {
+  const navigate = useNavigate();
+
   return (
     <Wrapper>
       <RecentLogText>
         <div>최근 추천 받은 꽃</div>
-        <MovePageBtn>더보기→</MovePageBtn>
+        <MovePageBtn onClick={() => navigate("/mypage/recommend_log")}>
+          더보기→
+        </MovePageBtn>
       </RecentLogText>
       <Container>
         <RecommendLogItem></RecommendLogItem>
