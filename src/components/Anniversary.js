@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import IconBirthday from "../icons/IconBirthday";
 import { useState, useEffect } from "react";
+import IconBellOn from "../icons/IconBellOn";
+import IconBellOff from "../icons/IconBellOff";
 
 //다 뜯어고쳐,,,,,, 구려,,,,,,,,,,,
 const Wrapper = styled.div`
@@ -77,6 +79,12 @@ const AnniItem = styled.button`
   cursor: pointer;
 `;
 
+const Title = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+`;
+
 const AnniText = styled.div``;
 
 const AnniDate = styled.div``;
@@ -99,6 +107,7 @@ const data = [
 function Anniversary({ openModal }) {
   const [anniContainer, setAnniContainer] = useState();
   const [pageNumber, setPageNumber] = useState(0);
+  const [bell, setBell] = useState(false);
 
   const openCreateModal = () => {
     openModal("create");
@@ -122,10 +131,27 @@ function Anniversary({ openModal }) {
     );
   }, [pageNumber]);
 
+  const handleBell = () => {
+    if (bell) {
+      alert("마케팅 수신 동의를 철회하시겠습니까?");
+      setBell(false);
+    } else {
+      alert("마케팅 수신 동의를 수락하시겠습니까?");
+      setBell(true);
+    }
+  };
+
   return (
     <Wrapper>
       <AnniSetting>
-        <div>곧 다가오는 기념일</div>
+        <Title>
+          <div>곧 다가오는 기념일</div>
+          {bell ? (
+            <IconBellOn onClick={handleBell} />
+          ) : (
+            <IconBellOff onClick={handleBell} />
+          )}
+        </Title>
         <AnniButton onClick={openCreateModal}>기념일 추가하기</AnniButton>
       </AnniSetting>
       {pageNumber === 0 ? (

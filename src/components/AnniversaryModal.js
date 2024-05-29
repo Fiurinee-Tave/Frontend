@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import IconBirthday from "../icons/IconBirthday";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -46,7 +47,7 @@ const CloseBtn = styled.button`
   cursor: pointer;
 `;
 
-const CategoryContainer = styled.div`
+const SelectedContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 30px;
@@ -65,8 +66,43 @@ const BlueText = styled.div`
 
 const CategoryIcon = styled.div`
   width: 250px;
-  height: 100px;
+  height: 130px;
   border: 1px solid black;
+  //flex로 5개 나열
+`;
+
+// const DateSpace = styled.div`
+//   width: 250px;
+//   height: 130px;
+//   border: 1px solid black;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// `;
+
+const DateSpace = styled.div`
+  height: 50px;
+  display: flex;
+  gap: 10px;
+  background-color: #dbe6f4;
+  border: 1px solid #9ebfe5;
+  border-radius: 50px;
+  padding: 5px;
+  padding-right: 10px;
+
+  align-items: center;
+  font-size: 18px;
+  cursor: pointer;
+`;
+
+const InputDate = styled.input`
+  width: 160px;
+  border: none;
+  background: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  font-size: 18px;
+  font-weight: 500;
 `;
 
 function AnniversaryModal({ closeModal, type }) {
@@ -78,10 +114,18 @@ function AnniversaryModal({ closeModal, type }) {
             <Title>기념일 추가하기</Title>
             <CloseBtn onClick={closeModal}>❌</CloseBtn>
           </Header>
-          <CategoryContainer>
+          <SelectedContainer>
             <BlueText>카테고리 선택</BlueText>
             <CategoryIcon></CategoryIcon>
-          </CategoryContainer>
+          </SelectedContainer>
+          <SelectedContainer>
+            <BlueText>날짜 선택</BlueText>
+            <DateSpace>
+              <IconBirthday />
+              <InputDate type="date" />
+              {/* input type=date는 모바일에서 달력 아이콘이 보이지 않음, react 라이브러리로 변경 */}
+            </DateSpace>
+          </SelectedContainer>
         </Container>
       </Wrapper>
     );
