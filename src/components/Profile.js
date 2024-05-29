@@ -53,7 +53,7 @@ const Birthday = styled.div`
   align-items: center;
 `;
 
-function Profile() {
+function Profile({ openModal }) {
   return (
     <Wrapper>
       <ProfileImage>
@@ -67,7 +67,7 @@ function Profile() {
             <div>2002.07.27</div>
           </Birthday>
         </Title>
-        <Anniversary />
+        <Anniversary openModal={openModal} />
       </ProfileInfo>
     </Wrapper>
   );

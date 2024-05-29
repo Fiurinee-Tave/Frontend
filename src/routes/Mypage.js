@@ -2,6 +2,8 @@ import Header from "../components/Header";
 import Profile from "../components/Profile";
 import RecentLog from "../components/RecentLog";
 import styled from "styled-components";
+import AnniversaryModal from "../components/AnniversaryModal";
+import { useState } from "react";
 
 //마케팅 동의 버튼
 //프로필 수정 버튼
@@ -24,10 +26,25 @@ const DeleteAccount = styled.div`
 `;
 
 function Mypage() {
+  const [modal, setModal] = useState({ open: false, type: null });
+
+  const openModal = (type) => {
+    document.body.style.overflow = "hidden";
+    setModal({ open: true, type: type });
+  };
+
+  const closeModal = () => {
+    document.body.style.overflow = "unset";
+    setModal({ open: false, type: null });
+  };
+
   return (
     <Wrapper>
+      {modal.open ? (
+        <AnniversaryModal closeModal={closeModal} type={modal.type} />
+      ) : null}
       <Header />
-      <Profile />
+      <Profile openModal={openModal} />
       <RecentLog />
       <DeleteAccount>회원탈퇴</DeleteAccount>
     </Wrapper>

@@ -96,16 +96,24 @@ const data = [
   { id: 9, text: "9", BD: "2002.07.27" },
 ];
 
-function Anniversary() {
+function Anniversary({ openModal }) {
   const [anniContainer, setAnniContainer] = useState();
   const [pageNumber, setPageNumber] = useState(0);
+
+  const openCreateModal = () => {
+    openModal("create");
+  };
+
+  const openModifyModal = () => {
+    openModal("modify");
+  };
 
   useEffect(() => {
     const list = data.slice(pageNumber * 3, pageNumber * 3 + 3);
 
     setAnniContainer(
       list.map((v, i) => (
-        <AnniItem key={v.id}>
+        <AnniItem key={v.id} onClick={openModifyModal}>
           <IconBirthday />
           <AnniText>{v.text} : </AnniText>
           <AnniDate>{v.BD}</AnniDate>
@@ -118,7 +126,7 @@ function Anniversary() {
     <Wrapper>
       <AnniSetting>
         <div>곧 다가오는 기념일</div>
-        <AnniButton>기념일 추가하기</AnniButton>
+        <AnniButton onClick={openCreateModal}>기념일 추가하기</AnniButton>
       </AnniSetting>
       {pageNumber === 0 ? (
         <Container>

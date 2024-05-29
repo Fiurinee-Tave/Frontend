@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import IconLike from "../icons/IconLike";
+import { useState } from "react";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -91,6 +93,7 @@ const LikeContainer = styled.div`
 const LikeBtn = styled.button`
   width: 60px;
   height: 60px;
+  padding: 5px;
   background-color: white;
   border-radius: 15px;
   border: 1px solid #fdb9b9;
@@ -99,6 +102,8 @@ const LikeBtn = styled.button`
 `;
 
 function RecommendLogItem() {
+  const [like, setLike] = useState(false);
+
   return (
     <Wrapper>
       <FlowerImage />
@@ -125,7 +130,9 @@ function RecommendLogItem() {
             </RecoMessage>
             <LikeContainer>
               <ToText>from.</ToText>
-              <LikeBtn>♥</LikeBtn>
+              <LikeBtn onClick={() => setLike(!like)}>
+                <IconLike like={like === true ? true : false} />
+              </LikeBtn>
             </LikeContainer>
           </RecommendContainer>
         </LogContainer>
