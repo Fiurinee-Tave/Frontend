@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import IconBirthday from "../icons/IconBirthday";
+import DateSetting from "./DateSetting";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -81,18 +82,17 @@ const CategoryIcon = styled.div`
 // `;
 
 const DateSpace = styled.div`
+  width: 250px;
   height: 50px;
   display: flex;
   gap: 10px;
   background-color: #dbe6f4;
   border: 1px solid #9ebfe5;
   border-radius: 50px;
-  padding: 5px;
-  padding-right: 10px;
+  padding: 5px 10px 5px 5px;
 
   align-items: center;
   font-size: 18px;
-  cursor: pointer;
 `;
 
 const InputDate = styled.input`
@@ -122,7 +122,8 @@ function AnniversaryModal({ closeModal, type }) {
             <BlueText>날짜 선택</BlueText>
             <DateSpace>
               <IconBirthday />
-              <InputDate type="date" />
+              {/* <InputDate type="date" /> */}
+              <DateSetting />
               {/* input type=date는 모바일에서 달력 아이콘이 보이지 않음, react 라이브러리로 변경 */}
             </DateSpace>
           </SelectedContainer>
