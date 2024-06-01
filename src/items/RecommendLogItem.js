@@ -72,6 +72,7 @@ const RecommendContainer = styled.div`
   align-items: flex-start;
   width: 450px;
   height: 100%;
+  margin-left: 15px;
 `;
 
 const UserMessage = styled.div`

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import IconBirthday from "../icons/IconBirthday";
+import BigIconBirthday from "../icons/BigIconBirthday";
 import DateSetting from "./DateSetting";
 
 const Wrapper = styled.div`
@@ -18,7 +19,7 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   width: 500px;
-  height: 500px;
+  height: 450px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -68,18 +69,11 @@ const BlueText = styled.div`
 const CategoryIcon = styled.div`
   width: 250px;
   height: 130px;
-  border: 1px solid black;
-  //flex로 5개 나열
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
 `;
-
-// const DateSpace = styled.div`
-//   width: 250px;
-//   height: 130px;
-//   border: 1px solid black;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// `;
 
 const DateSpace = styled.div`
   width: 250px;
@@ -95,17 +89,49 @@ const DateSpace = styled.div`
   font-size: 18px;
 `;
 
-const InputDate = styled.input`
-  width: 160px;
+const SubmitBtn = styled.button`
+  align-self: flex-end;
+  margin-right: 15px;
+
+  width: 120px;
+  height: 40px;
+  font-size: 15px;
+
   border: none;
-  background: none;
-  border-bottom: 1px solid black;
-  outline: none;
-  font-size: 18px;
-  font-weight: 500;
+
+  color: white;
+  background-color: #ffd0d0;
+  box-shadow: 2px 2px 2px #c0b7b7;
+
+  cursor: pointer;
+`;
+
+const DeleteBtn = styled.button`
+  margin-right: 15px;
+
+  width: 70px;
+  height: 40px;
+  font-size: 15px;
+
+  border: none;
+
+  color: white;
+  background-color: #ce7373;
+  box-shadow: 2px 2px 2px #c0b7b7;
+
+  cursor: pointer;
+`;
+
+const Buttons = styled.div`
+  align-self: flex-end;
 `;
 
 function AnniversaryModal({ closeModal, type }) {
+  const DeleteAnniversary = () => {
+    alert("정말 삭제하시겠습니까?");
+    closeModal();
+  };
+
   if (type === "create") {
     return (
       <Wrapper>
@@ -116,7 +142,13 @@ function AnniversaryModal({ closeModal, type }) {
           </Header>
           <SelectedContainer>
             <BlueText>카테고리 선택</BlueText>
-            <CategoryIcon></CategoryIcon>
+            <CategoryIcon>
+              <BigIconBirthday />
+              <BigIconBirthday />
+              <BigIconBirthday />
+              <BigIconBirthday />
+              <BigIconBirthday />
+            </CategoryIcon>
           </SelectedContainer>
           <SelectedContainer>
             <BlueText>날짜 선택</BlueText>
@@ -127,11 +159,45 @@ function AnniversaryModal({ closeModal, type }) {
               {/* input type=date는 모바일에서 달력 아이콘이 보이지 않음, react 라이브러리로 변경 */}
             </DateSpace>
           </SelectedContainer>
+
+          <SubmitBtn onClick={closeModal}>기념일 추가</SubmitBtn>
         </Container>
       </Wrapper>
     );
   } else {
-    return <div>{type}</div>;
+    return (
+      <Wrapper>
+        <Container>
+          <Header>
+            <Title>기념일 수정하기</Title>
+            <CloseBtn onClick={closeModal}>❌</CloseBtn>
+          </Header>
+          <SelectedContainer>
+            <BlueText>카테고리 선택</BlueText>
+            <CategoryIcon>
+              <BigIconBirthday />
+              <BigIconBirthday />
+              <BigIconBirthday />
+              <BigIconBirthday />
+              <BigIconBirthday />
+            </CategoryIcon>
+          </SelectedContainer>
+          <SelectedContainer>
+            <BlueText>날짜 선택</BlueText>
+            <DateSpace>
+              <IconBirthday />
+              {/* <InputDate type="date" /> */}
+              <DateSetting />
+              {/* input type=date는 모바일에서 달력 아이콘이 보이지 않음, react 라이브러리로 변경 */}
+            </DateSpace>
+          </SelectedContainer>
+          <Buttons>
+            <SubmitBtn onClick={closeModal}>수정 완료</SubmitBtn>
+            <DeleteBtn onClick={DeleteAnniversary}>삭제</DeleteBtn>
+          </Buttons>
+        </Container>
+      </Wrapper>
+    );
   }
 }
 

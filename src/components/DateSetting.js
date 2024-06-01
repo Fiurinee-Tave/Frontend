@@ -3,6 +3,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import styled from "styled-components";
 
+const Wrapper = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+`;
+
 const StyledDatePicker = styled(DatePicker)`
   outline: none;
   background: none;
@@ -15,13 +22,6 @@ const StyledDatePicker = styled(DatePicker)`
   cursor: pointer;
 `;
 
-const Wrapper = styled.div`
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-`;
-
 function DateSetting() {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -29,7 +29,6 @@ function DateSetting() {
   return (
     <Wrapper>
       <StyledDatePicker
-        readOnly
         dateFormat="yyyy년MM월dd일"
         shouldCloseOnSelect
         selected={selectedDate}

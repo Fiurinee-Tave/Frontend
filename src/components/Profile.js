@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import IconBirthday from "../icons/IconBirthday";
+
 import Anniversary from "./Anniversary";
 
 const Wrapper = styled.div`
@@ -58,6 +59,7 @@ function Profile({ openModal }) {
     <Wrapper>
       <ProfileImage>
         <Image src="/img/ProfileImage.png" />
+        {/* pencil icon 넣고 프로필 */}
       </ProfileImage>
       <ProfileInfo>
         <Title>
