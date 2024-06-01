@@ -62,7 +62,7 @@ font-size:20px;
 padding-top:250px;
 padding-left:2vw;
 `;
-
+//안녕
 const FromText = styled.div`
 position: absolute;
 font-size: 22px;
