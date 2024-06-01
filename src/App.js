@@ -21,7 +21,7 @@ const GlobalStyles = createGlobalStyle`
     display: flex;
     justify-content: center;
     background-color: #FFF3F3;
-    border: 1px solid blue;
+    
   }
   ::-webkit-scrollbar {
     display:none;
