@@ -19,15 +19,6 @@ const StyledImg = styled.div`
     align-items: center;
 
   `;
-
-  /*
-  const ImageSlide = styled.div`
-  background-image: ${props => `linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url(${props.image})`};
-  background-size: cover;
-  width: 100vw;
-  height: 60vh;
-  `;
-  */
   const ImageSlide = styled.img`
   width: 100vw;
   height: 70vh;
