@@ -1,36 +1,82 @@
 import styled from "styled-components";
 
-const Wrapper = styled.div`
-  width: 30px;
-  height: 30px;
-  background-color: blue;
+const Wrapper = styled.button`
+  width: 40px;
+  height: 40px;
+  background-color: rgba(190, 190, 190, 0.7);
+  border-radius: 10px;
+  border: 2px solid #777777;
+  padding: 5px;
+  cursor: pointer;
 `;
 
-function IconPencil() {
-  <Wrapper>
-    <svg
-      dataslot="icon"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M2.66224 21.7498L6.90475 21.7499L22.4611 6.19355L18.2185 1.95093L2.66211 17.5073L2.66224 21.7498Z"
-        stroke="#333333"
-        stroke-width="2"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M13.9756 6.1936L18.2182 10.4363"
-        stroke="#333333"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  </Wrapper>;
+function IconPencil({ onClick }) {
+  return (
+    <Wrapper onClick={onClick}>
+      <svg
+        width="26"
+        height="26"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g clipPath="url(#clip0_73_9898)">
+          <mask
+            id="mask0_73_9898"
+            maskUnits="userSpaceOnUse"
+            x="0"
+            y="0"
+            width="24"
+            height="24"
+          >
+            <path d="M24 0H0V24H24V0Z" fill="white" />
+          </mask>
+          <g mask="url(#mask0_73_9898)">
+            <path
+              d="M15.5 4.49951L19.5 8.4995"
+              stroke="#333333"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M4.00001 15.9995L17.9999 2L22 5.9995L8 19.9995L3 20.9995L4.00001 15.9995Z"
+              stroke="#333333"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M15.5 4.49951L19.5 8.4995"
+              stroke="#333333"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M4.5 15.9995L8 19.4995"
+              stroke="#333333"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M6.5 17.4995L17.5 6.49951"
+              stroke="#333333"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </g>
+        </g>
+        <defs>
+          <clipPath id="clip0_73_9898">
+            <rect width="24" height="24" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
+    </Wrapper>
+  );
 }
 
 export default IconPencil;
