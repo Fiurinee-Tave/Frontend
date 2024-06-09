@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Mainpage from "./routes/Mainpage";
+import MainpageTest from "./routes/MainpageTest";
 import Login from "./routes/Login";
 import Mypage from "./routes/Mypage";
 import Recommend0 from "./routes/Recommend0";
@@ -46,7 +47,7 @@ function App() {
     <Router basename={process.env.PUBLIC_URL}>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<Mainpage />}></Route>
+        <Route path="/" element={<MainpageTest />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/mypage" element={<Mypage />}></Route>
         <Route path="/reco0" element={<Recommend0 />}></Route>
