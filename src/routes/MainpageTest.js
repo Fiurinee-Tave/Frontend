@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import MainImage from "../components/MainImage";
 import TodayFlowerTest from "../components/TodayFlowerTest";
-import FlowerShop from "../components/FlowerShop";
+import FlowerShopTest from "../components/FlowerShopTest";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -13,6 +13,7 @@ const Wrapper = styled.div`
 
 const Line2 = styled.div`
   width: 100%;
+  margin-bottom: 50px;
   display: flex;
   justify-content: space-between;
 `;
@@ -23,7 +24,7 @@ function MainpageTest() {
       <MainImage />
       <Line2>
         <TodayFlowerTest />
-        <FlowerShop />
+        <FlowerShopTest />
       </Line2>
     </Wrapper>
   );
