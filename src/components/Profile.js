@@ -108,6 +108,7 @@ function Profile({ openModal }) {
           {ProfileImageList.map((v, i) => (
             <MiniImage src={v} key={i} />
             //click시 backgroundColor 변경 함수 필요
+            //연필 아이콘 체크로 변경
           ))}
         </ProfileModifyContainer>
       </Wrapper>
