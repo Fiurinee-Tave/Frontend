@@ -15,7 +15,7 @@ const Line2 = styled.div`
   width: 100%;
   margin-bottom: 50px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 function MainpageTest() {
