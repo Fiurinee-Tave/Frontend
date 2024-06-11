@@ -35,6 +35,7 @@ const Container = styled.div`
   background-color: #ebebeb;
   padding: 15px 0;
   display: flex;
+  border-radius: 15px;
 `;
 
 const AnniPage = styled.div`

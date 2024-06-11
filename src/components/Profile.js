@@ -3,6 +3,7 @@ import IconBirthday from "../icons/IconBirthday";
 import IconPencil from "../icons/IconPencil";
 import Anniversary from "./Anniversary";
 import { useState } from "react";
+import IconCheck from "../icons/IconCheck";
 
 const Wrapper = styled.div`
   width: 70%;
@@ -101,7 +102,7 @@ function Profile({ openModal }) {
         <ProfileImage>
           <Image src="/img/ProfileImage.png" />
           <IconContainer>
-            <IconPencil onClick={handleProfile} />
+            <IconCheck onClick={handleProfile} />
           </IconContainer>
         </ProfileImage>
         <ProfileModifyContainer>

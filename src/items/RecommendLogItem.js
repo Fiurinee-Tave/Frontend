@@ -39,7 +39,7 @@ const Title = styled.div`
   font-size: 23px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: end;
   border-bottom: 1px solid #959090;
 `;
 
@@ -49,7 +49,7 @@ const FlowerText = styled.div`
   gap: 10px;
 `;
 
-const ToText = styled.div`
+const Gray18Text = styled.div`
   font-size: 18px;
   color: #959090;
 `;
@@ -111,10 +111,10 @@ function RecommendLogItem() {
       <Container>
         <Title>
           <FlowerText>
-            <ToText>to.</ToText>
+            <Gray18Text>to.</Gray18Text>
             <div>"flower"</div>
           </FlowerText>
-          <div>2024.05.28</div>
+          <Gray18Text>2024.05.28</Gray18Text>
         </Title>
         <GrayText>"flower"와 어울리는 꽃</GrayText>
         <LogContainer>
@@ -130,7 +130,7 @@ function RecommendLogItem() {
               <div>writer.fiurinee</div>
             </RecoMessage>
             <LikeContainer>
-              <ToText>from.</ToText>
+              <Gray18Text>from.</Gray18Text>
               <LikeBtn onClick={() => setLike(!like)}>
                 <IconLike like={like === true ? true : false} />
               </LikeBtn>

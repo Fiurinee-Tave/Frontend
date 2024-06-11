@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   width: 500px;
-  height: 450px;
+  height: 500px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -68,11 +68,25 @@ const BlueText = styled.div`
 
 const CategoryIcon = styled.div`
   width: 250px;
-  height: 130px;
+
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
+  align-content: flex-start;
+  gap: 15px 30px;
+`;
+
+const CategorySet = styled.div`
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+`;
+
+const CategoryText = styled.div`
+  color: #ffa0a0;
 `;
 
 const DateSpace = styled.div`
@@ -143,11 +157,26 @@ function AnniversaryModal({ closeModal, type }) {
           <SelectedContainer>
             <BlueText>카테고리 선택</BlueText>
             <CategoryIcon>
-              <BigIconBirthday />
-              <BigIconBirthday />
-              <BigIconBirthday />
-              <BigIconBirthday />
-              <BigIconBirthday />
+              <CategorySet>
+                <BigIconBirthday />
+                <CategoryText>생일</CategoryText>
+              </CategorySet>
+              <CategorySet>
+                <BigIconBirthday />
+                <CategoryText>연인</CategoryText>
+              </CategorySet>
+              <CategorySet>
+                <BigIconBirthday />
+                <CategoryText>배우자</CategoryText>
+              </CategorySet>
+              <CategorySet>
+                <BigIconBirthday />
+                <CategoryText>가족</CategoryText>
+              </CategorySet>
+              <CategorySet>
+                <BigIconBirthday />
+                <CategoryText>기타</CategoryText>
+              </CategorySet>
             </CategoryIcon>
           </SelectedContainer>
           <SelectedContainer>
