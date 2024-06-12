@@ -4,6 +4,7 @@ import IconPencil from "../icons/IconPencil";
 import Anniversary from "./Anniversary";
 import { useState } from "react";
 import IconCheck from "../icons/IconCheck";
+import { useMediaQuery } from "react-responsive";
 
 const Wrapper = styled.div`
   width: 70%;
@@ -13,6 +14,22 @@ const Wrapper = styled.div`
   background-color: white;
   border-radius: 15px;
   box-shadow: 2px 2px 2px #c6c6c6;
+  gap: 10px 0;
+
+  //태블릿
+  @media (max-width: 1199px) {
+  }
+
+  //모바일 가로
+  @media (max-width: 767px) {
+  }
+
+  //모바일 세로
+  @media (max-width: 575px) {
+    width: 90%;
+    height: 550px;
+    flex-wrap: wrap;
+  }
 `;
 
 const ProfileImage = styled.div`
@@ -26,6 +43,11 @@ const ProfileImage = styled.div`
   align-items: center;
   background-color: #fff8eb;
   padding-top: 30px;
+
+  @media (max-width: 575px) {
+    width: 40%;
+    height: 45%;
+  }
 `;
 
 const Image = styled.img`
@@ -50,12 +72,24 @@ const Title = styled.div`
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid black;
+
+  @media (max-width: 575px) {
+  }
+`;
+
+const MoTitle = styled.div`
+  width: 50%;
+  font-size: 15px;
 `;
 
 const Birthday = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
+
+  @media (max-width: 575px) {
+    //justify-content: end;
+  }
 `;
 
 const IconContainer = styled.div`
@@ -63,6 +97,10 @@ const IconContainer = styled.div`
   display: flex;
   justify-content: end;
   padding: 0 20px 20px 0;
+
+  @media (max-width: 575px) {
+    padding: 0 10px 10px 0;
+  }
 `;
 
 const ProfileModifyContainer = styled.div`
@@ -90,6 +128,8 @@ const ProfileImageList = [
 ];
 
 function Profile({ openModal }) {
+  const isMobile = useMediaQuery({ query: "(max-width: 575px)" });
+
   const [modify, setModify] = useState(false);
 
   const handleProfile = () => {
@@ -115,7 +155,26 @@ function Profile({ openModal }) {
       </Wrapper>
     );
   } else {
-    return (
+    return isMobile ? (
+      <Wrapper>
+        <ProfileImage>
+          <Image src="/img/ProfileImage.png" />
+          <IconContainer>
+            <IconPencil onClick={handleProfile} mode={"mobile"} />
+          </IconContainer>
+        </ProfileImage>
+        <MoTitle>
+          <Title>
+            <div>"user" profile</div>
+          </Title>
+          <Birthday>
+            <IconBirthday />
+            <div>2002.07.27</div>
+          </Birthday>
+        </MoTitle>
+        <Anniversary openModal={openModal} />
+      </Wrapper>
+    ) : (
       <Wrapper>
         <ProfileImage>
           <Image src="/img/ProfileImage.png" />

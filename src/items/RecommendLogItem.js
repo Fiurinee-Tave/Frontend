@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import IconLike from "../icons/IconLike";
 import { useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -8,18 +9,44 @@ const Wrapper = styled.div`
   background-color: white;
   display: flex;
   box-shadow: 2px 2px 2px #c6c6c6;
+
+  //태블릿
+  @media (max-width: 1199px) {
+  }
+
+  //모바일 가로
+  @media (max-width: 767px) {
+  }
+
+  //모바일 세로
+  @media (max-width: 575px) {
+    height: 500px;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+  }
 `;
 
 const FlowerImage = styled.img`
   width: 25%;
   height: 100%;
   border: 1px solid red;
+
+  @media (max-width: 575px) {
+    width: 50%;
+    height: 100%;
+  }
 `;
 
 const MiniFlowerImage = styled.img`
   width: 150px;
   height: 100%;
   border: 1px solid green;
+  @media (max-width: 575px) {
+    width: 400px;
+    height: 100%;
+    margin-right: 10px;
+  }
 `;
 
 const Container = styled.div`
@@ -29,6 +56,15 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media (max-width: 575px) {
+    width: 50%;
+    height: 100%;
+    margin: 0;
+    padding: 10px 0;
+    justify-content: end;
+    gap: 50px;
+  }
 `;
 
 const Title = styled.div`
@@ -41,6 +77,10 @@ const Title = styled.div`
   justify-content: space-between;
   align-items: end;
   border-bottom: 1px solid #959090;
+
+  @media (max-width: 575px) {
+    height: 10%;
+  }
 `;
 
 const FlowerText = styled.div`
@@ -59,6 +99,10 @@ const LogContainer = styled.div`
   display: flex;
   justify-content: space-between;
   height: 70%;
+
+  @media (max-width: 575px) {
+    height: 50%;
+  }
 `;
 
 const GrayText = styled.div`
@@ -103,9 +147,46 @@ const LikeBtn = styled.button`
 `;
 
 function RecommendLogItem() {
+  const isMobile = useMediaQuery({ query: "(max-width: 575px)" });
+
   const [like, setLike] = useState(false);
 
-  return (
+  return isMobile ? (
+    <Wrapper>
+      <Title>
+        <FlowerText>
+          <Gray18Text>to.</Gray18Text>
+          <div>"flower"</div>
+        </FlowerText>
+        <Gray18Text>2024.05.28</Gray18Text>
+      </Title>
+      <LogContainer>
+        <FlowerImage />
+        <Container>
+          <UserMessage>
+            <GrayText>"100일 축하해 ㅇㅇ아"</GrayText>
+            <GrayText>writer.user</GrayText>
+          </UserMessage>
+          <RecoMessage>
+            <div>"내 마음 어쩌구 축하해"</div>
+            <div>writer.fiurinee</div>
+          </RecoMessage>
+        </Container>
+      </LogContainer>
+      <GrayText>"flower"와 어울리는 꽃</GrayText>
+      <LogContainer>
+        <MiniFlowerImage />
+        <MiniFlowerImage />
+
+        <LikeContainer>
+          <Gray18Text>from.</Gray18Text>
+          <LikeBtn onClick={() => setLike(!like)}>
+            <IconLike like={like === true ? true : false} />
+          </LikeBtn>
+        </LikeContainer>
+      </LogContainer>
+    </Wrapper>
+  ) : (
     <Wrapper>
       <FlowerImage />
       <Container>

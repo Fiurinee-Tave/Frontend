@@ -23,6 +23,10 @@ const DeleteAccount = styled.div`
   display: flex;
   justify-content: end;
   margin-bottom: 30px;
+
+  @media (max-width: 575px) {
+    width: 90%;
+  }
 `;
 
 function Mypage() {

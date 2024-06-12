@@ -6,6 +6,19 @@ const Wrapper = styled.div`
   width: 70%;
   display: flex;
   flex-direction: column;
+
+  //태블릿
+  @media (max-width: 1199px) {
+  }
+
+  //모바일 가로
+  @media (max-width: 767px) {
+  }
+
+  //모바일 세로
+  @media (max-width: 575px) {
+    width: 90%;
+  }
 `;
 const RecentLogText = styled.div`
   display: flex;

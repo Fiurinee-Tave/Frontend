@@ -4,10 +4,22 @@ import { useState, useEffect } from "react";
 import IconBellOn from "../icons/IconBellOn";
 import IconBellOff from "../icons/IconBellOff";
 
-//다 뜯어고쳐,,,,,, 구려,,,,,,,,,,,
 const Wrapper = styled.div`
   width: 100%;
   height: 85%;
+
+  //태블릿
+  @media (max-width: 1199px) {
+  }
+
+  //모바일 가로
+  @media (max-width: 767px) {
+  }
+
+  //모바일 세로
+  @media (max-width: 575px) {
+    height: 50%;
+  }
 `;
 
 const AnniSetting = styled.div`
@@ -18,6 +30,8 @@ const AnniSetting = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 575px) {
+  }
 `;
 
 const AnniButton = styled.button`
