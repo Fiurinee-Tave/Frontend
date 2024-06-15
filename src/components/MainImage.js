@@ -62,12 +62,14 @@ const RecommendBtn = styled.button`
 `;
 
 const DetailBtn = styled.button`
-  border-radius: 50px;
+  border-radius: 50%;
+  width:58px;
+  height:58px;
   font-size: 30px;
   cursor: pointer;
   position: absolute;
-  right: 120px;
-  bottom: 20px;
+  right: 90px;
+  bottom: 18px;
   background-color: #fff3f3;
   border-style: dashed;
   border-color: gray;

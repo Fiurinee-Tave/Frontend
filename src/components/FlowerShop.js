@@ -4,21 +4,21 @@ import { useEffect,useState } from 'react';
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 const Wrapper = styled.div`
-    width:500px;
-    height:500px;
-    margin-top : 120px;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 50px;
+    margin: 0 50px;
 `;
 
 const Title = styled.div`
-font-size:40px;
-margin-left:280px;
+    font-size:40px;
 `;
 
 const KakaoMap = styled.div`
-width:400px;
-height:500px;
-margin-left:250px;
-margin-top:20px;
+    width: 100%;
+    height: 400px;
 `;
 
 const {kakao} = window;
