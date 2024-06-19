@@ -48,7 +48,7 @@ function App() {
     <Router basename={process.env.PUBLIC_URL}>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<Loading />}></Route>
+        <Route path="/" element={<MainpageTest />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/mypage" element={<Mypage />}></Route>
         <Route path="/reco0" element={<Recommend0 />}></Route>
