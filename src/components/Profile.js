@@ -110,12 +110,23 @@ const ProfileModifyContainer = styled.div`
   gap: 30px;
   padding: 0 50px;
   justify-content: center;
+
+  @media (max-width: 575px) {
+    width: 100%;
+    gap: 20px;
+    padding: 0;
+  }
 `;
 
 const MiniImage = styled.img`
   width: 150px;
   height: 150px;
   border: 3px dashed #f98181;
+
+  @media (max-width: 575px) {
+    width: 110px;
+    height: 110px;
+  }
 `;
 
 const ProfileImageList = [
@@ -142,14 +153,16 @@ function Profile({ openModal }) {
         <ProfileImage>
           <Image src="/img/ProfileImage.png" />
           <IconContainer>
-            <IconCheck onClick={handleProfile} />
+            <IconCheck
+              onClick={handleProfile}
+              mode={isMobile ? "mobile" : null}
+            />
           </IconContainer>
         </ProfileImage>
         <ProfileModifyContainer>
           {ProfileImageList.map((v, i) => (
             <MiniImage src={v} key={i} />
             //click시 backgroundColor 변경 함수 필요
-            //연필 아이콘 체크로 변경
           ))}
         </ProfileModifyContainer>
       </Wrapper>

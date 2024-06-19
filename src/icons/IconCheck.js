@@ -8,14 +8,21 @@ const Wrapper = styled.button`
   border: 2px solid #777777;
   padding: 5px;
   cursor: pointer;
+
+  @media (max-width: 575px) {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    border: 1.5px solid #777777;
+  }
 `;
 
-function IconCheck({ onClick }) {
+function IconCheck({ onClick, mode }) {
   return (
     <Wrapper onClick={onClick}>
       <svg
-        width="24"
-        height="24"
+        width={mode === "mobile" ? "18" : "26"}
+        height={mode === "mobile" ? "18" : "26"}
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -23,9 +30,9 @@ function IconCheck({ onClick }) {
         <path
           d="M21.5 5.5L8.4375 18.5L2.5 12.5909"
           stroke="#333333"
-          stroke-width="4"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     </Wrapper>

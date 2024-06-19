@@ -9,6 +9,7 @@ import Recommend2 from "./routes/Recommend2";
 import RecommendLogPage from "./routes/RecommendLogPage";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
+import Loading from "./loading/Loading";
 
 const GlobalStyles = createGlobalStyle`
   ${reset};
@@ -47,7 +48,7 @@ function App() {
     <Router basename={process.env.PUBLIC_URL}>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<MainpageTest />}></Route>
+        <Route path="/" element={<Loading />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/mypage" element={<Mypage />}></Route>
         <Route path="/reco0" element={<Recommend0 />}></Route>

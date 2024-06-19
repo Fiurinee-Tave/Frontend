@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   width: 500px;
-  height: 500px;
+
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -27,6 +27,11 @@ const Container = styled.div`
   align-items: center;
   background-color: #fff3f3;
   border-radius: 15px;
+
+  @media (max-width: 575px) {
+    width: 300px;
+    gap: 20px;
+  }
 `;
 
 const Header = styled.div`
@@ -39,6 +44,10 @@ const Header = styled.div`
 const Title = styled.div`
   padding: 5px 0;
   border-bottom: 1px solid #998e8e;
+
+  @media (max-width: 575px) {
+    font-size: 14px;
+  }
 `;
 
 const CloseBtn = styled.button`
@@ -53,6 +62,11 @@ const SelectedContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 30px;
+
+  @media (max-width: 575px) {
+    flex-direction: column;
+    align-items: start;
+  }
 `;
 
 const BlueText = styled.div`
@@ -64,11 +78,16 @@ const BlueText = styled.div`
   background-color: #dbe6f4;
   border: 1px solid #7489be;
   border-radius: 50px;
+
+  @media (max-width: 575px) {
+    width: 100px;
+    height: 40px;
+    font-size: 13px;
+  }
 `;
 
 const CategoryIcon = styled.div`
   width: 250px;
-
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -87,6 +106,9 @@ const CategorySet = styled.div`
 
 const CategoryText = styled.div`
   color: #ffa0a0;
+  @media (max-width: 575px) {
+    font-size: 14px;
+  }
 `;
 
 const DateSpace = styled.div`
@@ -118,6 +140,10 @@ const SubmitBtn = styled.button`
   box-shadow: 2px 2px 2px #c0b7b7;
 
   cursor: pointer;
+
+  @media (max-width: 575px) {
+    margin-right: 5px;
+  }
 `;
 
 const DeleteBtn = styled.button`
@@ -134,6 +160,10 @@ const DeleteBtn = styled.button`
   box-shadow: 2px 2px 2px #c0b7b7;
 
   cursor: pointer;
+
+  @media (max-width: 575px) {
+    margin-right: 5px;
+  }
 `;
 
 const Buttons = styled.div`
@@ -141,7 +171,7 @@ const Buttons = styled.div`
 `;
 
 function AnniversaryModal({ closeModal, type }) {
-  const DeleteAnniversary = () => {
+  const deleteAnniversary = () => {
     alert("정말 삭제하시겠습니까?");
     closeModal();
   };
@@ -204,11 +234,26 @@ function AnniversaryModal({ closeModal, type }) {
           <SelectedContainer>
             <BlueText>카테고리 선택</BlueText>
             <CategoryIcon>
-              <BigIconBirthday />
-              <BigIconBirthday />
-              <BigIconBirthday />
-              <BigIconBirthday />
-              <BigIconBirthday />
+              <CategorySet>
+                <BigIconBirthday />
+                <CategoryText>생일</CategoryText>
+              </CategorySet>
+              <CategorySet>
+                <BigIconBirthday />
+                <CategoryText>연인</CategoryText>
+              </CategorySet>
+              <CategorySet>
+                <BigIconBirthday />
+                <CategoryText>배우자</CategoryText>
+              </CategorySet>
+              <CategorySet>
+                <BigIconBirthday />
+                <CategoryText>가족</CategoryText>
+              </CategorySet>
+              <CategorySet>
+                <BigIconBirthday />
+                <CategoryText>기타</CategoryText>
+              </CategorySet>
             </CategoryIcon>
           </SelectedContainer>
           <SelectedContainer>
@@ -222,7 +267,7 @@ function AnniversaryModal({ closeModal, type }) {
           </SelectedContainer>
           <Buttons>
             <SubmitBtn onClick={closeModal}>수정 완료</SubmitBtn>
-            <DeleteBtn onClick={DeleteAnniversary}>삭제</DeleteBtn>
+            <DeleteBtn onClick={deleteAnniversary}>삭제</DeleteBtn>
           </Buttons>
         </Container>
       </Wrapper>

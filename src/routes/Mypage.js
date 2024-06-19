@@ -5,17 +5,24 @@ import styled from "styled-components";
 import AnniversaryModal from "../components/AnniversaryModal";
 import { useState } from "react";
 
-//마케팅 동의 버튼
-//프로필 수정 버튼
-//프로필 수정 화면 미구현
-//기념일 추가,삭제,수정 모달도,,,
-
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 50px;
   align-items: center;
+
+  //태블릿
+  @media (max-width: 1199px) {
+  }
+
+  //모바일 가로
+  @media (max-width: 767px) {
+  }
+
+  //모바일 세로
+  @media (max-width: 575px) {
+  }
 `;
 
 const DeleteAccount = styled.div`
