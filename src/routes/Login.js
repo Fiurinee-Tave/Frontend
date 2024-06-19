@@ -7,6 +7,18 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 80px;
+
+  //태블릿
+  @media (max-width: 1199px) {
+  }
+
+  //모바일 가로
+  @media (max-width: 767px) {
+  }
+
+  //모바일 세로
+  @media (max-width: 575px) {
+  }
 `;
 
 const Container = styled.div`
@@ -18,6 +30,10 @@ const Container = styled.div`
   align-items: center;
   padding: 60px 0;
   gap: 10px;
+
+  @media (max-width: 575px) {
+    width: 400px;
+  }
 `;
 
 const BigText = styled.div`

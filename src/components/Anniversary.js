@@ -160,7 +160,7 @@ function Anniversary({ openModal }) {
     <Wrapper>
       <AnniSetting>
         <Title>
-          <div>곧 다가오는 기념일</div>
+          <div>다가오는 기념일</div>
           {bell ? (
             <IconBellOn onClick={handleBell} />
           ) : (

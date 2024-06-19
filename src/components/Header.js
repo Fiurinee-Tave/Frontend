@@ -8,17 +8,41 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #989898;
+
+  //태블릿
+  @media (max-width: 1199px) {
+  }
+
+  //모바일 가로
+  @media (max-width: 767px) {
+  }
+
+  //모바일 세로
+  @media (max-width: 575px) {
+    padding: 10px 20px;
+  }
 `;
 
 const LoginWrapper = styled.div`
   display: flex;
   gap: 25px;
+
+  //모바일 세로
+  @media (max-width: 575px) {
+    font-size: 13px;
+    gap: 10px;
+  }
 `;
 
 const Logo = styled.div`
   font-size: 25px;
   color: #eb5360;
   cursor: pointer;
+
+  //모바일 세로
+  @media (max-width: 575px) {
+    font-size: 20px;
+  }
 `;
 
 const Mypage = styled.div`

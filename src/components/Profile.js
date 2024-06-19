@@ -74,6 +74,7 @@ const Title = styled.div`
   border-bottom: 1px solid black;
 
   @media (max-width: 575px) {
+    font-size: 20px;
   }
 `;
 

@@ -121,10 +121,12 @@ const RecommendContainer = styled.div`
 
 const UserMessage = styled.div`
   text-align: end;
+  word-break: keep-all;
 `;
 
 const RecoMessage = styled.div`
   text-align: end;
+  word-break: keep-all;
 `;
 
 const LikeContainer = styled.div`
