@@ -3,70 +3,99 @@ import Header from "../components/Header";
 
 const Wrapper = styled.div`
   width: 100%;
+  height: 100vh;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 80px;
 
-  //태블릿
-  @media (max-width: 1199px) {
-  }
-
-  //모바일 가로
-  @media (max-width: 767px) {
-  }
-
-  //모바일 세로
+  //iphone SE => width:375px;
   @media (max-width: 575px) {
   }
 `;
 
-const Container = styled.div`
-  width: 500px;
+const LoginContainer = styled.div`
+  width: 550px;
   height: 400px;
-  background: white;
+  margin-top: 150px;
+
+  background-color: white;
+  border: 1px solid #d9d9d9;
+
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 60px 0;
-  gap: 10px;
+  gap: 60px;
 
   @media (max-width: 575px) {
-    width: 400px;
+    margin-top: 50px;
+    width: 300px;
+    height: 250px;
+    gap: 30px;
   }
 `;
 
-const BigText = styled.div`
+const BoldText = styled.div`
   font-size: 25px;
   font-weight: bold;
-  margin-bottom: 40px;
+
+  @media (max-width: 575px) {
+    font-size: 20px;
+  }
 `;
 
-const SmallText = styled.div`
+const TextGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+`;
+
+const NormalText = styled.div`
   font-size: 15px;
+
+  @media (max-width: 575px) {
+    font-size: 13px;
+  }
 `;
 
-const LoginBtn = styled.button`
+const LoginButton = styled.button`
   padding: 0;
-  margin: 30px 0;
   outline: none;
   border: none;
-  background: none;
+  background-color: white;
+  width: 400px;
+
+  @media (max-width: 575px) {
+    width: 250px;
+  }
+`;
+
+const KaKaoImage = styled.img`
+  width: 100%;
 `;
 
 function Login() {
+  const LoginProcess = () => {
+    console.log("login");
+    // login process
+  };
+
   return (
     <Wrapper>
-      <Header />
-      <Container>
-        <BigText>-SNS 간편 로그인/회원가입-</BigText>
-        <SmallText>간편하게 회원가입하고</SmallText>
-        <SmallText>나만의 꽃 저장소를 만들어보세요:{")"}</SmallText>
-        <LoginBtn>
-          <img src="/img/KakaoLogin.png" width="300px" />
-        </LoginBtn>
-      </Container>
-      `
+      <Header login={true} />
+      <LoginContainer>
+        <BoldText>-SNS 간편 로그인/회원가입-</BoldText>
+        <TextGroup>
+          <NormalText>간편하게 회원가입하고</NormalText>
+          <NormalText>나만의 꽃 저장소를 만들어보세요:{")"}</NormalText>
+        </TextGroup>
+        <LoginButton onClick={LoginProcess}>
+          <KaKaoImage src="/img/KakaoLogin.png" alt="" />
+        </LoginButton>
+      </LoginContainer>
     </Wrapper>
   );
 }

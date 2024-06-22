@@ -1,214 +1,193 @@
 import styled from "styled-components";
-import IconBirthday from "../icons/IconBirthday";
-import IconPencil from "../icons/IconPencil";
-import Anniversary from "./Anniversary";
-import { useState } from "react";
-import IconCheck from "../icons/IconCheck";
+
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
+import IconPencil from "../icons/IconPencil";
+import Anniversary from "./Anniversary";
+import IconCheck from "../icons/IconCheck";
+import ImgChange from "./ImgChange";
+
 const Wrapper = styled.div`
-  width: 70%;
+  width: 100%;
   height: 360px;
-  padding: 15px;
-  display: flex;
-  background-color: white;
-  border-radius: 15px;
-  box-shadow: 2px 2px 2px #c6c6c6;
-  gap: 10px 0;
-
-  //태블릿
-  @media (max-width: 1199px) {
-  }
-
-  //모바일 가로
-  @media (max-width: 767px) {
-  }
-
-  //모바일 세로
-  @media (max-width: 575px) {
-    width: 90%;
-    height: 550px;
-    flex-wrap: wrap;
-  }
-`;
-
-const ProfileImage = styled.div`
-  width: 25%;
-  height: 100%;
-  margin-right: 15px;
-  border-radius: 15px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #fff8eb;
-  padding-top: 30px;
+  align-items: end;
+  gap: 10px;
 
+  //iphone SE => width:375px;
   @media (max-width: 575px) {
-    width: 40%;
-    height: 45%;
+    height: 500px;
   }
 `;
 
-const Image = styled.img`
-  width: 90%;
+const ProfileContainer = styled.div`
+  width: 100%;
+  height: 330px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 15px;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  box-shadow: 2px 2px 2px #858585;
+
+  //iphone SE => width:375px;
+  @media (max-width: 575px) {
+    flex-direction: column;
+    height: 470px;
+  }
 `;
 
-const ProfileInfo = styled.div`
-  width: calc(75% - 15px);
+const UserImgContainer = styled.div`
+  width: 300px;
   height: 100%;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  position: relative;
+  //iphone SE => width:375px;
+  @media (max-width: 575px) {
+    width: 100%;
+    height: 180px;
+  }
+`;
+
+const UserImg = styled.div`
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+`;
+
+const UserInfoContainer = styled.div`
+  width: calc(100% - 300px);
+  height: 100%;
+
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  //iphone SE => width:375px;
+  @media (max-width: 575px) {
+    width: 100%;
+    height: calc(100% - 100px);
+    border: 1px solid red;
+  }
 `;
 
-const Title = styled.div`
-  padding: 10px;
-  padding-top: 0px;
+const UserInfo = styled.div`
   width: 100%;
-  height: 15%;
-  font-size: 25px;
+  height: 40px;
+  padding: 5px;
+  border-bottom: 1px solid #989898;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid black;
+`;
+
+const BigText = styled.div`
+  font-size: 28px;
 
   @media (max-width: 575px) {
-    font-size: 20px;
+    font-size: 23px;
   }
 `;
 
-const MoTitle = styled.div`
-  width: 50%;
+const MiddleText = styled.div`
+  font-size: 20px;
+
+  @media (max-width: 575px) {
+    font-size: 15px;
+  }
+`;
+
+const GuideText = styled.div`
   font-size: 15px;
-`;
-
-const Birthday = styled.div`
-  display: flex;
-  gap: 10px;
-  align-items: center;
 
   @media (max-width: 575px) {
-    //justify-content: end;
+    font-size: 10px;
   }
 `;
-
-const IconContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: end;
-  padding: 0 20px 20px 0;
-
-  @media (max-width: 575px) {
-    padding: 0 10px 10px 0;
-  }
-`;
-
-const ProfileModifyContainer = styled.div`
-  width: calc(75% - 15px);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  padding: 0 50px;
-  justify-content: center;
-
-  @media (max-width: 575px) {
-    width: 100%;
-    gap: 20px;
-    padding: 0;
-  }
-`;
-
-const MiniImage = styled.img`
-  width: 150px;
-  height: 150px;
-  border: 3px dashed #f98181;
-
-  @media (max-width: 575px) {
-    width: 110px;
-    height: 110px;
-  }
-`;
-
-const ProfileImageList = [
-  "/img/ProfileImage.png",
-  "/img/ProfileImage.png",
-  "/img/ProfileImage.png",
-  "/img/ProfileImage.png",
-  "/img/ProfileImage.png",
-  "/img/ProfileImage.png",
-];
 
 function Profile({ openModal }) {
   const isMobile = useMediaQuery({ query: "(max-width: 575px)" });
+  const [imgChange, setImgChange] = useState(false);
 
-  const [modify, setModify] = useState(false);
-
-  const handleProfile = () => {
-    setModify(!modify);
+  const handleImgChange = () => {
+    setImgChange(!imgChange);
   };
 
-  if (modify) {
-    return (
-      <Wrapper>
-        <ProfileImage>
-          <Image src="/img/ProfileImage.png" />
-          <IconContainer>
-            <IconCheck
-              onClick={handleProfile}
-              mode={isMobile ? "mobile" : null}
-            />
-          </IconContainer>
-        </ProfileImage>
-        <ProfileModifyContainer>
-          {ProfileImageList.map((v, i) => (
-            <MiniImage src={v} key={i} />
-            //click시 backgroundColor 변경 함수 필요
-          ))}
-        </ProfileModifyContainer>
-      </Wrapper>
-    );
-  } else {
-    return isMobile ? (
-      <Wrapper>
-        <ProfileImage>
-          <Image src="/img/ProfileImage.png" />
-          <IconContainer>
-            <IconPencil onClick={handleProfile} mode={"mobile"} />
-          </IconContainer>
-        </ProfileImage>
-        <MoTitle>
-          <Title>
-            <div>"user" profile</div>
-          </Title>
-          <Birthday>
-            <IconBirthday />
-            <div>2002.07.27</div>
-          </Birthday>
-        </MoTitle>
-        <Anniversary openModal={openModal} />
-      </Wrapper>
-    ) : (
-      <Wrapper>
-        <ProfileImage>
-          <Image src="/img/ProfileImage.png" />
-          <IconContainer>
-            <IconPencil onClick={handleProfile} />
-          </IconContainer>
-        </ProfileImage>
-        <ProfileInfo>
-          <Title>
-            <div>"user" profile</div>
-            <Birthday>
-              <IconBirthday />
-              <div>2002.07.27</div>
-            </Birthday>
-          </Title>
-          <Anniversary openModal={openModal} />
-        </ProfileInfo>
-      </Wrapper>
-    );
-  }
+  const handleUserInfo = () => {
+    // user 정보 가져오는 함수
+    // Usename, Event(BD...), ProfileImg
+  };
+
+  useEffect(() => {
+    handleUserInfo();
+  }, []);
+
+  return (
+    <Wrapper>
+      {isMobile ? (
+        <ProfileContainer>
+          <UserInfo>
+            <BigText>"username" Profile</BigText>
+            <MiddleText>2002.07.27</MiddleText>
+          </UserInfo>
+
+          <UserImgContainer>
+            <UserImg />
+            {imgChange ? (
+              <IconCheck onClick={handleImgChange} />
+            ) : (
+              <IconPencil onClick={handleImgChange} />
+            )}
+          </UserImgContainer>
+          {imgChange ? (
+            <ImgChange></ImgChange>
+          ) : (
+            <Anniversary openModal={openModal} />
+          )}
+        </ProfileContainer>
+      ) : (
+        <ProfileContainer>
+          <UserImgContainer>
+            <UserImg />
+            {imgChange ? (
+              <IconCheck onClick={handleImgChange} />
+            ) : (
+              <IconPencil onClick={handleImgChange} />
+            )}
+          </UserImgContainer>
+
+          <UserInfoContainer>
+            <UserInfo>
+              <BigText>"username" Profile</BigText>
+              <MiddleText>2002.07.27</MiddleText>
+            </UserInfo>
+            {imgChange ? (
+              <ImgChange></ImgChange>
+            ) : (
+              <Anniversary openModal={openModal} />
+            )}
+          </UserInfoContainer>
+        </ProfileContainer>
+      )}
+
+      {imgChange ? (
+        <GuideText>
+          * 원하는 꽃 일러스트와 배경색의 조합을 선택하세요.
+        </GuideText>
+      ) : (
+        <GuideText>
+          * 기념일을 수정 혹은 삭제하려면 해당 기념일을 클릭하세요.
+        </GuideText>
+      )}
+    </Wrapper>
+  );
 }
 
 export default Profile;

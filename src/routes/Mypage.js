@@ -1,32 +1,42 @@
+import styled from "styled-components";
+
+import { useState } from "react";
+
 import Header from "../components/Header";
 import Profile from "../components/Profile";
 import RecentLog from "../components/RecentLog";
-import styled from "styled-components";
 import AnniversaryModal from "../components/AnniversaryModal";
-import { useState } from "react";
 
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  justify-content: center;
   align-items: center;
 
-  //태블릿
-  @media (max-width: 1199px) {
-  }
-
-  //모바일 가로
-  @media (max-width: 767px) {
-  }
-
-  //모바일 세로
+  //iphone SE => width:375px;
   @media (max-width: 575px) {
   }
 `;
 
-const DeleteAccount = styled.div`
+const Content = styled.div`
   width: 70%;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+
+  //iphone SE => width:375px;
+  @media (max-width: 575px) {
+    width: 90%;
+    margin-top: 30px;
+  }
+`;
+
+const DeleteAccount = styled.div`
+  width: 100%;
   display: flex;
   justify-content: end;
   margin-bottom: 30px;
@@ -54,10 +64,12 @@ function Mypage() {
       {modal.open ? (
         <AnniversaryModal closeModal={closeModal} type={modal.type} />
       ) : null}
-      <Header />
-      <Profile openModal={openModal} />
-      <RecentLog />
-      <DeleteAccount>회원탈퇴</DeleteAccount>
+      <Header login={true} />
+      <Content>
+        <Profile openModal={openModal} />
+        <RecentLog />
+        <DeleteAccount>회원탈퇴</DeleteAccount>
+      </Content>
     </Wrapper>
   );
 }

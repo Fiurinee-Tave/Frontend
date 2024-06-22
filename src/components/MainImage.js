@@ -40,6 +40,9 @@ const Title = styled.div`
   position: absolute;
   top: 150px;
   left: 170px;
+  font-family: "Italianno";
+  font-weight: 400;
+  font-style: normal;
 `;
 
 const Detail = styled.div`

@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import IconBirthday from "../icons/IconBirthday";
-import BigIconBirthday from "../icons/BigIconBirthday";
+
 import DateSetting from "./DateSetting";
 
 const Wrapper = styled.div`
@@ -188,23 +187,23 @@ function AnniversaryModal({ closeModal, type }) {
             <BlueText>카테고리 선택</BlueText>
             <CategoryIcon>
               <CategorySet>
-                <BigIconBirthday />
+                <></>
                 <CategoryText>생일</CategoryText>
               </CategorySet>
               <CategorySet>
-                <BigIconBirthday />
+                <></>
                 <CategoryText>연인</CategoryText>
               </CategorySet>
               <CategorySet>
-                <BigIconBirthday />
+                <></>
                 <CategoryText>배우자</CategoryText>
               </CategorySet>
               <CategorySet>
-                <BigIconBirthday />
+                <></>
                 <CategoryText>가족</CategoryText>
               </CategorySet>
               <CategorySet>
-                <BigIconBirthday />
+                <></>
                 <CategoryText>기타</CategoryText>
               </CategorySet>
             </CategoryIcon>
@@ -212,7 +211,7 @@ function AnniversaryModal({ closeModal, type }) {
           <SelectedContainer>
             <BlueText>날짜 선택</BlueText>
             <DateSpace>
-              <IconBirthday />
+              <></>
               {/* <InputDate type="date" /> */}
               <DateSetting />
               {/* input type=date는 모바일에서 달력 아이콘이 보이지 않음, react 라이브러리로 변경 */}
@@ -235,23 +234,23 @@ function AnniversaryModal({ closeModal, type }) {
             <BlueText>카테고리 선택</BlueText>
             <CategoryIcon>
               <CategorySet>
-                <BigIconBirthday />
+                <></>
                 <CategoryText>생일</CategoryText>
               </CategorySet>
               <CategorySet>
-                <BigIconBirthday />
+                <></>
                 <CategoryText>연인</CategoryText>
               </CategorySet>
               <CategorySet>
-                <BigIconBirthday />
+                <></>
                 <CategoryText>배우자</CategoryText>
               </CategorySet>
               <CategorySet>
-                <BigIconBirthday />
+                <></>
                 <CategoryText>가족</CategoryText>
               </CategorySet>
               <CategorySet>
-                <BigIconBirthday />
+                <></>
                 <CategoryText>기타</CategoryText>
               </CategorySet>
             </CategoryIcon>
@@ -259,7 +258,7 @@ function AnniversaryModal({ closeModal, type }) {
           <SelectedContainer>
             <BlueText>날짜 선택</BlueText>
             <DateSpace>
-              <IconBirthday />
+              <></>
               {/* <InputDate type="date" /> */}
               <DateSetting />
               {/* input type=date는 모바일에서 달력 아이콘이 보이지 않음, react 라이브러리로 변경 */}

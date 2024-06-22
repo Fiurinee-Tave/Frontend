@@ -1,11 +1,11 @@
 import styled, { keyframes } from "styled-components";
 
-const rotate = keyframes`
+const move = keyframes`
   0% {
     transform: translate(0, 0);
   }
   50% {
-    transform: translate(0, -15px);
+    transform: translate(0, -20px);
   }
   100% {
     transform: translate(0, 0);
@@ -54,7 +54,7 @@ const AnimationText = styled.div`
   font-size: 35px;
   color: #d88080;
 
-  animation: ${rotate} 1.5s linear infinite;
+  animation: ${move} 1.5s linear infinite;
 `;
 
 const GrayText = styled.div`
