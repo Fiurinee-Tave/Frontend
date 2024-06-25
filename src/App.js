@@ -20,10 +20,9 @@ const GlobalStyles = createGlobalStyle`
   }
   body {
     background-color: #FFF3F3;
-    font-family: "Gowun Batang", serif;
-    font-weight: 400;
-    font-style: normal;
-    
+  font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  font-style: normal;
   }
   #root {
     width: 100%;
@@ -50,7 +49,7 @@ function App() {
     <Router basename={process.env.PUBLIC_URL}>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<MainpageTest />}></Route>
+        <Route path="/" element={<Mainpage />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/mypage" element={<Mypage />}></Route>
         <Route path="/reco0" element={<Recommend0 />}></Route>

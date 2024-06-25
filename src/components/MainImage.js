@@ -10,6 +10,8 @@ import "swiper/components/pagination/pagination.min.css";
 
 SwiperCore.use([Autoplay, Navigation, Pagination]);
 
+{/* 헤더가 이미지랑 같이*/}
+
 const StyledImg = styled.div`
   position: relative;
   background-size: cover;
@@ -17,6 +19,10 @@ const StyledImg = styled.div`
   height: 70vh;
   display: flex;
   align-items: center;
+  @media (max-width: 575px) {
+    height: 35vh;
+  }
+
 `;
 const ImageSlide = styled.img`
   width: 100vw;
@@ -24,6 +30,10 @@ const ImageSlide = styled.img`
   object-fit: cover;
   opacity: 0.5;
   filter: blur(1px);
+@media (max-width: 575px) {
+    height: 35vh;
+  }
+
 `;
 
 const LoginButton = styled.div`
@@ -35,21 +45,31 @@ const LoginButton = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 150px;
+  font-size: 13vw;
   color: #eb5360;
   position: absolute;
   top: 150px;
   left: 170px;
-  font-family: "Italianno";
+  font-family: "Italianno", cursive;
   font-weight: 400;
   font-style: normal;
+    @media (max-width: 575px) {
+    left: 40px;
+    font-size: 70px;
+    top: 60px;
+  }
 `;
 
 const Detail = styled.div`
-  font-size: 40px;
+  font-size: 2.5vw;
   position: absolute;
   top: 300px;
   left: 300px;
+  @media (max-width: 575px) {
+    left: 60px;
+    top: 120px;
+    font-size: 15px;
+  }
 `;
 
 const RecommendBtn = styled.button`
@@ -62,18 +82,37 @@ const RecommendBtn = styled.button`
   padding: 15px 25px;
   border-style: dashed;
   border-color: gray;
+    font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  font-style: normal;
+  @media (max-width: 575px) {
+    font-size: 10px;
+    padding: 8px 23px;
+    right: 50px;
+  }
 `;
 
 const DetailBtn = styled.button`
-  border-radius: 50px;
+  border-radius: 50%;
+  width:58px;
+  height:58px;
   font-size: 30px;
   cursor: pointer;
-  position: absolute;
-  right: 120px;
-  bottom: 20px;
+  position: absolute; 
+  right: 90px;
+  bottom: 18px;
   background-color: #fff3f3;
   border-style: dashed;
   border-color: gray;
+    font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  font-style: normal;
+    @media (max-width: 575px) {
+    font-size: 10px;
+    width:30px;
+    height:30px;
+    right: 15px;
+  }
 `;
 
 function MainImage() {
@@ -97,6 +136,7 @@ function MainImage() {
   return (
     <StyledImg>
       <Swiper
+        loop={true}
         spaceBetween={50}
         slidesPerView={1}
         //onSlideChange={() => console.log("slide change")}
@@ -108,7 +148,7 @@ function MainImage() {
             <ImageSlide src={image} />
             <LoginButton onClick={Login}>로그인 / 회원가입</LoginButton>
             <RecommendBtn onClick={recommend}>선물할 꽃 추천받기</RecommendBtn>
-            <Title>Fiurinee</Title>
+            <Title>fiurinee</Title>
             <Detail>당신의 마음을 선물하세요</Detail>
             <DetailBtn> ? </DetailBtn>
           </SwiperSlide>
