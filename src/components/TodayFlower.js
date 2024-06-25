@@ -3,15 +3,21 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
-  width: 50%;
+  width: 48%;
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding:0 50px;
+  @media (max-width: 575px) {
+    width: 95%;
+  }
 `;
 
 const Title = styled.div`
   font-size: 40px;
+  @media (max-width: 575px) {
+      font-size:20px;
+  }
 `;
 
 const Container = styled.div`
@@ -20,6 +26,9 @@ const Container = styled.div`
   background-color: white;
   display: flex;
   box-shadow: 4px 4px 8px #c6c6c6;
+    @media (max-width: 575px) {
+      height: 180px;
+  }
 `;
 
 const FlowerImage = styled.img`
@@ -55,6 +64,9 @@ const BottomText = styled.div`
 const ToText = styled.div`
   font-size: 22px;
   color: #959090;
+  @media (max-width: 575px) {
+      font-size:16px;
+  }
 `;
 
 const FlowerName = styled.div`
@@ -62,25 +74,32 @@ const FlowerName = styled.div`
   padding: 10px 0;
   font-size: 27px;
   border-bottom: 1px solid black;
+    @media (max-width: 575px) {
+      font-size:18px;
+      padding: 5px 0;
+  }
 `;
 
 const Date = styled.div`
   font-size: 22px;
+    @media (max-width: 575px) {
+      font-size:13px;
+  }
 `;
-
-// const Line = styled.hr`
-//   border-top: 1px solid gray;
-//   margin: 10px 7px 10px 13px;
-//   width: 290px;
-// `;
 
 const Floriography = styled.div`
   font-size: 20px;
+    @media (max-width: 575px) {
+      font-size:10px;
+  }
 `;
 //안녕
 const FromText = styled.div`
   font-size: 22px;
   color: #959090;
+    @media (max-width: 575px) {
+      font-size:16px;
+  }
 `;
 
 function TodayFlower() {

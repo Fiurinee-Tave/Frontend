@@ -4,13 +4,39 @@ import { useState } from "react";
 
 const Wrapper = styled.div`
     width: 100%;
-    height:70vh;
+    height:90vh;
     display: flex;
-    align-items: center;
-    padding: 0 160px;
-    margin-bottom: 40px;
+    padding: 3vh 12vw;
+    flex-direction: column;
+    @media (max-width: 575px) {
+     height:50vh;
+    padding: 0.1vh 12vw;
+    }
 `;
 
+const InWrapper = styled.div`
+    width: 100%;
+    height:80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:20px 0.5vw 10px 0.5vw;
+    @media (max-width: 575px) {
+      height:38vh;
+      padding:20px 0.5vw 0px 0.5vw;
+  }
+`;
+
+
+const Title = styled.div`
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  @media (max-width: 575px) {
+    font-size: 20px;
+    justify-content: left;
+  }
+`;
 
 const FlowerImage1 = styled.img`
   width: 44%;
@@ -40,7 +66,7 @@ const FlowerImage3 = styled.img`
 `;
 
 const Line2 = styled.div`
-width: 32%;
+width: 33%;
 height: 100%;
 display: flex;
 flex-direction: column;
@@ -63,6 +89,8 @@ const FlowerImage5 = styled.img`
 function SeasonFlower() {
     return (
         <Wrapper>
+          <Title>시즌꽃</Title>
+          <InWrapper>
             <FlowerImage1></FlowerImage1>
             <Line1>
                 <FlowerImage2></FlowerImage2>
@@ -72,6 +100,7 @@ function SeasonFlower() {
             <FlowerImage4></FlowerImage4>
             <FlowerImage5></FlowerImage5>
             </Line2>
+          </InWrapper>
         </Wrapper>
     );
   }
