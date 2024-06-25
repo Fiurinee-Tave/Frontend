@@ -19,6 +19,9 @@ const Logo = styled.div`
   font-size: 25px;
   color: #eb5360;
   cursor: pointer;
+  font-family: "Italianno", cursive;
+  font-weight: 400;
+  font-style: normal;
 `;
 
 const Mypage = styled.div`
