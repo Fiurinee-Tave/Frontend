@@ -15,6 +15,10 @@ const Title = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 575px) {
+    width: 90%;
+  }
 `;
 
 const Container = styled.div`
@@ -22,6 +26,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 50px;
+
+  @media (max-width: 575px) {
+    width: 90%;
+  }
 `;
 
 const LikeBtn = styled.button`

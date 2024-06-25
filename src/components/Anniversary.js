@@ -1,113 +1,160 @@
 import styled from "styled-components";
-import IconBirthday from "../icons/IconBirthday";
-import { useState, useEffect } from "react";
-import IconBellOn from "../icons/IconBellOn";
-import IconBellOff from "../icons/IconBellOff";
 
-//다 뜯어고쳐,,,,,, 구려,,,,,,,,,,,
-const Wrapper = styled.div`
+import Category from "../icons/CategoryIcon";
+
+import { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
+
+const EventContainer = styled.div`
   width: 100%;
-  height: 85%;
+  height: calc(100% - 40px - 15px);
+  /* 전체 - UserInfo 높이 - gap */
+
+  @media (max-width: 575px) {
+    height: calc(100% - 150px - 80px - 15px);
+  }
 `;
 
-const AnniSetting = styled.div`
+const EventTitle = styled.div`
   width: 100%;
-  height: 15%;
-  padding: 0 10px;
-  margin-bottom: 5px;
+  height: 40px;
+  padding: 5px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-const AnniButton = styled.button`
-  width: 120px;
-  height: 100%;
+const MiddleText = styled.div`
+  font-size: 20px;
+
+  @media (max-width: 575px) {
+    font-size: 15px;
+  }
+`;
+
+const SmallText = styled.div`
+  @media (max-width: 575px) {
+    font-size: 12px;
+  }
+`;
+
+const AddEventBtn = styled.button`
+  width: 130px;
+  height: 30px;
+  border: none;
+  //  border: 1px solid #ffb8b8;
   background-color: #f8e1e1;
-  border: 1px solid #ffb8b8;
   border-radius: 50px;
-  cursor: pointer;
+  font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  font-style: normal;
+
+  box-shadow: 1px 1px 1px #ebabab;
+
+  @media (max-width: 575px) {
+    width: 100px;
+    font-size: 12px;
+  }
 `;
 
-const Container = styled.div`
+const EventContent = styled.div`
   width: 100%;
-  height: calc(85% - 5px);
-  background-color: #ebebeb;
-  padding: 15px 0;
+  height: calc(100% - 40px);
+  background-color: #f4f4f4;
+  border-radius: 10px;
+
   display: flex;
+
+  @media (max-width: 575px) {
+    height: calc(100% - 40px);
+  }
 `;
 
-const AnniPage = styled.div`
-  width: 90%;
+const EventPage = styled.div`
+  width: calc(100% - 60px);
+  height: 100%;
+  padding: 10px;
   display: flex;
   flex-direction: column;
+  gap: calc((100% - 165px) / 2);
 
-  justify-content: space-between;
+  @media (max-width: 575px) {
+    width: calc(100% - 30px);
+    gap: calc((100% - 125px) / 2);
+  }
 `;
 
-const PageBtn = styled.button`
-  width: 5%;
+const PageButton = styled.button`
+  width: 30px;
   height: 100%;
   border: none;
-  background-color: #ebebeb;
+  border-radius: 10px;
+  background-color: #f4f4f4;
   color: #cccbcb;
 
   cursor: pointer;
+
+  @media (max-width: 575px) {
+    width: 15px;
+    padding: 0;
+  }
 `;
 
-const NullBtn = styled.button`
-  width: 5%;
+const NullButton = styled.div`
+  width: 30px;
   height: 100%;
-  border: none;
-  background-color: none;
-  color: #cccbcb;
-  opacity: 0;
+
+  @media (max-width: 575px) {
+    width: 15px;
+    padding: 0;
+  }
 `;
 
-const AnniItem = styled.button`
-  height: 50px;
-  display: flex;
-  gap: 10px;
-  background-color: #dbe6f4;
-  border: 1px solid #9ebfe5;
+const EventItem = styled.button`
+  width: 100%;
+  height: 55px;
+  background-color: #d8e8fb;
+  border: none;
   border-radius: 50px;
   padding: 5px;
-  padding-right: 10px;
-
-  align-items: center;
-  font-size: 18px;
-  cursor: pointer;
-`;
-
-const Title = styled.div`
+  padding-right: 30px;
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
   align-items: center;
+  gap: 10px;
+  font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  font-style: normal;
+
+  cursor: pointer;
+
+  box-shadow: 2px 2px 2px #b6cfec;
+
+  @media (max-width: 575px) {
+    height: 40px;
+    padding: 3px;
+    gap: 5px;
+    padding-right: 10px;
+  }
 `;
 
-const AnniText = styled.div``;
+const EventInfo = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 
-const AnniDate = styled.div``;
+  @media (max-width: 575px) {
+    gap: 5px;
+  }
+`;
 
-const AnniDday = styled.div``;
-
-const data = [
-  { id: 0, text: "내 생일", BD: "2002.07.27" },
-  { id: 1, text: "1", BD: "2002.07.27" },
-  { id: 2, text: "2", BD: "2002.07.27" },
-  { id: 3, text: "3", BD: "2002.07.27" },
-  { id: 4, text: "4", BD: "2002.07.27" },
-  { id: 5, text: "5", BD: "2002.07.27" },
-  { id: 6, text: "6", BD: "2002.07.27" },
-  { id: 7, text: "7", BD: "2002.07.27" },
-  { id: 8, text: "8", BD: "2002.07.27" },
-  { id: 9, text: "9", BD: "2002.07.27" },
-];
-
-function Anniversary({ openModal }) {
-  const [anniContainer, setAnniContainer] = useState();
+function Anniversary({ openModal, data }) {
+  const isMobile = useMediaQuery({ query: "(max-width: 575px)" });
   const [pageNumber, setPageNumber] = useState(0);
-  const [bell, setBell] = useState(false);
+  const [showEvent, setShowEvent] = useState();
 
   const openCreateModal = () => {
     openModal("create");
@@ -120,60 +167,59 @@ function Anniversary({ openModal }) {
   useEffect(() => {
     const list = data.slice(pageNumber * 3, pageNumber * 3 + 3);
 
-    setAnniContainer(
+    setShowEvent(
       list.map((v, i) => (
-        <AnniItem key={v.id} onClick={openModifyModal}>
-          <IconBirthday />
-          <AnniText>{v.text} : </AnniText>
-          <AnniDate>{v.BD}</AnniDate>
-        </AnniItem>
+        <EventItem key={v.id} onClick={openModifyModal}>
+          <EventInfo>
+            <Category number={v.category} isMobile={isMobile} />
+            {isMobile ? (
+              <SmallText>{v.title} : </SmallText>
+            ) : (
+              <MiddleText>{v.title} : </MiddleText>
+            )}
+            {isMobile ? (
+              <SmallText>{v.date}</SmallText>
+            ) : (
+              <MiddleText>{v.date}</MiddleText>
+            )}
+          </EventInfo>
+          {isMobile ? (
+            <SmallText>{v.dday}</SmallText>
+          ) : (
+            <MiddleText>{v.dday}</MiddleText>
+          )}
+        </EventItem>
       ))
     );
-  }, [pageNumber]);
+  }, [pageNumber, isMobile]);
 
-  const handleBell = () => {
-    if (bell) {
-      alert("마케팅 수신 동의를 철회하시겠습니까?");
-      setBell(false);
-    } else {
-      alert("마케팅 수신 동의를 수락하시겠습니까?");
-      setBell(true);
-    }
-  };
+  useEffect(() => {}, [showEvent]);
 
   return (
-    <Wrapper>
-      <AnniSetting>
-        <Title>
-          <div>곧 다가오는 기념일</div>
-          {bell ? (
-            <IconBellOn onClick={handleBell} />
-          ) : (
-            <IconBellOff onClick={handleBell} />
-          )}
-        </Title>
-        <AnniButton onClick={openCreateModal}>기념일 추가하기</AnniButton>
-      </AnniSetting>
-      {pageNumber === 0 ? (
-        <Container>
-          <NullBtn></NullBtn>
-          <AnniPage>{anniContainer}</AnniPage>
-          <PageBtn onClick={() => setPageNumber(pageNumber + 1)}>▶</PageBtn>
-        </Container>
-      ) : Math.ceil(data.length / 3 - 1) === pageNumber ? (
-        <Container>
-          <PageBtn onClick={() => setPageNumber(pageNumber - 1)}>◀</PageBtn>
-          <AnniPage>{anniContainer}</AnniPage>
-          <NullBtn></NullBtn>
-        </Container>
-      ) : (
-        <Container>
-          <PageBtn onClick={() => setPageNumber(pageNumber - 1)}>◀</PageBtn>
-          <AnniPage>{anniContainer}</AnniPage>
-          <PageBtn onClick={() => setPageNumber(pageNumber + 1)}>▶</PageBtn>
-        </Container>
-      )}
-    </Wrapper>
+    <EventContainer>
+      <EventTitle>
+        <MiddleText>다가오는 기념일</MiddleText>
+        <AddEventBtn onClick={openCreateModal}>+기념일 추가하기</AddEventBtn>
+      </EventTitle>
+      <EventContent>
+        {pageNumber === 0 ? (
+          <NullButton />
+        ) : (
+          <PageButton onClick={() => setPageNumber(pageNumber - 1)}>
+            ◀
+          </PageButton>
+        )}
+
+        <EventPage>{showEvent}</EventPage>
+        {Math.ceil(data.length / 3 - 1) === pageNumber ? (
+          <NullButton />
+        ) : (
+          <PageButton onClick={() => setPageNumber(pageNumber + 1)}>
+            ▶
+          </PageButton>
+        )}
+      </EventContent>
+    </EventContainer>
   );
 }
 

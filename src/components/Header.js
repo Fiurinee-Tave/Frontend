@@ -3,41 +3,51 @@ import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   width: 100%;
-  padding: 20px 50px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  height: 50px;
+  padding: 10px 50px;
   border-bottom: 1px solid #989898;
-`;
 
-const LoginWrapper = styled.div`
   display: flex;
-  gap: 25px;
+  justify-content: space-between;
+  align-items: center;
+
+  //iphone SE => width:375px;
+  @media (max-width: 575px) {
+    padding: 10px 20px;
+  }
 `;
 
 const Logo = styled.div`
-  font-size: 25px;
+  font-size: 45px;
   color: #eb5360;
-  cursor: pointer;
-  font-family: "Italianno", cursive;
-  font-weight: 400;
+  font-family: "Italianno";
+  font-weight: 500;
   font-style: normal;
+  cursor: pointer;
+  @media (max-width: 575px) {
+    font-size: 20px;
+  }
 `;
 
-const Mypage = styled.div`
-  cursor: pointer;
+const LoginUserText = styled.div`
+  display: flex;
+  gap: 30px;
+
+  @media (max-width: 575px) {
+    gap: 10px;
+  }
 `;
 
-const Logout = styled.div`
+const NormalText = styled.div`
   cursor: pointer;
+
+  @media (max-width: 575px) {
+    font-size: 15px;
+  }
 `;
-function Header() {
+
+function Header({ login }) {
   const navigate = useNavigate();
-
-  const handleLogout = () => {
-    //logout처리과정 후
-    navigate("/");
-  };
 
   return (
     <Wrapper>
@@ -46,18 +56,34 @@ function Header() {
           navigate("/");
         }}
       >
-        fiurinee
+        Fiurinee
       </Logo>
-      <LoginWrapper>
-        <Mypage
+      {login ? (
+        <LoginUserText>
+          <NormalText
+            onClick={() => {
+              navigate("/mypage");
+            }}
+          >
+            마이페이지
+          </NormalText>
+          <NormalText
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            로그아웃
+          </NormalText>
+        </LoginUserText>
+      ) : (
+        <NormalText
           onClick={() => {
-            navigate("/mypage");
+            navigate("/login");
           }}
         >
-          마이페이지
-        </Mypage>
-        <Logout onClick={handleLogout}>로그아웃</Logout>
-      </LoginWrapper>
+          로그인/회원가입
+        </NormalText>
+      )}
     </Wrapper>
   );
 }

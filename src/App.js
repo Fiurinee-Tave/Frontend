@@ -9,8 +9,11 @@ import Recommend2 from "./routes/Recommend2";
 import RecommendLogPage from "./routes/RecommendLogPage";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
+import Loading from "./loading/Loading";
 
 const GlobalStyles = createGlobalStyle`
+
+
   ${reset};
   * {
     box-sizing: border-box;
@@ -23,10 +26,6 @@ const GlobalStyles = createGlobalStyle`
   }
   #root {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    background-color: #FFF3F3;
-    
   }
   ::-webkit-scrollbar {
     display:none;
