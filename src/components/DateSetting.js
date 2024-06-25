@@ -18,21 +18,30 @@ const StyledDatePicker = styled(DatePicker)`
   font-size: 16px;
   width: 140px;
   padding: 2px;
+  text-align: center;
 
   cursor: pointer;
+
+  font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  font-style: normal;
 `;
 
-function DateSetting() {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-
+function DateSetting({ selectedDate, setSelectedDate }) {
   //input readOnly 이슈,,, 해결 제발요
+
+  const handleDateFormat = (date) => {
+    setSelectedDate(date);
+    console.log(selectedDate);
+  };
+
   return (
     <Wrapper>
       <StyledDatePicker
         dateFormat="yyyy년MM월dd일"
         shouldCloseOnSelect
         selected={selectedDate}
-        onChange={(date) => setSelectedDate(date)}
+        onChange={handleDateFormat}
       />
     </Wrapper>
   );
