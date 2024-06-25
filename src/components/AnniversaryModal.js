@@ -1,6 +1,11 @@
 import styled from "styled-components";
 
 import DateSetting from "./DateSetting";
+import CategoryIcon from "../icons/CategoryIcon";
+
+import { useState } from "react";
+
+import { format } from "date-fns";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -17,12 +22,12 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-  width: 500px;
+  width: 400px;
 
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 30px;
   align-items: center;
   background-color: #fff3f3;
   border-radius: 15px;
@@ -41,15 +46,11 @@ const Header = styled.div`
 `;
 
 const Title = styled.div`
-  padding: 5px 0;
+  font-size: 15px;
   border-bottom: 1px solid #998e8e;
-
-  @media (max-width: 575px) {
-    font-size: 14px;
-  }
 `;
 
-const CloseBtn = styled.button`
+const CloseButton = styled.button`
   width: 30px;
   height: 30px;
   background: none;
@@ -57,121 +58,158 @@ const CloseBtn = styled.button`
   cursor: pointer;
 `;
 
-const SelectedContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 30px;
-
-  @media (max-width: 575px) {
-    flex-direction: column;
-    align-items: start;
-  }
-`;
-
-const BlueText = styled.div`
-  width: 150px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #dbe6f4;
-  border: 1px solid #7489be;
-  border-radius: 50px;
-
-  @media (max-width: 575px) {
-    width: 100px;
-    height: 40px;
-    font-size: 13px;
-  }
-`;
-
-const CategoryIcon = styled.div`
-  width: 250px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: flex-start;
-  gap: 15px 30px;
-`;
-
-const CategorySet = styled.div`
-  height: 80px;
+const SelectContainer = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 20px;
+
   justify-content: center;
-  gap: 5px;
+  align-items: center;
 `;
 
-const CategoryText = styled.div`
-  color: #ffa0a0;
-  @media (max-width: 575px) {
-    font-size: 14px;
-  }
-`;
-
-const DateSpace = styled.div`
-  width: 250px;
-  height: 50px;
+const SelectTitle = styled.div`
+  width: 100%;
   display: flex;
-  gap: 10px;
-  background-color: #dbe6f4;
-  border: 1px solid #9ebfe5;
-  border-radius: 50px;
-  padding: 5px 10px 5px 5px;
-
+  justify-content: start;
   align-items: center;
   font-size: 18px;
 `;
 
-const SubmitBtn = styled.button`
-  align-self: flex-end;
-  margin-right: 15px;
+const SelectItem = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
-  width: 120px;
-  height: 40px;
-  font-size: 15px;
+const CategoryItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+`;
 
+const CategoryText = styled.div`
+  color: #ffa0a0;
+`;
+
+const NameItem = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const NameInput = styled.input`
   border: none;
+  outline: none;
+  border-bottom: 1px solid black;
+  background-color: #fff3f3;
+  text-align: center;
+  font-size: 18px;
 
-  color: white;
+  font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  font-style: normal;
+`;
+
+const GuideText = styled.div`
+  width: 100%;
+  font-size: 15px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+
+  gap: 10px;
+`;
+
+const AddButton = styled.button`
+  width: 100px;
+  height: 30px;
+  border: none;
+  font-size: 17px;
   background-color: #ffd0d0;
-  box-shadow: 2px 2px 2px #c0b7b7;
-
-  cursor: pointer;
-
-  @media (max-width: 575px) {
-    margin-right: 5px;
-  }
-`;
-
-const DeleteBtn = styled.button`
-  margin-right: 15px;
-
-  width: 70px;
-  height: 40px;
-  font-size: 15px;
-
-  border: none;
-
   color: white;
-  background-color: #ce7373;
-  box-shadow: 2px 2px 2px #c0b7b7;
+  box-shadow: 1px 1px 1px #bebebe;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  font-style: normal;
 
   cursor: pointer;
-
-  @media (max-width: 575px) {
-    margin-right: 5px;
-  }
 `;
 
-const Buttons = styled.div`
-  align-self: flex-end;
+const DeleteButton = styled.button`
+  width: 60px;
+  height: 30px;
+  border: none;
+  font-size: 17px;
+  background-color: #ce7373;
+  color: white;
+  box-shadow: 1px 1px 1px #bebebe;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  font-style: normal;
+
+  cursor: pointer;
 `;
 
-function AnniversaryModal({ closeModal, type }) {
+function AnniversaryModal({ closeModal, type, onCreate }) {
+  const [category, setCategory] = useState([
+    { id: 0, text: "생일", selected: false },
+    { id: 1, text: "연인", selected: false },
+    { id: 2, text: "배우자", selected: false },
+    { id: 3, text: "가족", selected: false },
+    { id: 4, text: "기타", selected: false },
+  ]);
+  const [name, setName] = useState("");
+  const [date, setDate] = useState(new Date());
+
+  const selectedCategory = (e) => {
+    const id = e.target.id;
+
+    setCategory(
+      category.map((v) =>
+        v.id === parseInt(id)
+          ? { ...v, selected: true }
+          : { ...v, selected: false }
+      )
+    );
+  };
+
+  const selectedName = (e) => {
+    setName(e.target.value);
+  };
+
+  const selectedDate = (date) => {
+    setDate(date);
+  };
+
   const deleteAnniversary = () => {
     alert("정말 삭제하시겠습니까?");
+
+    closeModal();
+  };
+
+  const submitAnniversary = () => {
+    console.log(name);
+    onCreate(
+      category.find((v) => v.selected === true).id,
+      name,
+      format(date, "yyyy.mm.dd")
+    );
+
     closeModal();
   };
 
@@ -181,44 +219,50 @@ function AnniversaryModal({ closeModal, type }) {
         <Container>
           <Header>
             <Title>기념일 추가하기</Title>
-            <CloseBtn onClick={closeModal}>❌</CloseBtn>
+            <CloseButton onClick={closeModal}>❌</CloseButton>
           </Header>
-          <SelectedContainer>
-            <BlueText>카테고리 선택</BlueText>
-            <CategoryIcon>
-              <CategorySet>
-                <></>
-                <CategoryText>생일</CategoryText>
-              </CategorySet>
-              <CategorySet>
-                <></>
-                <CategoryText>연인</CategoryText>
-              </CategorySet>
-              <CategorySet>
-                <></>
-                <CategoryText>배우자</CategoryText>
-              </CategorySet>
-              <CategorySet>
-                <></>
-                <CategoryText>가족</CategoryText>
-              </CategorySet>
-              <CategorySet>
-                <></>
-                <CategoryText>기타</CategoryText>
-              </CategorySet>
-            </CategoryIcon>
-          </SelectedContainer>
-          <SelectedContainer>
-            <BlueText>날짜 선택</BlueText>
-            <DateSpace>
-              <></>
-              {/* <InputDate type="date" /> */}
-              <DateSetting />
-              {/* input type=date는 모바일에서 달력 아이콘이 보이지 않음, react 라이브러리로 변경 */}
-            </DateSpace>
-          </SelectedContainer>
-
-          <SubmitBtn onClick={closeModal}>기념일 추가</SubmitBtn>
+          <SelectContainer>
+            <SelectTitle>#카테고리</SelectTitle>
+            <SelectItem>
+              {category.map((v) => (
+                <CategoryItem key={v.id}>
+                  <CategoryIcon
+                    onClick={selectedCategory}
+                    number={v.id}
+                    border={{
+                      border: v.selected
+                        ? "2px solid #7489BE"
+                        : "1px solid #7489BE",
+                    }}
+                  />
+                  <CategoryText>{v.text}</CategoryText>
+                </CategoryItem>
+              ))}
+            </SelectItem>
+            <GuideText>*생일은 1년마다 반복됩니다.</GuideText>
+          </SelectContainer>
+          <SelectContainer>
+            <SelectTitle>#이름</SelectTitle>
+            <SelectItem>
+              <NameItem>
+                "
+                <NameInput type="text" value={name} onChange={selectedName} />"
+              </NameItem>
+            </SelectItem>
+            <GuideText>*이름은 1~8글자입니다.</GuideText>
+          </SelectContainer>
+          <SelectContainer>
+            <SelectTitle>#날짜</SelectTitle>
+            <SelectItem>
+              <DateSetting selectedDate={date} setSelectedDate={selectedDate} />
+            </SelectItem>
+            <GuideText>
+              *직접입력을 하거나 클릭하면 날짜를 선택할 수 있습니다.
+            </GuideText>
+          </SelectContainer>
+          <GuideText>
+            <AddButton onClick={submitAnniversary}>기념일 추가</AddButton>
+          </GuideText>
         </Container>
       </Wrapper>
     );
@@ -227,47 +271,56 @@ function AnniversaryModal({ closeModal, type }) {
       <Wrapper>
         <Container>
           <Header>
-            <Title>기념일 수정하기</Title>
-            <CloseBtn onClick={closeModal}>❌</CloseBtn>
+            <Title>기념일 추가하기</Title>
+            <CloseButton onClick={closeModal}>❌</CloseButton>
           </Header>
-          <SelectedContainer>
-            <BlueText>카테고리 선택</BlueText>
-            <CategoryIcon>
-              <CategorySet>
-                <></>
-                <CategoryText>생일</CategoryText>
-              </CategorySet>
-              <CategorySet>
-                <></>
-                <CategoryText>연인</CategoryText>
-              </CategorySet>
-              <CategorySet>
-                <></>
-                <CategoryText>배우자</CategoryText>
-              </CategorySet>
-              <CategorySet>
-                <></>
-                <CategoryText>가족</CategoryText>
-              </CategorySet>
-              <CategorySet>
-                <></>
-                <CategoryText>기타</CategoryText>
-              </CategorySet>
-            </CategoryIcon>
-          </SelectedContainer>
-          <SelectedContainer>
-            <BlueText>날짜 선택</BlueText>
-            <DateSpace>
-              <></>
-              {/* <InputDate type="date" /> */}
+          <SelectContainer>
+            <SelectTitle>#카테고리</SelectTitle>
+            <SelectItem>
+              {category.map((v) => (
+                <CategoryItem key={v.id}>
+                  <CategoryIcon
+                    onClick={selectedCategory}
+                    number={v.id}
+                    border={{
+                      border: v.selected
+                        ? "2px solid #7489BE"
+                        : "1px solid #7489BE",
+                    }}
+                  />
+                  <CategoryText>{v.text}</CategoryText>
+                </CategoryItem>
+              ))}
+            </SelectItem>
+            <GuideText>*생일은 1년마다 반복됩니다.</GuideText>
+          </SelectContainer>
+          <SelectContainer>
+            <SelectTitle>#이름</SelectTitle>
+            <SelectItem>
+              <NameItem>
+                "
+                <NameInput
+                  type="text"
+                  //name으로 관리해 ㅇㅇ
+                />
+                "
+              </NameItem>
+            </SelectItem>
+            <GuideText>*이름은 1~8글자입니다.</GuideText>
+          </SelectContainer>
+          <SelectContainer>
+            <SelectTitle>#날짜</SelectTitle>
+            <SelectItem>
               <DateSetting />
-              {/* input type=date는 모바일에서 달력 아이콘이 보이지 않음, react 라이브러리로 변경 */}
-            </DateSpace>
-          </SelectedContainer>
-          <Buttons>
-            <SubmitBtn onClick={closeModal}>수정 완료</SubmitBtn>
-            <DeleteBtn onClick={deleteAnniversary}>삭제</DeleteBtn>
-          </Buttons>
+            </SelectItem>
+            <GuideText>
+              *직접입력을 하거나 클릭하면 날짜를 선택할 수 있습니다.
+            </GuideText>
+          </SelectContainer>
+          <GuideText>
+            <AddButton>기념일 수정</AddButton>
+            <DeleteButton onClick={deleteAnniversary}>삭제</DeleteButton>
+          </GuideText>
         </Container>
       </Wrapper>
     );

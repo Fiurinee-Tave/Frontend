@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 const LoginContainer = styled.div`
   width: 550px;
   height: 400px;
-  margin-top: 150px;
+  margin-top: 100px;
 
   background-color: white;
   border: 1px solid #d9d9d9;

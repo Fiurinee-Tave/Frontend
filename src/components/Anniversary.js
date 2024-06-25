@@ -151,66 +151,7 @@ const EventInfo = styled.div`
   }
 `;
 
-const EventList = [
-  {
-    id: 0,
-    category: 0,
-    title: "일이삼사오육칠팔",
-    date: "2002.07.27",
-    dday: "D-000",
-  },
-  {
-    id: 1,
-    category: 1,
-    title: "내 생일1",
-    date: "2002.07.27",
-    dday: "D-000",
-  },
-  {
-    id: 2,
-    category: 2,
-    title: "내 생일2",
-    date: "2002.07.27",
-    dday: "D-000",
-  },
-  {
-    id: 3,
-    category: 3,
-    title: "내 생일3",
-    date: "2002.07.27",
-    dday: "D-000",
-  },
-  {
-    id: 4,
-    category: 4,
-    title: "내 생일4",
-    date: "2002.07.27",
-    dday: "D-000",
-  },
-  {
-    id: 5,
-    category: 1,
-    title: "내 생일5",
-    date: "2002.07.27",
-    dday: "D-000",
-  },
-  {
-    id: 6,
-    category: 0,
-    title: "내 생일6",
-    date: "2002.07.27",
-    dday: "D-000",
-  },
-  {
-    id: 7,
-    category: 3,
-    title: "내 생일7",
-    date: "2002.07.27",
-    dday: "D-000",
-  },
-];
-
-function Anniversary({ openModal }) {
+function Anniversary({ openModal, data }) {
   const isMobile = useMediaQuery({ query: "(max-width: 575px)" });
   const [pageNumber, setPageNumber] = useState(0);
   const [showEvent, setShowEvent] = useState();
@@ -224,7 +165,7 @@ function Anniversary({ openModal }) {
   };
 
   useEffect(() => {
-    const list = EventList.slice(pageNumber * 3, pageNumber * 3 + 3);
+    const list = data.slice(pageNumber * 3, pageNumber * 3 + 3);
 
     setShowEvent(
       list.map((v, i) => (
@@ -270,7 +211,7 @@ function Anniversary({ openModal }) {
         )}
 
         <EventPage>{showEvent}</EventPage>
-        {Math.ceil(EventList.length / 3 - 1) === pageNumber ? (
+        {Math.ceil(data.length / 3 - 1) === pageNumber ? (
           <NullButton />
         ) : (
           <PageButton onClick={() => setPageNumber(pageNumber + 1)}>

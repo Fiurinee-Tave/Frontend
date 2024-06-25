@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { useState } from "react";
+import { useRef, useReducer, useState, useEffect } from "react";
 
 import Header from "../components/Header";
 import Profile from "../components/Profile";
@@ -46,8 +46,99 @@ const DeleteAccount = styled.div`
   }
 `;
 
+const EventList = [
+  {
+    id: 0,
+    category: 0,
+    title: "일이삼사오육칠팔",
+    date: "2002.07.27",
+    dday: "D-000",
+  },
+  {
+    id: 1,
+    category: 1,
+    title: "내 생일1",
+    date: "2002.07.27",
+    dday: "D-000",
+  },
+  {
+    id: 2,
+    category: 2,
+    title: "내 생일2",
+    date: "2002.07.27",
+    dday: "D-000",
+  },
+  {
+    id: 3,
+    category: 3,
+    title: "내 생일3",
+    date: "2002.07.27",
+    dday: "D-000",
+  },
+  {
+    id: 4,
+    category: 4,
+    title: "내 생일4",
+    date: "2002.07.27",
+    dday: "D-000",
+  },
+  {
+    id: 5,
+    category: 1,
+    title: "내 생일5",
+    date: "2002.07.27",
+    dday: "D-000",
+  },
+  {
+    id: 6,
+    category: 0,
+    title: "내 생일6",
+    date: "2002.07.27",
+    dday: "D-000",
+  },
+  {
+    id: 7,
+    category: 3,
+    title: "내 생일7",
+    date: "2002.07.27",
+    dday: "D-000",
+  },
+];
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "CREATE": {
+      return [...state, action.newItem];
+    }
+    case "UPDATE": {
+      return state;
+    }
+    case "DELETE": {
+      return state.filter((it) => it.id !== action.targetId);
+    }
+    default:
+      return state;
+  }
+}
+
 function Mypage() {
   const [modal, setModal] = useState({ open: false, type: null });
+  const [anniversary, dispatch] = useReducer(reducer, EventList);
+  const idRef = useRef(8);
+
+  const onCreate = (category, name, date) => {
+    dispatch({
+      type: "CREATE",
+      newItem: {
+        id: idRef.current,
+        category,
+        title: name,
+        date,
+        dday: "D-000",
+      },
+    });
+    idRef.current += 1;
+  };
 
   const openModal = (type) => {
     document.body.style.overflow = "hidden";
@@ -59,14 +150,23 @@ function Mypage() {
     setModal({ open: false, type: null });
   };
 
+  useEffect(() => {
+    //rendering
+    console.log(anniversary);
+  }, [anniversary]);
+
   return (
     <Wrapper>
       {modal.open ? (
-        <AnniversaryModal closeModal={closeModal} type={modal.type} />
+        <AnniversaryModal
+          closeModal={closeModal}
+          type={modal.type}
+          onCreate={onCreate}
+        />
       ) : null}
       <Header login={true} />
       <Content>
-        <Profile openModal={openModal} />
+        <Profile openModal={openModal} data={anniversary} />
         <RecentLog />
         <DeleteAccount>회원탈퇴</DeleteAccount>
       </Content>

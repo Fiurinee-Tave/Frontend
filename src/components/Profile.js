@@ -112,7 +112,7 @@ const GuideText = styled.div`
   }
 `;
 
-function Profile({ openModal }) {
+function Profile({ openModal, data }) {
   const isMobile = useMediaQuery({ query: "(max-width: 575px)" });
   const [imgChange, setImgChange] = useState(false);
 
@@ -127,6 +127,7 @@ function Profile({ openModal }) {
 
   useEffect(() => {
     handleUserInfo();
+    console.log(data);
   }, []);
 
   return (
@@ -149,7 +150,7 @@ function Profile({ openModal }) {
           {imgChange ? (
             <ImgChange></ImgChange>
           ) : (
-            <Anniversary openModal={openModal} />
+            <Anniversary openModal={openModal} data={data} />
           )}
         </ProfileContainer>
       ) : (
@@ -171,7 +172,7 @@ function Profile({ openModal }) {
             {imgChange ? (
               <ImgChange></ImgChange>
             ) : (
-              <Anniversary openModal={openModal} />
+              <Anniversary openModal={openModal} data={data} />
             )}
           </UserInfoContainer>
         </ProfileContainer>
