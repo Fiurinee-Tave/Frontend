@@ -23,7 +23,6 @@ const GlobalStyles = createGlobalStyle`
     font-family: "Gowun Batang", serif;
     font-weight: 400;
     font-style: normal;
-    
   }
   #root {
     width: 100%;

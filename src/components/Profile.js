@@ -127,7 +127,6 @@ function Profile({ openModal, data }) {
 
   useEffect(() => {
     handleUserInfo();
-    console.log(data);
   }, []);
 
   return (
