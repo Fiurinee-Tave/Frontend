@@ -123,6 +123,10 @@ const GuideText = styled.div`
   align-items: center;
 
   gap: 10px;
+
+  @media (max-width: 575px) {
+    font-size: 11px;
+  }
 `;
 
 const AddButton = styled.button`
