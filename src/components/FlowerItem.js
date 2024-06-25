@@ -9,7 +9,7 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     margin: ${props => props.margin || '0 20px'};
-    border:${(props) => (props.selected ? '5px solid rgba(184,70,60)' : '1px solid gray')};
+    border:${(props) => (props.selected ? '5px solid rgba(184,70,60, 0.5)' : '1px solid gray')};
     `;
     //border:${(props) => (props.num === true ? '5px solid rgba(184,70,60,0.5)' : '1px solid gray')};
 
@@ -24,10 +24,10 @@ const Image = styled.img`
 
 //{isHovering && <FlowerDetail onClick={onClick} />}
 
-function FlowerItem({key, src, selected, height, width, padding,margin}){
+function FlowerItem({key, src, selected, height, width, padding,margin, onClick}){
    //console.log(num);
    return(<Wrapper height={height} width={width} padding={padding} selected={selected} margin={margin}>
-        <Image key={key} src={src}></Image>
+        <Image key={key} src={src} onClick={onClick}></Image>
     </Wrapper>);
 }
 
