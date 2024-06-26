@@ -23,9 +23,7 @@ const Logo = styled.div`
   font-family: "Italianno";
   font-weight: 500;
   font-style: normal;
-
   cursor: pointer;
-
   @media (max-width: 575px) {
     font-size: 20px;
   }
