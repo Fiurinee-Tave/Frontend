@@ -112,7 +112,7 @@ const GuideText = styled.div`
   }
 `;
 
-function Profile({ openModal, data }) {
+function Profile({ openModal, data, userInfo }) {
   const isMobile = useMediaQuery({ query: "(max-width: 575px)" });
   const [imgChange, setImgChange] = useState(false);
 
@@ -123,6 +123,7 @@ function Profile({ openModal, data }) {
   const handleUserInfo = () => {
     // user 정보 가져오는 함수
     // Usename, Event(BD...), ProfileImg
+    console.log(userInfo);
   };
 
   useEffect(() => {
@@ -134,7 +135,7 @@ function Profile({ openModal, data }) {
       {isMobile ? (
         <ProfileContainer>
           <UserInfo>
-            <BigText>"username" Profile</BigText>
+            <BigText>"" Profile</BigText>
             <MiddleText>2002.07.27</MiddleText>
           </UserInfo>
 
@@ -165,7 +166,7 @@ function Profile({ openModal, data }) {
 
           <UserInfoContainer>
             <UserInfo>
-              <BigText>"username" Profile</BigText>
+              <BigText>"" Profile</BigText>
               <MiddleText>2002.07.27</MiddleText>
             </UserInfo>
             {imgChange ? (

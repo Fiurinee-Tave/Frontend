@@ -121,7 +121,7 @@ function reducer(state, action) {
   }
 }
 
-function Mypage() {
+function Mypage({ userInfo }) {
   const [modal, setModal] = useState({ open: false, type: null });
   const [anniversary, dispatch] = useReducer(reducer, EventList);
   const idRef = useRef(8);
@@ -152,8 +152,9 @@ function Mypage() {
 
   useEffect(() => {
     //rendering
-    console.log(anniversary);
-  }, [anniversary]);
+    //console.log(anniversary);
+    console.log(userInfo);
+  }, []);
 
   return (
     <Wrapper>
@@ -166,7 +167,7 @@ function Mypage() {
       ) : null}
       <Header login={true} />
       <Content>
-        <Profile openModal={openModal} data={anniversary} />
+        <Profile openModal={openModal} data={anniversary} userInfo={userInfo} />
         <RecentLog />
         <DeleteAccount>회원탈퇴</DeleteAccount>
       </Content>
