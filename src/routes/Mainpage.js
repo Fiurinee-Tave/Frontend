@@ -29,7 +29,7 @@ const MobileLine = styled.div`
   align-items: center;
 `;
 
-function Mainpage({ login, handleLogin }) {
+function Mainpage({ login }) {
   const isDesktopOrMobile = useMediaQuery({ query: "(max-width:575px)" });
   const location = useLocation();
   const navigate = useNavigate();
@@ -47,8 +47,6 @@ function Mainpage({ login, handleLogin }) {
         localStorage.setItem("member_id", memberId);
 
         navigate("/auth");
-
-        handleLogin();
       }
     }
   }, []);

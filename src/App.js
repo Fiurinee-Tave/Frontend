@@ -8,7 +8,7 @@ import Recommend2 from "./routes/Recommend2";
 import RecommendLogPage from "./routes/RecommendLogPage";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const GlobalStyles = createGlobalStyle`
@@ -32,38 +32,16 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 function App() {
-  const [userInfo, setUserInfo] = useState();
-
-  const handleLogin = () => {
-    const accessToken = localStorage.getItem("access_token");
-    const refreshToken = localStorage.getItem("refresh_token");
-    const memberId = localStorage.getItem("member_id");
-    fetchData(accessToken, memberId);
-  };
-
-  const fetchData = async (accessToken, memberId) => {
-    const response = await axios.get(
-      `http://3.36.169.209:8080/member/${memberId}`,
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      }
-    );
-    console.log(response.data);
-    setUserInfo(response.data);
-    console.log(userInfo);
-  };
+  //  const [userInfo, setUserInfo] = useState();
 
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <GlobalStyles />
       <Routes>
         <Route path="/" element={<Mainpage login={false} />}></Route>
-        <Route
-          path="/auth"
-          element={<Mainpage login={true} handleLogin={handleLogin} />}
-        ></Route>
+        <Route path="/auth" element={<Mainpage login={true} />}></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/mypage" element={<Mypage userInfo={userInfo} />}></Route>
+        <Route path="/mypage" element={<Mypage />}></Route>
         <Route path="/reco0" element={<Recommend0 />}></Route>
         <Route path="/reco1" element={<Recommend1 />}></Route>
         <Route path="/reco2" element={<Recommend2 />}></Route>

@@ -151,10 +151,10 @@ const EventInfo = styled.div`
   }
 `;
 
-function Anniversary({ openModal, data }) {
+function Anniversary({ openModal, anniversaries }) {
   const isMobile = useMediaQuery({ query: "(max-width: 575px)" });
   const [pageNumber, setPageNumber] = useState(0);
-  const [showEvent, setShowEvent] = useState();
+  const [showEvent, setShowEvent] = useState({});
 
   const openCreateModal = () => {
     openModal("create");
@@ -165,28 +165,28 @@ function Anniversary({ openModal, data }) {
   };
 
   useEffect(() => {
-    const list = data.slice(pageNumber * 3, pageNumber * 3 + 3);
+    const list = anniversaries.slice(pageNumber * 3, pageNumber * 3 + 3);
 
     setShowEvent(
       list.map((v, i) => (
         <EventItem key={v.id} onClick={openModifyModal}>
           <EventInfo>
-            <Category number={v.category} isMobile={isMobile} />
+            <Category type={v.type} isMobile={isMobile} />
             {isMobile ? (
-              <SmallText>{v.title} : </SmallText>
+              <SmallText>{v.name} : </SmallText>
             ) : (
-              <MiddleText>{v.title} : </MiddleText>
+              <MiddleText>{v.name} : </MiddleText>
             )}
             {isMobile ? (
-              <SmallText>{v.date}</SmallText>
+              <SmallText>{v.anniversaryDate}</SmallText>
             ) : (
-              <MiddleText>{v.date}</MiddleText>
+              <MiddleText>{v.anniversaryDate}</MiddleText>
             )}
           </EventInfo>
           {isMobile ? (
-            <SmallText>{v.dday}</SmallText>
+            <SmallText>dday</SmallText>
           ) : (
-            <MiddleText>{v.dday}</MiddleText>
+            <MiddleText>dday</MiddleText>
           )}
         </EventItem>
       ))
@@ -211,7 +211,7 @@ function Anniversary({ openModal, data }) {
         )}
 
         <EventPage>{showEvent}</EventPage>
-        {Math.ceil(data.length / 3 - 1) === pageNumber ? (
+        {Math.ceil(anniversaries.length / 3 - 1) === pageNumber ? (
           <NullButton />
         ) : (
           <PageButton onClick={() => setPageNumber(pageNumber + 1)}>

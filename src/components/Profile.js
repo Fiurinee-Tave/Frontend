@@ -8,6 +8,8 @@ import Anniversary from "./Anniversary";
 import IconCheck from "../icons/IconCheck";
 import ImgChange from "./ImgChange";
 
+import axios from "axios";
+
 const Wrapper = styled.div`
   width: 100%;
   height: 360px;
@@ -112,7 +114,7 @@ const GuideText = styled.div`
   }
 `;
 
-function Profile({ openModal, data, userInfo }) {
+function Profile({ openModal, userInfo }) {
   const isMobile = useMediaQuery({ query: "(max-width: 575px)" });
   const [imgChange, setImgChange] = useState(false);
 
@@ -120,14 +122,8 @@ function Profile({ openModal, data, userInfo }) {
     setImgChange(!imgChange);
   };
 
-  const handleUserInfo = () => {
-    // user 정보 가져오는 함수
-    // Usename, Event(BD...), ProfileImg
-    console.log(userInfo);
-  };
-
   useEffect(() => {
-    handleUserInfo();
+    console.log(userInfo.anniversaries);
   }, []);
 
   return (
@@ -135,7 +131,7 @@ function Profile({ openModal, data, userInfo }) {
       {isMobile ? (
         <ProfileContainer>
           <UserInfo>
-            <BigText>"" Profile</BigText>
+            <BigText>"{userInfo.nickname}" Profile</BigText>
             <MiddleText>2002.07.27</MiddleText>
           </UserInfo>
 
@@ -147,11 +143,13 @@ function Profile({ openModal, data, userInfo }) {
               <IconPencil onClick={handleImgChange} />
             )}
           </UserImgContainer>
-          {imgChange ? (
-            <ImgChange></ImgChange>
-          ) : (
-            <Anniversary openModal={openModal} data={data} />
-          )}
+          {
+            imgChange ? <ImgChange></ImgChange> : null
+            // <Anniversary
+            //   openModal={openModal}
+            //   anniversaries={userInfo.anniversaries}
+            // />
+          }
         </ProfileContainer>
       ) : (
         <ProfileContainer>
@@ -166,14 +164,16 @@ function Profile({ openModal, data, userInfo }) {
 
           <UserInfoContainer>
             <UserInfo>
-              <BigText>"" Profile</BigText>
+              <BigText>"{userInfo.nickname}" Profile</BigText>
               <MiddleText>2002.07.27</MiddleText>
             </UserInfo>
-            {imgChange ? (
-              <ImgChange></ImgChange>
-            ) : (
-              <Anniversary openModal={openModal} data={data} />
-            )}
+            {
+              imgChange ? <ImgChange></ImgChange> : null
+              // <Anniversary
+              //   openModal={openModal}
+              //   anniversaries={userInfo.anniversaries}
+              // />
+            }
           </UserInfoContainer>
         </ProfileContainer>
       )}
