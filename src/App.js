@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Mainpage from "./routes/Mainpage";
-import MainpageTest from "./routes/MainpageTest";
 import Login from "./routes/Login";
 import Mypage from "./routes/Mypage";
 import Recommend0 from "./routes/Recommend0";
@@ -9,20 +8,20 @@ import Recommend2 from "./routes/Recommend2";
 import RecommendLogPage from "./routes/RecommendLogPage";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import Loading from "./loading/Loading";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const GlobalStyles = createGlobalStyle`
-
-
   ${reset};
   * {
     box-sizing: border-box;
   }
   body {
     background-color: #FFF3F3;
-  font-family: "Gowun Batang", serif;
-  font-weight: 400;
-  font-style: normal;
+    font-family: "Gowun Batang", serif;
+    font-weight: 400;
+    font-style: normal;
+    
   }
   #root {
     width: 100%;
@@ -33,23 +32,14 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 function App() {
-  // 비회원
-  // "/"
-  // "/login"
-  // "/reco0~2"
-
-  // 회원
-  // +비회원
-  // "/id/mypage"
-  // "/id/mypage/recommend_log"
-
-  //추후에 로그인 구현 완료 시 수정 요망
+  //  const [userInfo, setUserInfo] = useState();
 
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<Mainpage />}></Route>
+        <Route path="/" element={<Mainpage login={false} />}></Route>
+        <Route path="/auth" element={<Mainpage login={true} />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/mypage" element={<Mypage />}></Route>
         <Route path="/reco0" element={<Recommend0 />}></Route>

@@ -4,6 +4,8 @@ import TodayFlower from "../components/TodayFlower";
 import FlowerShop from "../components/FlowerShop";
 import SeasonFlower from "../components/SeasonFlower";
 import { useMediaQuery } from "react-responsive";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -21,32 +23,52 @@ const Line2 = styled.div`
 `;
 
 const MobileLine = styled.div`
-width: 100%;
+  width: 100%;
   flex-direction: column;
   gap: 30px;
   align-items: center;
 `;
 
-function Mainpage() {
-  const isDesktopOrMobile = useMediaQuery({query: '(max-width:575px)'});
+function Mainpage({ login }) {
+  const isDesktopOrMobile = useMediaQuery({ query: "(max-width:575px)" });
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (login) {
+      const queryParams = new URLSearchParams(location.search);
+      const accessToken = queryParams.get("access_token");
+      const refreshToken = queryParams.get("refresh_token");
+      const memberId = queryParams.get("member_id");
+
+      if (accessToken) {
+        localStorage.setItem("access_token", accessToken);
+        localStorage.setItem("refresh_token", refreshToken);
+        localStorage.setItem("member_id", memberId);
+
+        navigate("/auth");
+      }
+    }
+  }, []);
+
   return (
     <Wrapper>
       <MainImage />
-      {isDesktopOrMobile !== true?
-      <>
-      <Line2>
-        <TodayFlower />
-        <FlowerShop />
-      </Line2>
-      <SeasonFlower />
-      </>
-      :
-      <>
-        <TodayFlower />
-        <FlowerShop />
-        <SeasonFlower />
-      </>
-      }
+      {isDesktopOrMobile !== true ? (
+        <>
+          <Line2>
+            <TodayFlower />
+            <FlowerShop />
+          </Line2>
+          <SeasonFlower />
+        </>
+      ) : (
+        <>
+          <TodayFlower />
+          <FlowerShop />
+          <SeasonFlower />
+        </>
+      )}
     </Wrapper>
   );
 }

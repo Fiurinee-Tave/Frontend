@@ -7,6 +7,8 @@ import { useState } from "react";
 
 import { format } from "date-fns";
 
+import axios from "axios";
+
 const Wrapper = styled.div`
   position: fixed;
   top: 0;
@@ -169,7 +171,7 @@ const DeleteButton = styled.button`
   cursor: pointer;
 `;
 
-function AnniversaryModal({ closeModal, type, onCreate }) {
+function AnniversaryModal({ closeModal, modal, addAnniversary }) {
   const [category, setCategory] = useState([
     { id: 0, text: "생일", selected: false },
     { id: 1, text: "연인", selected: false },
@@ -207,17 +209,15 @@ function AnniversaryModal({ closeModal, type, onCreate }) {
   };
 
   const submitAnniversary = () => {
-    console.log(name);
-    onCreate(
-      category.find((v) => v.selected === true).id,
+    addAnniversary(
       name,
-      format(date, "yyyy.mm.dd")
+      format(date, "yyyy-mm-dd"),
+      category.find((v) => v.selected === true).text
     );
-
     closeModal();
   };
 
-  if (type === "create") {
+  if (modal === "create") {
     return (
       <Wrapper>
         <Container>
@@ -232,7 +232,7 @@ function AnniversaryModal({ closeModal, type, onCreate }) {
                 <CategoryItem key={v.id}>
                   <CategoryIcon
                     onClick={selectedCategory}
-                    number={v.id}
+                    type={v.text}
                     border={{
                       border: v.selected
                         ? "2px solid #7489BE"

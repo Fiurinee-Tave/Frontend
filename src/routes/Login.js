@@ -78,21 +78,22 @@ const KaKaoImage = styled.img`
 `;
 
 function Login() {
-  const LoginProcess = () => {
-    console.log("login");
-    // login process
+  const kakaoLink = `http://3.36.169.209:8080/oauth2/authorization/kakao`;
+
+  const onClickLogin = () => {
+    window.location.href = kakaoLink;
   };
 
   return (
     <Wrapper>
-      <Header login={true} />
+      <Header login={false} />
       <LoginContainer>
         <BoldText>-SNS 간편 로그인/회원가입-</BoldText>
         <TextGroup>
           <NormalText>간편하게 회원가입하고</NormalText>
           <NormalText>나만의 꽃 저장소를 만들어보세요:{")"}</NormalText>
         </TextGroup>
-        <LoginButton onClick={LoginProcess}>
+        <LoginButton onClick={onClickLogin}>
           <KaKaoImage src="/img/KakaoLogin.png" alt="" />
         </LoginButton>
       </LoginContainer>
