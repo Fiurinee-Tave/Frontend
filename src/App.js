@@ -32,8 +32,6 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 function App() {
-  //  const [userInfo, setUserInfo] = useState();
-
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <GlobalStyles />

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import DateSetting from "./DateSetting";
 import CategoryIcon from "../icons/CategoryIcon";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { format } from "date-fns";
 
@@ -171,7 +171,14 @@ const DeleteButton = styled.button`
   cursor: pointer;
 `;
 
-function AnniversaryModal({ closeModal, modal, addAnniversary }) {
+function AnniversaryModal({
+  closeModal,
+  modal,
+  anniversary,
+  addAnniversary,
+  modifyAnniversary,
+  deleteAnniversary,
+}) {
   const [category, setCategory] = useState([
     { id: 0, text: "생일", selected: false },
     { id: 1, text: "연인", selected: false },
@@ -181,6 +188,20 @@ function AnniversaryModal({ closeModal, modal, addAnniversary }) {
   ]);
   const [name, setName] = useState("");
   const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+    if (modal === "modify") {
+      setName(anniversary[0].name);
+      setDate(anniversary[0].anniversaryDate);
+      setCategory(
+        category.map((v) =>
+          v.text === anniversary[0].type
+            ? { ...v, selected: true }
+            : { ...v, selected: false }
+        )
+      );
+    }
+  }, []);
 
   const selectedCategory = (e) => {
     const id = e.target.id;
@@ -195,26 +216,37 @@ function AnniversaryModal({ closeModal, modal, addAnniversary }) {
   };
 
   const selectedName = (e) => {
-    setName(e.target.value);
-  };
-
-  const selectedDate = (date) => {
-    setDate(date);
-  };
-
-  const deleteAnniversary = () => {
-    alert("정말 삭제하시겠습니까?");
-
-    closeModal();
+    if (e.target.value.length > 8) {
+      setName(e.target.value.substr(0, 8));
+    } else {
+      setName(e.target.value);
+    }
   };
 
   const submitAnniversary = () => {
-    addAnniversary(
-      name,
-      format(date, "yyyy-mm-dd"),
-      category.find((v) => v.selected === true).text
-    );
-    closeModal();
+    if (category.find((v) => v.selected === true) === undefined) {
+      alert("카테고리는 필수입니다.");
+      return;
+    }
+
+    if (name === "") {
+      alert("기념일 이름은 필수입니다.");
+      return;
+    }
+
+    if (modal === "create") {
+      addAnniversary(
+        name,
+        format(date, "yyyy-MM-dd"),
+        category.find((v) => v.selected === true).text
+      );
+    } else {
+      modifyAnniversary(
+        name,
+        format(date, "yyyy-MM-dd"),
+        category.find((v) => v.selected === true).text
+      );
+    }
   };
 
   if (modal === "create") {
@@ -258,7 +290,7 @@ function AnniversaryModal({ closeModal, modal, addAnniversary }) {
           <SelectContainer>
             <SelectTitle>#날짜</SelectTitle>
             <SelectItem>
-              <DateSetting selectedDate={date} setSelectedDate={selectedDate} />
+              <DateSetting selectedDate={date} setSelectedDate={setDate} />
             </SelectItem>
             <GuideText>
               *직접입력을 하거나 클릭하면 날짜를 선택할 수 있습니다.
@@ -275,7 +307,7 @@ function AnniversaryModal({ closeModal, modal, addAnniversary }) {
       <Wrapper>
         <Container>
           <Header>
-            <Title>기념일 추가하기</Title>
+            <Title>기념일 수정 & 삭제</Title>
             <CloseButton onClick={closeModal}>❌</CloseButton>
           </Header>
           <SelectContainer>
@@ -285,7 +317,7 @@ function AnniversaryModal({ closeModal, modal, addAnniversary }) {
                 <CategoryItem key={v.id}>
                   <CategoryIcon
                     onClick={selectedCategory}
-                    number={v.id}
+                    type={v.text}
                     border={{
                       border: v.selected
                         ? "2px solid #7489BE"
@@ -303,11 +335,7 @@ function AnniversaryModal({ closeModal, modal, addAnniversary }) {
             <SelectItem>
               <NameItem>
                 "
-                <NameInput
-                  type="text"
-                  //name으로 관리해 ㅇㅇ
-                />
-                "
+                <NameInput type="text" value={name} onChange={selectedName} />"
               </NameItem>
             </SelectItem>
             <GuideText>*이름은 1~8글자입니다.</GuideText>
@@ -315,14 +343,14 @@ function AnniversaryModal({ closeModal, modal, addAnniversary }) {
           <SelectContainer>
             <SelectTitle>#날짜</SelectTitle>
             <SelectItem>
-              <DateSetting />
+              <DateSetting selectedDate={date} setSelectedDate={setDate} />
             </SelectItem>
             <GuideText>
               *직접입력을 하거나 클릭하면 날짜를 선택할 수 있습니다.
             </GuideText>
           </SelectContainer>
           <GuideText>
-            <AddButton>기념일 수정</AddButton>
+            <AddButton onClick={submitAnniversary}>기념일 수정</AddButton>
             <DeleteButton onClick={deleteAnniversary}>삭제</DeleteButton>
           </GuideText>
         </Container>

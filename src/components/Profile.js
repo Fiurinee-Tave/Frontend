@@ -114,7 +114,7 @@ const GuideText = styled.div`
   }
 `;
 
-function Profile({ openModal, userInfo }) {
+function Profile({ openModal, userInfo, anniversaries }) {
   const isMobile = useMediaQuery({ query: "(max-width: 575px)" });
   const [imgChange, setImgChange] = useState(false);
 
@@ -122,9 +122,7 @@ function Profile({ openModal, userInfo }) {
     setImgChange(!imgChange);
   };
 
-  useEffect(() => {
-    console.log(userInfo.anniversaries);
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <Wrapper>
@@ -143,13 +141,11 @@ function Profile({ openModal, userInfo }) {
               <IconPencil onClick={handleImgChange} />
             )}
           </UserImgContainer>
-          {
-            imgChange ? <ImgChange></ImgChange> : null
-            // <Anniversary
-            //   openModal={openModal}
-            //   anniversaries={userInfo.anniversaries}
-            // />
-          }
+          {imgChange ? (
+            <ImgChange></ImgChange>
+          ) : (
+            <Anniversary openModal={openModal} anniversaries={anniversaries} />
+          )}
         </ProfileContainer>
       ) : (
         <ProfileContainer>
@@ -167,13 +163,14 @@ function Profile({ openModal, userInfo }) {
               <BigText>"{userInfo.nickname}" Profile</BigText>
               <MiddleText>2002.07.27</MiddleText>
             </UserInfo>
-            {
-              imgChange ? <ImgChange></ImgChange> : null
-              // <Anniversary
-              //   openModal={openModal}
-              //   anniversaries={userInfo.anniversaries}
-              // />
-            }
+            {imgChange ? (
+              <ImgChange></ImgChange>
+            ) : (
+              <Anniversary
+                openModal={openModal}
+                anniversaries={anniversaries}
+              />
+            )}
           </UserInfoContainer>
         </ProfileContainer>
       )}
