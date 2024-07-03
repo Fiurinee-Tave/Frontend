@@ -1,6 +1,6 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -28,11 +28,8 @@ const StyledDatePicker = styled(DatePicker)`
 `;
 
 function DateSetting({ selectedDate, setSelectedDate }) {
-  //input readOnly 이슈,,, 해결 제발요
-
   const handleDateFormat = (date) => {
     setSelectedDate(date);
-    console.log(selectedDate);
   };
 
   return (
@@ -42,6 +39,7 @@ function DateSetting({ selectedDate, setSelectedDate }) {
         shouldCloseOnSelect
         selected={selectedDate}
         onChange={handleDateFormat}
+        maxDate={new Date()}
       />
     </Wrapper>
   );

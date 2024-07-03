@@ -154,46 +154,57 @@ const EventInfo = styled.div`
 function Anniversary({ openModal, anniversaries }) {
   const isMobile = useMediaQuery({ query: "(max-width: 575px)" });
   const [pageNumber, setPageNumber] = useState(0);
-  const [showEvent, setShowEvent] = useState({});
+  const [showEvent, setShowEvent] = useState();
 
   const openCreateModal = () => {
     openModal("create");
   };
 
-  const openModifyModal = () => {
-    openModal("modify");
+  const openModifyModal = (e) => {
+    let anniId = e.target.id;
+
+    if (e.target.tagName.toLowerCase() !== "button") {
+      anniId = e.currentTarget.id;
+    }
+
+    openModal("modify", anniId);
   };
 
   useEffect(() => {
-    const list = anniversaries.slice(pageNumber * 3, pageNumber * 3 + 3);
-
-    setShowEvent(
-      list.map((v, i) => (
-        <EventItem key={v.id} onClick={openModifyModal}>
-          <EventInfo>
-            <Category type={v.type} isMobile={isMobile} />
+    if (Object.keys(anniversaries).length === 0) {
+      setShowEvent("설정한 기념일이 없습니다.");
+    } else {
+      const list = anniversaries.slice(pageNumber * 3, pageNumber * 3 + 3);
+      setShowEvent(
+        list.map((v, i) => (
+          <EventItem key={i} onClick={openModifyModal} id={v.id}>
+            <EventInfo>
+              <Category type={v.type} isMobile={isMobile} />
+              {isMobile ? (
+                <SmallText>{v.name} : </SmallText>
+              ) : (
+                <MiddleText>{v.name} : </MiddleText>
+              )}
+              {isMobile ? (
+                <SmallText>{v.anniversaryDate}</SmallText>
+              ) : (
+                <MiddleText>{v.anniversaryDate}</MiddleText>
+              )}
+            </EventInfo>
             {isMobile ? (
-              <SmallText>{v.name} : </SmallText>
+              <SmallText>
+                D-{Object.values(Object.values(v.dDays)[0]).toString()}
+              </SmallText>
             ) : (
-              <MiddleText>{v.name} : </MiddleText>
+              <MiddleText>
+                D-{Object.values(Object.values(v.dDays)[0]).toString()}
+              </MiddleText>
             )}
-            {isMobile ? (
-              <SmallText>{v.anniversaryDate}</SmallText>
-            ) : (
-              <MiddleText>{v.anniversaryDate}</MiddleText>
-            )}
-          </EventInfo>
-          {isMobile ? (
-            <SmallText>dday</SmallText>
-          ) : (
-            <MiddleText>dday</MiddleText>
-          )}
-        </EventItem>
-      ))
-    );
-  }, [pageNumber, isMobile]);
-
-  useEffect(() => {}, [showEvent]);
+          </EventItem>
+        ))
+      );
+    }
+  }, [pageNumber, isMobile, anniversaries]);
 
   return (
     <EventContainer>

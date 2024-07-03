@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-import { useRef, useReducer, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Header from "../components/Header";
 import Profile from "../components/Profile";
@@ -49,93 +50,29 @@ const DeleteAccount = styled.div`
   }
 `;
 
-// const EventList = [
-//   {
-//     id: 0,
-//     category: 0,
-//     title: "일이삼사오육칠팔",
-//     date: "2002.07.27",
-//     dday: "D-000",
-//   },
-//   {
-//     id: 1,
-//     category: 1,
-//     title: "내 생일1",
-//     date: "2002.07.27",
-//     dday: "D-000",
-//   },
-//   {
-//     id: 2,
-//     category: 2,
-//     title: "내 생일2",
-//     date: "2002.07.27",
-//     dday: "D-000",
-//   },
-//   {
-//     id: 3,
-//     category: 3,
-//     title: "내 생일3",
-//     date: "2002.07.27",
-//     dday: "D-000",
-//   },
-//   {
-//     id: 4,
-//     category: 4,
-//     title: "내 생일4",
-//     date: "2002.07.27",
-//     dday: "D-000",
-//   },
-//   {
-//     id: 5,
-//     category: 1,
-//     title: "내 생일5",
-//     date: "2002.07.27",
-//     dday: "D-000",
-//   },
-//   {
-//     id: 6,
-//     category: 0,
-//     title: "내 생일6",
-//     date: "2002.07.27",
-//     dday: "D-000",
-//   },
-//   {
-//     id: 7,
-//     category: 3,
-//     title: "내 생일7",
-//     date: "2002.07.27",
-//     dday: "D-000",
-//   },
-// ];
-
-// function reducer(state, action) {
-//   switch (action.type) {
-//     case "CREATE": {
-//       return [...state, action.newItem];
-//     }
-//     case "UPDATE": {
-//       return state;
-//     }
-//     case "DELETE": {
-//       return state.filter((it) => it.id !== action.targetId);
-//     }
-//     default:
-//       return state;
-//   }
-// }
-
 function Mypage() {
-  const [modal, setModal] = useState({ open: false, modalType: null });
-  //const [anniversary, dispatch] = useReducer(reducer, EventList);
-  const idRef = useRef(8);
+  const [modal, setModal] = useState({
+    open: false,
+    modalType: null,
+    id: null,
+  });
   const [userInfo, setUserInfo] = useState({});
+  const [anniversaries, setAnniversaries] = useState({});
+  const navigate = useNavigate();
+  const accessToken = localStorage.getItem("access_token");
+  const memberId = localStorage.getItem("member_id");
 
-  const handleUserInfomation = () => {
-    const accessToken = localStorage.getItem("access_token");
-    const memberId = localStorage.getItem("member_id");
-    fetchData(accessToken, memberId);
-  };
-  const fetchData = async (accessToken, memberId) => {
+  useEffect(() => {
+    if (localStorage.getItem("member_id") === null) {
+      //비회원의 접근일 경우 메인으로 이동시키기
+      navigate("/");
+    } else {
+      //회원의 접근일 경우 회원 정보 받아오기
+      fetchData();
+    }
+  }, []);
+
+  const fetchData = async () => {
     try {
       const response = await axios.get(
         `http://3.36.169.209:8080/member/${memberId}`,
@@ -143,9 +80,9 @@ function Mypage() {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
       );
-      console.log("Fetched user data:", response.data);
 
       setUserInfo(response.data);
+      setAnniversaries(response.data.anniversaries);
     } catch (error) {
       if (error.response.status === 401) {
         refreshAccessToken(memberId);
@@ -154,9 +91,9 @@ function Mypage() {
     }
   };
 
-  const addAnniversary = async (accessToken, memberId, name, date, type) => {
+  const addAnniversary = async (name, date, type) => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `http://3.36.169.209:8080/member/${memberId}/anniversary`,
         {
           name,
@@ -168,7 +105,8 @@ function Mypage() {
         }
       );
 
-      console.log(response.data);
+      fetchData();
+      closeModal();
     } catch (error) {
       if (error.response.status === 401) {
         refreshAccessToken(memberId);
@@ -177,42 +115,58 @@ function Mypage() {
     }
   };
 
-  const submitAnniversary = (name, date, type) => {
-    const accessToken = localStorage.getItem("access_token");
-    const memberId = localStorage.getItem("member_id");
-    addAnniversary(accessToken, memberId, name, date, type);
-
-    closeModal();
+  const modifyAnniversary = async (name, date, type) => {
+    try {
+      await axios.put(
+        `http://3.36.169.209:8080/member/${memberId}/anniversary/${modal.id}`,
+        {
+          name,
+          date,
+          type,
+        },
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
+      fetchData();
+      closeModal();
+    } catch (error) {
+      if (error.response.status === 401) {
+        refreshAccessToken(memberId);
+      }
+      console.error("Failed to add user anniversary:", error);
+    }
   };
 
-  const openModal = (type) => {
+  const deleteAnniversary = async () => {
+    alert("정말 삭제하시겠습니까?");
+    try {
+      await axios.delete(
+        `http://3.36.169.209:8080/member/${memberId}/anniversary/${modal.id}`,
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
+
+      fetchData();
+      closeModal();
+    } catch (error) {
+      if (error.response.status === 401) {
+        refreshAccessToken(memberId);
+      }
+      console.error("Failed to add user anniversary:", error);
+    }
+  };
+
+  const openModal = (type, id) => {
     document.body.style.overflow = "hidden";
-    setModal({ open: true, modalType: type });
+    setModal({ open: true, modalType: type, id: id });
   };
 
   const closeModal = () => {
     document.body.style.overflow = "unset";
-    setModal({ open: false, modalType: null });
+    setModal({ ...modal, open: false });
   };
-
-  // const onCreate = (category, name, date) => {
-  //   dispatch({
-  //     type: "CREATE",
-  //     newItem: {
-  //       id: idRef.current,
-  //       category,
-  //       title: name,
-  //       date,
-  //       dday: "D-000",
-  //     },
-  //   });
-  //   idRef.current += 1;
-  // };
-
-  useEffect(() => {
-    handleUserInfomation();
-    console.log(userInfo);
-  }, []);
 
   return (
     <Wrapper>
@@ -220,13 +174,19 @@ function Mypage() {
         <AnniversaryModal
           closeModal={closeModal}
           modal={modal.modalType}
-          addAnniversary={submitAnniversary}
-          //onCreate={onCreate}
+          anniversary={anniversaries.filter((v) => v.id === parseInt(modal.id))}
+          addAnniversary={addAnniversary}
+          modifyAnniversary={modifyAnniversary}
+          deleteAnniversary={deleteAnniversary}
         />
       ) : null}
       <Header login={true} />
       <Content>
-        <Profile openModal={openModal} userInfo={userInfo} />
+        <Profile
+          openModal={openModal}
+          userInfo={userInfo}
+          anniversaries={anniversaries}
+        />
         <RecentLog />
         <DeleteAccount>회원탈퇴</DeleteAccount>
       </Content>
