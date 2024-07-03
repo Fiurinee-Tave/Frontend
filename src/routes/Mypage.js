@@ -139,7 +139,11 @@ function Mypage() {
   };
 
   const deleteAnniversary = async () => {
-    alert("정말 삭제하시겠습니까?");
+    const result = window.confirm("정말 삭제하시겠습니까?");
+    if (result === false) {
+      closeModal();
+      return;
+    }
     try {
       await axios.delete(
         `http://3.36.169.209:8080/member/${memberId}/anniversary/${modal.id}`,
@@ -186,7 +190,7 @@ function Mypage() {
       if (error.response.status === 401) {
         refreshAccessToken(memberId);
       }
-      console.error("Failed to add user anniversary:", error);
+      console.error("Failed to add user profile image:", error);
     }
   };
 

@@ -59,15 +59,23 @@ function RecentLog() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
+      const main = await axios.get(
         `http://3.36.169.209:8080/member/${memberId}/recommend/recent`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
       );
 
-      setRecent(response.data);
-      console.log(recent);
+      const sub = await axios.get(
+        `http://3.36.169.209:8080/member/${memberId}/harmony/recent`,
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
+
+      //setRecent(main.map((v, i) => (v.order === ));
+      console.log(main);
+      console.log(sub);
     } catch (error) {
       if (error.response.status === 401) {
         refreshAccessToken(memberId);

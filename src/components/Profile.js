@@ -137,15 +137,19 @@ function Profile({ openModal, userInfo, anniversaries, modifyProfileImg }) {
   const handleImgChange = () => {
     if (imgChange === true) {
       modifyProfileImg(profileImg.img, profileImg.color);
-      setImgChange(!imgChange);
+      setImgChange(false);
     } else {
-      setImgChange(!imgChange);
+      setImgChange(true);
     }
   };
 
   useEffect(() => {
     setImg(ImgList[parseInt(userInfo.profileImage / 10) - 1]);
     setColor(ColorList[(userInfo.profileImage % 10) - 1]);
+    setProfileImg({
+      img: parseInt(userInfo.profileImage / 10),
+      color: userInfo.profileImage % 10,
+    });
   }, [userInfo]);
 
   return (
@@ -158,7 +162,9 @@ function Profile({ openModal, userInfo, anniversaries, modifyProfileImg }) {
           </UserInfo>
           {imgChange ? (
             <UserImgContainer
-              style={{ backgroundColor: ColorList[profileImg.color - 1] }}
+              style={{
+                backgroundColor: ColorList[profileImg.color - 1],
+              }}
             >
               <UserImg src={ImgList[profileImg.img - 1]} />
 
