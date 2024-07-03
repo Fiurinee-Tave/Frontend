@@ -45,6 +45,7 @@ const PlaceList = styled.div`
 `;
 
 const ShopName = styled.div`
+    cursor: pointer;
     color:#B7394C;
     font-size:25px;
     font-weight:600;
@@ -139,7 +140,7 @@ function FlowerShop(){
             <ul>
             {places.map((place, index) => (
                 <li key={index}>
-                <ShopName>{place.place_name}</ShopName>
+                <ShopName onClick={() => {window.open(place.place_url)}}>{place.place_name}</ShopName>
                 {place.road_address_name ? (
                 <ShopAdr>{place.road_address_name}</ShopAdr>
                 ) : (
