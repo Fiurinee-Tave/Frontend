@@ -168,6 +168,28 @@ function Mypage() {
     setModal({ ...modal, open: false });
   };
 
+  const modifyProfileImg = async (img, color) => {
+    console.log(memberId, img, color);
+    try {
+      await axios.put(
+        `http://3.36.169.209:8080/member/${memberId}/image`,
+        {
+          flowerCode: img,
+          backgroundCode: color,
+        },
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
+      fetchData();
+    } catch (error) {
+      if (error.response.status === 401) {
+        refreshAccessToken(memberId);
+      }
+      console.error("Failed to add user anniversary:", error);
+    }
+  };
+
   return (
     <Wrapper>
       {modal.open ? (
@@ -186,6 +208,7 @@ function Mypage() {
           openModal={openModal}
           userInfo={userInfo}
           anniversaries={anniversaries}
+          modifyProfileImg={modifyProfileImg}
         />
         <RecentLog />
         <DeleteAccount>회원탈퇴</DeleteAccount>
