@@ -76,16 +76,12 @@ const ColorList = ["#FFF8EB", "#FFBDBD", "#CEF4B7", "#CAD3F3"];
 
 function ImgChange({ profileImg, setProfileImg }) {
   const handleImgChange = (e) => {
-    //e.target.id로 인덱스 접근 가능
     setProfileImg({ ...profileImg, img: parseInt(e.target.id) + 1 });
   };
 
   const handleColorChange = (e) => {
     setProfileImg({ ...profileImg, color: parseInt(e.target.id) + 1 });
-    console.log(profileImg);
   };
-
-  //setimg, setcolor 로 바로 바꾸지말고 상태로 가지고 있다가체크표시누르면 api접근해서 숫자를 보내, 그리고 date 패치를 다시 하면 이미지를 불러올 수 있음 ㅇㅇ
 
   return (
     <Wrapper>

@@ -146,9 +146,6 @@ function Profile({ openModal, userInfo, anniversaries, modifyProfileImg }) {
   useEffect(() => {
     setImg(ImgList[parseInt(userInfo.profileImage / 10) - 1]);
     setColor(ColorList[(userInfo.profileImage % 10) - 1]);
-
-    console.log(parseInt(userInfo.profileImage / 10));
-    console.log(userInfo.profileImage % 10);
   }, [userInfo]);
 
   return (
@@ -159,22 +156,26 @@ function Profile({ openModal, userInfo, anniversaries, modifyProfileImg }) {
             <BigText>"{userInfo.nickname}" Profile</BigText>
             <MiddleText>2002.07.27</MiddleText>
           </UserInfo>
-
-          <UserImgContainer style={{ backgroundColor: color }}>
-            {imgChange ? (
-              <UserImg src={ImgList[profileImg.img - 1]} />
-            ) : (
-              <UserImg src={img} />
-            )}
-
-            {imgChange ? (
-              <IconCheck onClick={handleImgChange} />
-            ) : (
-              <IconPencil onClick={handleImgChange} />
-            )}
-          </UserImgContainer>
           {imgChange ? (
-            <ImgChange setImg={setImg} setColor={setColor}></ImgChange>
+            <UserImgContainer
+              style={{ backgroundColor: ColorList[profileImg.color - 1] }}
+            >
+              <UserImg src={ImgList[profileImg.img - 1]} />
+
+              <IconCheck onClick={handleImgChange} />
+            </UserImgContainer>
+          ) : (
+            <UserImgContainer style={{ backgroundColor: color }}>
+              <UserImg src={img} />
+
+              <IconPencil onClick={handleImgChange} />
+            </UserImgContainer>
+          )}
+          {imgChange ? (
+            <ImgChange
+              profileImg={profileImg}
+              setProfileImg={setProfileImg}
+            ></ImgChange>
           ) : (
             <Anniversary openModal={openModal} anniversaries={anniversaries} />
           )}

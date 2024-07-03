@@ -4,6 +4,8 @@ import IconLike from "../icons/IconLike";
 
 import { useMediaQuery } from "react-responsive";
 
+import { useEffect } from "react";
+
 const Wrapper = styled.div`
   width: 100%;
   height: 300px;
@@ -186,8 +188,12 @@ const LikeContainer = styled.div`
   }
 `;
 
-function RecommendLogItem() {
+function RecommendLogItem({ info }) {
   const isMobile = useMediaQuery({ query: "(max-width: 575px)" });
+
+  useEffect(() => {
+    console.log(info);
+  }, []);
 
   return isMobile ? (
     <Wrapper>
@@ -195,7 +201,8 @@ function RecommendLogItem() {
         <RowText>
           <ToFrom>to.</ToFrom>
           <MiddleText>
-            해바라기{"("}asdfasd{")"}
+            {info.recommendFlower}
+            {"("}asdfasd{")"}
           </MiddleText>
         </RowText>
         <GrayText>2023.06.22</GrayText>
@@ -249,18 +256,19 @@ function RecommendLogItem() {
   ) : (
     <Wrapper>
       <ImgContainer>
-        <Img />
+        <Img src={info.image} />
       </ImgContainer>
       <RecoContainer>
         <RecoTitle>
           <RowText>
             <ToFrom>to.</ToFrom>
             <MiddleText>
-              해바라기{"("}asdfasd{")"}
+              {info.recommendFlower}
+              {"("}asdfasd{")"}
             </MiddleText>
           </RowText>
 
-          <GrayText>2023.06.22</GrayText>
+          <GrayText>{info.create_at}</GrayText>
         </RecoTitle>
         <GrayText>어울리는 꽃</GrayText>
         <DetailContainer>
@@ -272,21 +280,14 @@ function RecommendLogItem() {
           </SmallImgContainer>
           <MentLikeContainer>
             <MentContainer>
-              <SmallText>
-                "100일 축하해
-                ㅇ마어란둠아넘아렁ㅇ나어람너아러민댜ㅓ리만얼미ㅏ넏ㅁㄴㅇㄻㄴㅇㄹㄴㅁ
-                ㅁㄴㅇㄻㄴㅇ"
-              </SmallText>
+              <SmallText>{info.inputMessage}</SmallText>
               <WriterContainer>
                 <GrayText style={{ fontSize: "15px" }}>writer.user</GrayText>
               </WriterContainer>
             </MentContainer>
 
             <MentContainer>
-              <SmallText>
-                "안녕하세요 긴 글을 썼습니다. 안녕하세요 긴 글을 썼습니다.
-                안녕하세요 긴 글을 썼습니다. 안녕하세요 긴 글을 썼습니다. "
-              </SmallText>
+              <SmallText>{info.recommendMessage}</SmallText>
               <WriterContainer>
                 <GrayText style={{ fontSize: "15px" }}>
                   writer.fiurinee

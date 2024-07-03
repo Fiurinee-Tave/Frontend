@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import RecommendLogItem from "../items/RecommendLogItem";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+
+import axios from "axios";
+
+import refreshAccessToken from "../axios";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -48,6 +53,32 @@ const MovePageBtn = styled.button`
 
 function RecentLog() {
   const navigate = useNavigate();
+  const accessToken = localStorage.getItem("access_token");
+  const memberId = localStorage.getItem("member_id");
+  const [recent, setRecent] = useState();
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `http://3.36.169.209:8080/member/${memberId}/recommend/recent`,
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
+
+      setRecent(response.data);
+      console.log(recent);
+    } catch (error) {
+      if (error.response.status === 401) {
+        refreshAccessToken(memberId);
+      }
+      console.error("Failed to fetch user data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <Wrapper>
@@ -58,9 +89,9 @@ function RecentLog() {
         </MovePageBtn>
       </TextContainer>
       <LogContainer>
-        <RecommendLogItem />
-        <RecommendLogItem />
-        <RecommendLogItem />
+        {recent?.map((v, i) => (
+          <RecommendLogItem key={i} info={v} />
+        ))}
       </LogContainer>
     </Wrapper>
   );
