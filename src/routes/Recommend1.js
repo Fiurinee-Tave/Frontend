@@ -1,9 +1,12 @@
 import Header from "../components/Header";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import FlowerDetail from "../components/FlowerDetail";
 import FlowerItem from "../components/FlowerItem";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
+import axios from 'axios';
+import Loading from "../loading/Loading"
 
 const Wrapper = styled.div`
   width: 100%;
@@ -23,7 +26,7 @@ const Line = styled.div`
   align-items: center;
   justify-content: center;
   gap: 20px;
-    @media (max-width: 575px) {
+  @media (max-width: 575px) {
     gap: 23px;
     padding: ${props => props.padding || '60px 50px'};
   }
@@ -54,10 +57,35 @@ const Line2 = styled.div`
   display: flex;
   align-items: center;
   gap: 30px;
-    @media (max-width: 575px) {
-    gap: 5px;
+  width: 62vw;
+  @media (max-width: 575px) {
+    gap: 3vw;
+    width: 90vw;
+    flex:1;
   }
 `;
+
+const MediaLine1 = styled.div`
+  display: flex;
+  align-items: center;
+  flex:1;
+`;
+
+const ImageBox = styled.div`
+  display: flex;
+  flex:1;
+  height:40vh;
+  justify-content: center;
+  position: relative;
+  @media (max-width: 575px) {
+    height:20vh;
+    weight:45vw;
+  }
+
+`;
+
+//  height:39vh;
+//width: 280px;
 
 const RecommendBtn = styled.button`
   background-color: rgba(255,255,255,0.8);
@@ -74,20 +102,22 @@ const RecommendBtn = styled.button`
      padding: 12px 25px;
   }
 `;
- //margin-top:30px;
 
 
 function Recommend1() {
   const isDesktopOrMobile = useMediaQuery({query: '(max-width:575px)'});
   const [selectedImage, setSelectedImage] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  //const [hoveredImage, setHoveredImage] = useState(null);
-  //const [isMobile, setIsMobile] = useState(window.innerWidth <= 575);
+
+  const location = useLocation();
+  console.log("추천 1로 넘어왔다"); 
+
   
   const images = [
-    "/img/MainImage2.png",
-    "/img/MainImage1.png",
-    "/img/MainImage2.png",
+    location.state?.flower[0].image,
+    location.state?.flower[1].image,
+    location.state?.flower[2].image, 
     ];
 
   const handleImageClick = (index) => {
@@ -95,7 +125,7 @@ function Recommend1() {
       setSelectedImage(index);
     }
   };
-  
+
   const recommend = () => {
     if(selectedImage !== null){
       navigate("/reco2");
@@ -105,56 +135,118 @@ function Recommend1() {
   };
 
 
-  //        isHovering={hoveredImage === index}
-  //onMouseEnter={() => setHoveredImage(index)}
-  //onMouseLeave={() => setHoveredImage(null)}
-  return (<Wrapper>
+  const posetData = async () => {
+    setLoading(true);
+    console.log(location.state?.flower[selectedImage].id);
+    try{
+      const response = await axios.post('http://3.36.169.209:8080/model/'+location.state?.flower[selectedImage].id+'/non' ,
+      {
+        ment: location.state?.inputment
+      },
+      {
+         'Content-Type' : 'application/json'
+      }
+    );
+    setLoading(false);
+
+    navigate("/reco2",
+      {
+        state : {
+          flower:location.state?.flower[selectedImage],
+          recoflower:response.data
+        }
+      });
+    
+    }
+    catch (error) {
+      console.error("데이터 보내기 실패", error);
+    }
+  };
+
+  return (
+    loading ? 
+    <Wrapper> <Header login={true} /> <Loading/> </Wrapper>:
+    (
+    <Wrapper>
     <Header />
     <Line>
       <Bigtitle>추천하는 꽃 TOP 3</Bigtitle>
       <Title><Highlight>마음에 드는 꽃을 선택</Highlight>하고 하단의 버튼을 누르면<br/>
       해당 꽃과 <Highlight>어울리는 꽃다발 조합</Highlight>을 추천받을 수 있습니다.</Title>
       {isDesktopOrMobile !== true?
-      <Line2 >
-      {images.map((src, index) => (
-        <FlowerItem 
+      <Line2>
+        {images.map((src, index) => (
+        <ImageBox key={index}>
+        <FlowerItem
         key={index}
         src={src}
         selected={selectedImage === index}
         onClick={() => handleImageClick(index)}
         margin="0 5px"
+        height="100%"
+        width="100%"
+        />     
+        <FlowerDetail
+        selected={selectedImage === index}
+        onClick={() => handleImageClick(index)}
+        name={location.state?.flower[index].recommendFlower}
+        period={location.state?.flower[index].period}
+        flower_lang={location.state?.flower[index].flower_language}
         />
+        </ImageBox>   
       ))}
-      </Line2>
+      </Line2> 
       :
       <Line padding={'25px 50px'}>
+        <MediaLine1>
+        <ImageBox key={1}>
       <FlowerItem 
       key={1}
       src={images[1]}
       selected={selectedImage === 1}
       onClick={() => handleImageClick(1)}
-      height="100px" width="100px"
+      height="100%" width="100%"
+      media={window.innerWidth <= 575}
       />
+      <FlowerDetail
+        selected={selectedImage === 1}
+        onClick={() => handleImageClick(1)}
+        name={location.state?.flower[1].recommendFlower}
+        period={location.state?.flower[1].period}
+        flower_lang={location.state?.flower[1].flower_language}
+        />
+      </ImageBox>
+      </MediaLine1>
       <Line2>
       {images.map((src, index) => (
         index !== 1 ?
+        <ImageBox key={index}>
         <FlowerItem 
         key={index}
         src={src}
         selected={selectedImage === index}
         onClick={() => handleImageClick(index)}
-        height="100px" width="100px"
+        height="100%" width="100%"
         media={window.innerWidth <= 575}
         />
-  
+        <FlowerDetail
+        selected={selectedImage === index}
+        onClick={() => handleImageClick(index)}
+        name={location.state?.flower[index].recommendFlower}
+        period={location.state?.flower[index].period}
+        flower_lang={location.state?.flower[index].flower_language}
+        />
+        </ImageBox> 
         : <></>
       ))}
       </Line2>
       </Line>
       }
-      <RecommendBtn onClick={recommend} disabled={selectedImage === null}> 어울리는 꽃 조합 찾기 ➡ </RecommendBtn>
+      <RecommendBtn onClick={posetData} disabled={selectedImage === null}> 어울리는 꽃 조합 찾기 ➡ </RecommendBtn>
     </Line>
-  </Wrapper>);
+  </Wrapper>
+  ));
 }
+
 
 export default Recommend1;

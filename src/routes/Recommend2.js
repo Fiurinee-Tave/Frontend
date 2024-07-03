@@ -1,6 +1,6 @@
 import Header from "../components/Header";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import FlowerItem from "../components/FlowerItem";
 import { useMediaQuery } from "react-responsive";
 
@@ -9,10 +9,6 @@ const Wrapper = styled.div`
   background-image:url("/img/Recommend3.png");
   height:100vh;
   background-size:cover;
-    @media (max-width: 575px) {
-    height:100%;
-  }
-
 `;
 
 const Line = styled.div`
@@ -23,15 +19,14 @@ const Line = styled.div`
   justify-content: center;
   gap:15px;
 `;
-//padding: 40px 30px 25px 50px;
 
 const Bigtitle = styled.div`
   font-size:40px;
-  font-weight:590;
-  padding-top:50px;
+  font-weight:590vw;
+  padding-top:4vh;
   @media (max-width: 575px) {
     font-size: 20.5px;
-    padding-top:15px;
+    padding-top:1.5vh;
   }
 `;
 
@@ -48,26 +43,29 @@ const JoinBtn = styled.button`
   font-style: normal;
   @media (max-width: 575px) {
     font-size: 14px;
-    padding: 12px 25px;
+    padding: 1.2vh 5vw;
+    margin:-7px 10px 5px 10px;
   }
 `;
 
 const Line2 = styled.div`
   display: flex;
   flex-direction: column;
-  margin:0px 0px 17px 25px;
+  width:520px;
+  margin:0px 0px 17px 5vw;
+  @media (max-width: 575px) {
+    width:70vw;
+  }
 `;
-//margin:0px 0px 17px 25px;
 
 const Width = styled.div`
   display: flex;
   align-items: center;
-  gap:20px;
+  gap:2vw;
   @media (max-width: 575px) {
-    gap:20px;
+    gap:6vw;
   }
 `;
-//padding:10px 10px 5px 10px;
 
 const Height = styled.div`
   display: flex;
@@ -81,6 +79,16 @@ const Height = styled.div`
 
 const Text = styled.div`
   font-size: 22px;
+  word-wrap: break-word;
+  color: #571F1F;
+  line-height:1.5;
+  @media (max-width: 575px) {
+    font-size: 15px;
+  }
+`;
+
+const Text2 = styled.div`
+  font-size: 22px;
   color: #571F1F;
   line-height:1.5;
   @media (max-width: 575px) {
@@ -90,16 +98,18 @@ const Text = styled.div`
 
 const FlowerTitle = styled.div`
   font-size:25px;
+  width:25vw;
+  text-align:center;
     @media (max-width: 575px) {
     font-size: 17px;
-    font-weight:590;
+    width:90vw;
   }
 `;
 
 const JoinText = styled.div`
   font-size:26px;
   @media (max-width: 575px) {
-    font-size: 12px;
+    font-size: 2vh;
   }
 `;
 
@@ -108,16 +118,17 @@ const Image = styled.img`
     width:150px;
     border: 1px solid gray;
     @media (max-width: 575px) {
-      height:80px;
+      height:11vh;
       width:105px;
       
   }
 `;
-//margin:7px 20px;
 
 function Recommend2() {
   const isDesktopOrMobile = useMediaQuery({query: '(max-width:575px)'});
   const navigate = useNavigate();
+
+  const location = useLocation();
   
   const join = () => {
       navigate("/Login");
@@ -128,25 +139,25 @@ function Recommend2() {
     <Header/>
     {isDesktopOrMobile !== true?
     <Line>
-      <Bigtitle>영원한 사랑의 "해바라기"</Bigtitle>
+      <Bigtitle>{location.state?.flower.flower_language}  "{location.state?.flower.recommendFlower}"</Bigtitle>
       <Width>
-      <FlowerItem height="340px;" width="450px"></FlowerItem>
+      <FlowerItem height="48vh" width="28vw" src={location.state?.flower.image}></FlowerItem>
       <Line>
         <Line2>
-        <Text>이름 : 해바라기</Text>
-        <Text>개화시기 : 7~9월</Text>
-        <Text>꽃말 : 영원한 사랑</Text>
-        <Text>추천 멘트 : 당신을 영원히 사랑합니다.</Text>
+        <Text>이름 : {location.state?.flower.recommendFlower}</Text>
+        <Text>개화시기 : {location.state?.flower.period}</Text>
+        <Text>꽃말 : {location.state?.flower.flower_language}</Text>
+        <Text>추천 멘트 : {location.state?.recoflower.recommendMent}</Text>
         </Line2>
-        <FlowerTitle>"해바라기"와 어울리는 조합</FlowerTitle>
+        <FlowerTitle>"{location.state?.flower.recommendFlower}"와 어울리는 조합</FlowerTitle>
         <Width>
           <Height>
-            <Image/>
-            <Text>거베라</Text>
+            <Image src={location.state?.recoflower.harmonyFlowers[0].image}/>
+            <Text>{location.state?.recoflower.harmonyFlowers[0].harmonyFlower}</Text>
           </Height>
           <Height>
-          <Image/>
-          <Text>데이지</Text>
+          <Image src={location.state?.recoflower.harmonyFlowers[1].image} />
+          <Text>{location.state?.recoflower.harmonyFlowers[1].harmonyFlower}</Text>
           </Height>
         </Width>
       </Line>
@@ -156,23 +167,23 @@ function Recommend2() {
     </Line>
     :
     <Height>
-      <Bigtitle>영원한 사랑의 "해바라기"</Bigtitle>
-      <FlowerItem height="150px;" width="150px"></FlowerItem>
+      <Bigtitle>{location.state?.flower.flower_language}  "{location.state?.flower.recommendFlower}"</Bigtitle>
+      <FlowerItem height="150px;" width="150px" src={location.state?.flower.image}></FlowerItem>
       <Line2>
-        <Text>이름 : 해바라기</Text>
-        <Text>개화시기 : 7~9월</Text>
-        <Text>꽃말 : 영원한 사랑</Text>
-        <Text>추천 멘트 : 당신을 영원히 사랑합니다.</Text>
+      <Text>이름 : {location.state?.flower.recommendFlower}</Text>
+        <Text>개화시기 : {location.state?.flower.period}</Text>
+        <Text>꽃말 : {location.state?.flower.flower_language}</Text>
+        <Text>추천 멘트 : {location.state?.recoflower.recommendMent}</Text>
       </Line2>
-      <FlowerTitle>"해바라기"와 어울리는 조합</FlowerTitle>
+      <FlowerTitle>"{location.state?.flower.recommendFlower}"와 어울리는 조합</FlowerTitle>
       <Width>
           <Height>
-            <Image/>
-            <Text>거베라</Text>
+          <Image src={location.state?.recoflower.harmonyFlowers[0].image}/>
+          <Text>{location.state?.recoflower.harmonyFlowers[0].harmonyFlower}</Text>
           </Height>
           <Height>
-          <Image/>
-          <Text>데이지</Text>
+          <Image src={location.state?.recoflower.harmonyFlowers[1].image} />
+          <Text>{location.state?.recoflower.harmonyFlowers[1].harmonyFlower}</Text>
           </Height>
         </Width>
         <JoinBtn onClick={join}>회원가입 하러 가기</JoinBtn>
