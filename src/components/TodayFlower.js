@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from 'axios';
+
 
 const Wrapper = styled.div`
   width: 48%;
@@ -93,7 +95,7 @@ const Floriography = styled.div`
       font-size:10px;
   }
 `;
-//안녕
+
 const FromText = styled.div`
   font-size: 22px;
   color: #959090;
@@ -102,20 +104,68 @@ const FromText = styled.div`
   }
 `;
 
-function TodayFlower() {
+function TodayFlower(member) {
+  const [flowerData, setFlowerData] = useState({
+    flowerName: "",
+    flowerPeriod: "",
+    flowerLangu: "",
+    flowerImg: ""
+  });
+
+  const fetchData = async () => {
+    const response = await axios.get(
+      `http://3.36.169.209:8080/main/today`
+    );
+    console.log(response);
+    setFlowerData(
+      {
+        flowerName: response.data.Flower,
+        flowerPeriod: response.data.period,
+        flowerLangu: response.data.flower_language,
+        flowerImg: response.data.image
+      }
+    );
+    //console.log(response.data.period);
+  }
+  
+
+  useEffect(() => {
+    fetchData();
+  },[]);
+
+
+   /*
+    fetch("http://3.36.169.209:8080/main/today")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+
+        setFlowerData({
+          flowerName: data.Flower,
+          flowerPeriod: data.period,
+          flowerLangu: data.flower_language,
+          flowerImg: data.image
+        });
+
+        //console.log("여기 플라워 뜬다 :  ",flowerImg);
+      })
+      .catch((error) => console.error("Error:", error));
+  }, []
+   */
+
   return (
     <Wrapper>
       <Title>오늘의 꽃</Title>
       <Container>
-        <FlowerImage></FlowerImage>
+        <FlowerImage src={flowerData.flowerImg} alt={flowerData.flowerName} ></FlowerImage>
         <FlowerInfo>
         <TopText>
           <ToText>to.</ToText>
-          <FlowerName>장미(rose)</FlowerName>
-          <Date>6월 6일</Date>
+          <FlowerName>{flowerData.flowerName}</FlowerName>
+          <Date>{flowerData.flowerPeriod}</Date>
           </TopText>
           <BottomText>
-          <Floriography>"나의 마음 그대만이 아네"</Floriography>
+          <Floriography>{flowerData.flowerLangu}</Floriography>
           <FromText>from.</FromText>
           </BottomText>
         </FlowerInfo>
