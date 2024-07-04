@@ -53,7 +53,7 @@ function Mainpage({ login }) {
 
   return (
     <Wrapper>
-      <MainImage />
+      <MainImage login={login}/>
       {isDesktopOrMobile !== true ? (
         <>
           <Line2>

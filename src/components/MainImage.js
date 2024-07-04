@@ -36,12 +36,30 @@ const ImageSlide = styled.img`
 
 `;
 
+const LoginLine = styled.div`
+position: absolute;
+  display: flex;
+  top: 20px;
+  right: 50px;
+  gap:30px;
+  justify-content: center;
+`;
+
 const LoginButton = styled.div`
   cursor: pointer;
   position: absolute;
   top: 20px;
   right: 50px;
   text-size: 30px;
+`;
+
+const NormalText = styled.div`
+  cursor: pointer;
+ text-size: 30px;
+ top: 20px;
+  @media (max-width: 575px) {
+    font-size: 15px;
+  }
 `;
 
 const Title = styled.div`
@@ -115,7 +133,7 @@ const DetailBtn = styled.button`
   }
 `;
 
-function MainImage() {
+function MainImage({login}) {
   const navigate = useNavigate();
   const images = [
     "/img/MainImage1.png",
@@ -125,12 +143,20 @@ function MainImage() {
   ];
 
   const Login = () => {
+    if(login){
+      navigate("/");
+    }else{
     //로그인창으로 이동
-    navigate("/login");
+      navigate("/login");
+    }
   };
 
   const recommend = () => {
-    navigate("/reco0");
+    if(login){
+      navigate("/reco0/auth");
+    }else{
+      navigate("/reco0");
+    }
   };
 
   return (
@@ -146,7 +172,15 @@ function MainImage() {
         {images.map((image, index) => (
           <SwiperSlide key={index}>
             <ImageSlide src={image} />
-            <LoginButton onClick={Login}>로그인 / 회원가입</LoginButton>
+            {login? 
+            <LoginLine>
+              <NormalText onClick={() => {
+              navigate("/mypage");
+            }}>마이페이지</NormalText>
+            <NormalText onClick={Login}>로그아웃</NormalText>
+            </LoginLine>
+            :
+            <LoginButton onClick={Login}>로그인/회원가입</LoginButton>}
             <RecommendBtn onClick={recommend}>선물할 꽃 추천받기</RecommendBtn>
             <Title>fiurinee</Title>
             <Detail>당신의 마음을 선물하세요</Detail>
