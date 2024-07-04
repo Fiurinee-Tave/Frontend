@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import refreshAccessToken from "../axios";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -49,23 +51,35 @@ const NormalText = styled.div`
 function Header({ login }) {
   const navigate = useNavigate();
 
+  const accessToken = localStorage.getItem("access_token");
+  const memberId = localStorage.getItem("member_id");
+
+  const logout = async () => {
+    try {
+      await axios.get(`http://3.36.169.209:8080/member/${memberId}/logout`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      localStorage.clear();
+      navigate("/");
+    } catch (error) {
+      if (error.response.status === 401) {
+        refreshAccessToken(memberId);
+      }
+      console.error("Failed to fetch user data:", error);
+    }
+  };
+
   const mainPage = () => {
-    if(login){
+    if (login) {
       navigate("/auth");
-    }else{
+    } else {
       navigate("/");
     }
-    
-
-};
+  };
 
   return (
     <Wrapper>
-      <Logo
-        onClick={mainPage}
-      >
-        fiurinee
-      </Logo>
+      <Logo onClick={mainPage}>fiurinee</Logo>
       {login ? (
         <LoginUserText>
           <NormalText
@@ -75,13 +89,7 @@ function Header({ login }) {
           >
             마이페이지
           </NormalText>
-          <NormalText
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            로그아웃
-          </NormalText>
+          <NormalText onClick={logout}>로그아웃</NormalText>
         </LoginUserText>
       ) : (
         <NormalText

@@ -3,10 +3,6 @@ import RecommendLogItem from "../items/RecommendLogItem";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-import axios from "axios";
-
-import refreshAccessToken from "../axios";
-
 const Wrapper = styled.div`
   width: 100%;
 
@@ -51,42 +47,17 @@ const MovePageBtn = styled.button`
   }
 `;
 
-function RecentLog() {
+function RecentLog({ recentReco, settingTruePrefer, settingFalsePrefer }) {
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem("access_token");
-  const memberId = localStorage.getItem("member_id");
-  const [recent, setRecent] = useState();
-
-  const fetchData = async () => {
-    try {
-      const main = await axios.get(
-        `http://3.36.169.209:8080/member/${memberId}/recommend/recent`,
-        {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        }
-      );
-
-      const sub = await axios.get(
-        `http://3.36.169.209:8080/member/${memberId}/harmony/recent`,
-        {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        }
-      );
-
-      //setRecent(main.map((v, i) => (v.order === ));
-      console.log(main);
-      console.log(sub);
-    } catch (error) {
-      if (error.response.status === 401) {
-        refreshAccessToken(memberId);
-      }
-      console.error("Failed to fetch user data:", error);
-    }
-  };
+  const [showRecent, setShowRecent] = useState();
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (Object.keys(recentReco).length === 0) {
+      return;
+    } else {
+      setShowRecent(recentReco);
+    }
+  }, [recentReco]);
 
   return (
     <Wrapper>
@@ -97,9 +68,16 @@ function RecentLog() {
         </MovePageBtn>
       </TextContainer>
       <LogContainer>
-        {recent?.map((v, i) => (
-          <RecommendLogItem key={i} info={v} />
-        ))}
+        {showRecent === undefined
+          ? "추천기록이 없습니다."
+          : showRecent.map((v, i) => (
+              <RecommendLogItem
+                key={i}
+                info={v}
+                settingTruePrefer={settingTruePrefer}
+                settingFalsePrefer={settingFalsePrefer}
+              />
+            ))}
       </LogContainer>
     </Wrapper>
   );
