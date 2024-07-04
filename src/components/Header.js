@@ -49,14 +49,22 @@ const NormalText = styled.div`
 function Header({ login }) {
   const navigate = useNavigate();
 
+  const mainPage = () => {
+    if(login){
+      navigate("/auth");
+    }else{
+      navigate("/");
+    }
+    
+
+};
+
   return (
     <Wrapper>
       <Logo
-        onClick={() => {
-          navigate("/");
-        }}
+        onClick={mainPage}
       >
-        Fiurinee
+        fiurinee
       </Logo>
       {login ? (
         <LoginUserText>
