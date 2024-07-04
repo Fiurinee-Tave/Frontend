@@ -17,6 +17,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 100px;
 
   //iphone SE => width:375px;
   @media (max-width: 575px) {
@@ -45,6 +46,7 @@ const DeleteAccount = styled.div`
   justify-content: end;
   margin-bottom: 30px;
 
+  cursor: pointer;
   @media (max-width: 575px) {
     width: 90%;
   }
@@ -58,6 +60,7 @@ function Mypage() {
   });
   const [userInfo, setUserInfo] = useState({});
   const [anniversaries, setAnniversaries] = useState({});
+  const [recentReco, setRecentReco] = useState({});
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("access_token");
   const memberId = localStorage.getItem("member_id");
@@ -69,6 +72,7 @@ function Mypage() {
     } else {
       //회원의 접근일 경우 회원 정보 받아오기
       fetchData();
+      fetchReco();
     }
   }, []);
 
@@ -88,6 +92,46 @@ function Mypage() {
         refreshAccessToken(memberId);
       }
       console.error("Failed to fetch user data:", error);
+    }
+  };
+
+  const fetchReco = async () => {
+    try {
+      const info1 = await axios.get(
+        `http://3.36.169.209:8080/member/${memberId}/recommend/recent`,
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
+
+      const info2 = await axios.get(
+        `http://3.36.169.209:8080/member/${memberId}/harmony/recent`,
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
+
+      const mergeRecentReco = (main, sub) => {
+        const mainMap = main.reduce((acc, item) => {
+          acc[item.order] = { ...item, other: [] };
+          return acc;
+        }, {});
+
+        sub.forEach((item) => {
+          if (mainMap[item.order]) {
+            mainMap[item.order].other.push(item);
+          }
+        });
+
+        return Object.values(mainMap);
+      };
+
+      setRecentReco(mergeRecentReco(info1.data, info2.data));
+    } catch (error) {
+      if (error.response.status === 401) {
+        refreshAccessToken(memberId);
+      }
+      console.error("Failed to fetch user recommend data:", error);
     }
   };
 
@@ -173,7 +217,6 @@ function Mypage() {
   };
 
   const modifyProfileImg = async (img, color) => {
-    console.log(memberId, img, color);
     try {
       await axios.put(
         `http://3.36.169.209:8080/member/${memberId}/image`,
@@ -191,6 +234,56 @@ function Mypage() {
         refreshAccessToken(memberId);
       }
       console.error("Failed to add user profile image:", error);
+    }
+  };
+
+  const settingTruePrefer = async (order) => {
+    console.log(order);
+    try {
+      await axios.get(`http://3.36.169.209:8080/member/${memberId}/${order}`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+
+      fetchReco();
+    } catch (error) {
+      if (error.response.status === 401) {
+        refreshAccessToken(memberId);
+      }
+      console.error("Failed to add user profile image:", error);
+    }
+  };
+
+  const settingFalsePrefer = async (order) => {
+    try {
+      await axios.delete(
+        `http://3.36.169.209:8080/member/${memberId}/${order}`,
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
+
+      fetchReco();
+    } catch (error) {
+      if (error.response.status === 401) {
+        refreshAccessToken(memberId);
+      }
+      console.error("Failed to add user profile image:", error);
+    }
+  };
+
+  const deleteUser = async () => {
+    try {
+      await axios.get(`http://3.36.169.209:8080/member/${memberId}/resign`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+
+      localStorage.clear();
+      navigate("/");
+    } catch (error) {
+      if (error.response.status === 401) {
+        refreshAccessToken(memberId);
+      }
+      console.error("Failed to delete user", error);
     }
   };
 
@@ -214,8 +307,12 @@ function Mypage() {
           anniversaries={anniversaries}
           modifyProfileImg={modifyProfileImg}
         />
-        <RecentLog />
-        <DeleteAccount>회원탈퇴</DeleteAccount>
+        <RecentLog
+          recentReco={recentReco}
+          settingTruePrefer={settingTruePrefer}
+          settingFalsePrefer={settingFalsePrefer}
+        />
+        <DeleteAccount onClick={deleteUser}>회원탈퇴</DeleteAccount>
       </Content>
     </Wrapper>
   );

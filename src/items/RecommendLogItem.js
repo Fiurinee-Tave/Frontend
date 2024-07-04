@@ -188,12 +188,20 @@ const LikeContainer = styled.div`
   }
 `;
 
-function RecommendLogItem({ info }) {
+function RecommendLogItem({ info, settingTruePrefer, settingFalsePrefer }) {
   const isMobile = useMediaQuery({ query: "(max-width: 575px)" });
 
   useEffect(() => {
     console.log(info);
   }, []);
+
+  const handleLike = () => {
+    if (info.prefer === true) {
+      settingFalsePrefer(info.order);
+    } else {
+      settingTruePrefer(info.order);
+    }
+  };
 
   return isMobile ? (
     <Wrapper>
@@ -202,32 +210,25 @@ function RecommendLogItem({ info }) {
           <ToFrom>to.</ToFrom>
           <MiddleText>
             {info.recommendFlower}
-            {"("}asdfasd{")"}
+            {`(${info.flower_language})`}
           </MiddleText>
         </RowText>
-        <GrayText>2023.06.22</GrayText>
+        <GrayText>{info.create_at}</GrayText>
       </RecoTitle>
       <DetailContainer>
         <ImgContainer>
-          <Img />
+          <Img src={info.image} />
         </ImgContainer>
         <MentLikeContainer>
           <MentContainer>
-            <SmallText>
-              "100일 축하해
-              ㅇ마어란둠아넘아렁ㅇ나어람너아러민댜ㅓ리만얼미ㅏ넏ㅁㄴㅇㄻㄴㅇㄹㄴㅁ
-              ㅁㄴㅇㄻㄴㅇ"
-            </SmallText>
+            <SmallText>{info.inputMessage}</SmallText>
             <WriterContainer>
               <GrayText style={{ fontSize: "11px" }}>writer.user</GrayText>
             </WriterContainer>
           </MentContainer>
 
           <MentContainer>
-            <SmallText>
-              "안녕하세요 긴 글을 썼습니다. 안녕하세요 긴 글을 썼습니다.
-              안녕하세요 긴 글을 썼습니다. 안녕하세요 긴 글을 썼습니다. "
-            </SmallText>
+            <SmallText>{info.recommendMessage}</SmallText>
             <WriterContainer>
               <GrayText style={{ fontSize: "11px" }}>writer.fiurinee</GrayText>
             </WriterContainer>
@@ -240,15 +241,15 @@ function RecommendLogItem({ info }) {
         <RowText>
           <MobileImgContainer>
             <SmallImgContainer>
-              <Img />
+              <Img src={info.other[0].image} />
             </SmallImgContainer>
             <SmallImgContainer>
-              <Img />
+              <Img src={info.other[1].image} />
             </SmallImgContainer>
           </MobileImgContainer>
           <LikeContainer>
             <ToFrom>from.</ToFrom>
-            <IconLike />
+            <IconLike prefer={info.prefer} />
           </LikeContainer>
         </RowText>
       </RecoContainer>
@@ -264,7 +265,7 @@ function RecommendLogItem({ info }) {
             <ToFrom>to.</ToFrom>
             <MiddleText>
               {info.recommendFlower}
-              {"("}asdfasd{")"}
+              {`(${info.flower_language})`}
             </MiddleText>
           </RowText>
 
@@ -273,10 +274,10 @@ function RecommendLogItem({ info }) {
         <GrayText>어울리는 꽃</GrayText>
         <DetailContainer>
           <SmallImgContainer>
-            <Img />
+            <Img src={info.other[0].image} />
           </SmallImgContainer>
           <SmallImgContainer>
-            <Img />
+            <Img src={info.other[1].image} />
           </SmallImgContainer>
           <MentLikeContainer>
             <MentContainer>
@@ -297,7 +298,7 @@ function RecommendLogItem({ info }) {
 
             <LikeContainer>
               <ToFrom>from.</ToFrom>
-              <IconLike />
+              <IconLike prefer={info.prefer} onClick={handleLike} />
             </LikeContainer>
           </MentLikeContainer>
         </DetailContainer>

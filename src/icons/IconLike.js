@@ -12,9 +12,9 @@ const Wrapper = styled.button`
   align-items: center;
 `;
 
-function IconLike({ like }) {
+function IconLike({ prefer, onClick }) {
   return (
-    <Wrapper>
+    <Wrapper onClick={onClick}>
       <svg
         dataslot="icon"
         fill="none"
@@ -24,7 +24,7 @@ function IconLike({ like }) {
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
         style={
-          like === true
+          prefer === true
             ? { fill: "#EA8989", color: "#EA8989" }
             : { color: "#EA8989" }
         }
