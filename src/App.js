@@ -40,10 +40,13 @@ function App() {
         <Route path="/auth" element={<Mainpage login={true} />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/mypage" element={<Mypage />}></Route>
-        <Route path="/reco0" element={<Recommend0 />}></Route>
-        <Route path="/reco1" element={<Recommend1 />}></Route>
-        <Route path="/reco2" element={<Recommend2 />}></Route>
-        <Route
+        <Route path="/reco0" element={<Recommend0 login={false}/>}></Route>
+        <Route path="/reco0/auth" element={<Recommend0 login={true}/>}></Route>
+        <Route path="/reco1" element={<Recommend1 login={false}/>}></Route>
+        <Route path="/reco1/auth" element={<Recommend1 login={true}/>}></Route>
+        <Route path="/reco2" element={<Recommend2 login={false}/>}></Route>
+        <Route path="/reco2/auth" element={<Recommend2 login={true}/>}></Route>
+        <Route  
           path="/mypage/recommend_log"
           element={<RecommendLogPage />}
         ></Route>
