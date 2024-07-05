@@ -140,33 +140,6 @@ function Recommend0({ login }) {
           inputment : inputValue
         }});
       }
-     
-      /*
-      const response = await axios.post('http://3.36.169.209:8080/model/ment',
-        {
-          ment: inputValue
-        },
-        {
-         'Content-Type' : 'application/json'
-        }
-      );
-    console.log("데이터 보내기 성공1");
-    setLoading(false);
-    console.log(response); 
-    if(login){
-      navigate("/reco1/auth", {state : {
-        flower: response.data,
-        inputment : inputValue
-      }});
-
-    }else{
-
-      navigate("/reco1", {state : {
-        flower: response.data,
-        inputment : inputValue
-      }});
-    }
-      */
     
     }
     catch (error) {

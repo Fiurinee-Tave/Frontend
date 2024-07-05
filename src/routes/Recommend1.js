@@ -85,9 +85,6 @@ const ImageBox = styled.div`
 
 `;
 
-//  height:39vh;
-//width: 280px;
-
 const RecommendBtn = styled.button`
   background-color: rgba(255,255,255,0.8);
   font-size: 20px;

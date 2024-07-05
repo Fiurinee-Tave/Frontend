@@ -127,7 +127,6 @@ const Image = styled.img`
 function Recommend2({login}) {
   const isDesktopOrMobile = useMediaQuery({query: '(max-width:575px)'});
   const navigate = useNavigate();
-
   const location = useLocation();
   
   const join = () => {
