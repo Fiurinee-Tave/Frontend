@@ -272,6 +272,10 @@ function Mypage() {
   };
 
   const deleteUser = async () => {
+    const result = window.confirm("정말 탈퇴하시겠습니까?");
+    if (result === false) {
+      return;
+    }
     try {
       await axios.get(`http://3.36.169.209:8080/member/${memberId}/resign`, {
         headers: { Authorization: `Bearer ${accessToken}` },

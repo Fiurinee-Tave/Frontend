@@ -2,6 +2,7 @@ import styled from "styled-components";
 import RecommendLogItem from "../items/RecommendLogItem";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import NullReco from "../components/NullReco";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -68,16 +69,18 @@ function RecentLog({ recentReco, settingTruePrefer, settingFalsePrefer }) {
         </MovePageBtn>
       </TextContainer>
       <LogContainer>
-        {showRecent === undefined
-          ? "추천기록이 없습니다."
-          : showRecent.map((v, i) => (
-              <RecommendLogItem
-                key={i}
-                info={v}
-                settingTruePrefer={settingTruePrefer}
-                settingFalsePrefer={settingFalsePrefer}
-              />
-            ))}
+        {showRecent === undefined ? (
+          <NullReco />
+        ) : (
+          showRecent.map((v, i) => (
+            <RecommendLogItem
+              key={i}
+              info={v}
+              settingTruePrefer={settingTruePrefer}
+              settingFalsePrefer={settingFalsePrefer}
+            />
+          ))
+        )}
       </LogContainer>
     </Wrapper>
   );
