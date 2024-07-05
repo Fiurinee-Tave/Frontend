@@ -29,7 +29,7 @@ function FlowerDetail({height, width, fontsize, onClick, name, period, flower_la
 
     return(<Wrapper height={height} width={width} onClick={onClick}>
         <Text fontsize={fontsize}>{name}
-            <br/>{period}
+            <br/>{period}월
             <br/>{flower_lang}</Text>
     </Wrapper>);
 

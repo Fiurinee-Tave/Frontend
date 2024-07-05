@@ -124,19 +124,22 @@ const Image = styled.img`
   }
 `;
 
-function Recommend2() {
+function Recommend2({login}) {
   const isDesktopOrMobile = useMediaQuery({query: '(max-width:575px)'});
   const navigate = useNavigate();
-
   const location = useLocation();
   
   const join = () => {
-      navigate("/Login");
+    if(login){
+      navigate("/mypage");
+    }else{
+      navigate("/login");
+    }
   
   };
 
   return (<Wrapper>
-    <Header/>
+    <Header login={login}/>
     {isDesktopOrMobile !== true?
     <Line>
       <Bigtitle>{location.state?.flower.flower_language}  "{location.state?.flower.recommendFlower}"</Bigtitle>
@@ -162,8 +165,17 @@ function Recommend2() {
         </Width>
       </Line>
       </Width>
+      {login?
+      <>
+      <JoinBtn onClick={join}>마이페이지로 이동</JoinBtn>
+      <JoinText>* 마이페이지로 이동 후, 추천 받은 꽃을 저장할 수 있습니다 :) </JoinText>
+      </>
+      :
+      <>
       <JoinBtn onClick={join}>회원가입 하러 가기</JoinBtn>
       <JoinText>* 회원가입을 하면 앞으로의 꽃을 저장하고, 기념일을 기억할 수 있습니다 :) </JoinText>
+      </>
+      }
     </Line>
     :
     <Height>
@@ -185,9 +197,18 @@ function Recommend2() {
           <Image src={location.state?.recoflower.harmonyFlowers[1].image} />
           <Text>{location.state?.recoflower.harmonyFlowers[1].harmonyFlower}</Text>
           </Height>
-        </Width>
-        <JoinBtn onClick={join}>회원가입 하러 가기</JoinBtn>
+      </Width>
+      {login?
+      <>
+      <JoinBtn onClick={join}>마이페이지로 이동</JoinBtn>
+      <JoinText>* 마이페이지로 이동 후,<br/> 추천 받은 꽃을 저장할 수 있습니다 :) </JoinText>
+      </>
+      :
+      <>
+      <JoinBtn onClick={join}>회원가입 하러 가기</JoinBtn>
       <JoinText>* 회원가입을 하면 앞으로의 꽃을 저장하고,<br/> 기념일을 기억할 수 있습니다 :) </JoinText>
+      </>
+      }
     </Height>
 
 }

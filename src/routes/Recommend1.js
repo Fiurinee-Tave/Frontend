@@ -6,7 +6,8 @@ import FlowerItem from "../components/FlowerItem";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import axios from 'axios';
-import Loading from "../loading/Loading"
+import Loading from "../loading/Loading";
+import refreshAccessToken from "../axios";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -84,9 +85,6 @@ const ImageBox = styled.div`
 
 `;
 
-//  height:39vh;
-//width: 280px;
-
 const RecommendBtn = styled.button`
   background-color: rgba(255,255,255,0.8);
   font-size: 20px;
@@ -104,21 +102,25 @@ const RecommendBtn = styled.button`
 `;
 
 
-function Recommend1() {
+function Recommend1({login}) {
   const isDesktopOrMobile = useMediaQuery({query: '(max-width:575px)'});
   const [selectedImage, setSelectedImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const accessToken = localStorage.getItem("access_token");
+  const memberId = localStorage.getItem("member_id");
+
   const location = useLocation();
   console.log("추천 1로 넘어왔다"); 
+  console.log(location);
 
   
   const images = [
     location.state?.flower[0].image,
     location.state?.flower[1].image,
     location.state?.flower[2].image, 
-    ];
+  ];
 
   const handleImageClick = (index) => {
     if (selectedImage !== index) { // 현재 선택된 이미지와 클릭된 이미지가 다른 경우에만 업데이트
@@ -139,36 +141,63 @@ function Recommend1() {
     setLoading(true);
     console.log(location.state?.flower[selectedImage].id);
     try{
-      const response = await axios.post('http://3.36.169.209:8080/model/'+location.state?.flower[selectedImage].id+'/non' ,
+      if(login === false){
+        const response = await axios.post('http://3.36.169.209:8080/model/'+location.state?.flower[selectedImage].id+'/non' ,
+        {
+          ment: location.state?.inputment
+        },
+        {
+           'Content-Type' : 'application/json'
+        }
+        );
+      setLoading(false);
+  
+      navigate("/reco2",
+        {
+          state : {
+            flower:location.state?.flower[selectedImage],
+            recoflower:response.data
+          }
+        });
+  
+  }else{
+    const response = await axios.post(`http://3.36.169.209:8080/model/${memberId}/`+location.state?.flower[selectedImage].id ,
       {
         ment: location.state?.inputment
       },
       {
-         'Content-Type' : 'application/json'
+        headers : {
+          'Content-Type' : 'application/json',
+          Authorization: `Bearer ${accessToken}`
+           }
       }
-    );
-    setLoading(false);
+      );
+      setLoading(false);
+      navigate("/reco2/auth",
+        {
+          state : {
+            flower:location.state?.flower[selectedImage],
+            recoflower:response.data
+          }
+        });
+  }
 
-    navigate("/reco2",
-      {
-        state : {
-          flower:location.state?.flower[selectedImage],
-          recoflower:response.data
-        }
-      });
     
     }
     catch (error) {
+      if (error.response.status === 401) {
+        refreshAccessToken(memberId);
+      }
       console.error("데이터 보내기 실패", error);
     }
   };
 
   return (
     loading ? 
-    <Wrapper> <Header login={true} /> <Loading/> </Wrapper>:
+    <Wrapper> <Header login={login} /> <Loading/> </Wrapper>:
     (
     <Wrapper>
-    <Header />
+    <Header login={login}/>
     <Line>
       <Bigtitle>추천하는 꽃 TOP 3</Bigtitle>
       <Title><Highlight>마음에 드는 꽃을 선택</Highlight>하고 하단의 버튼을 누르면<br/>

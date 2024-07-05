@@ -3,12 +3,11 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect,useState } from 'react';
 
 const Wrapper = styled.div`
-    width: 32%;
+    width: 33vw;
     display: flex;
     flex-direction: column;
     gap: 10px;
     padding: 0 50px;
-    margin: 0 50px;
     @media (max-width: 575px) {
     width: 91%;
         font-size:16px;
@@ -39,6 +38,7 @@ const PlaceList = styled.div`
     justify-content: center;
     gap:5px;
     text-align:left;
+    padding:3px;
     @media (max-width: 575px) {
       height: 320px;
   }

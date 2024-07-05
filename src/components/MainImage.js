@@ -7,6 +7,8 @@ import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
+import axios from "axios";
+import refreshAccessToken from "../axios";
 
 SwiperCore.use([Autoplay, Navigation, Pagination]);
 
@@ -28,8 +30,8 @@ const ImageSlide = styled.img`
   width: 100vw;
   height: 70vh;
   object-fit: cover;
-  opacity: 0.5;
-  filter: blur(1px);
+  opacity: 0.6;
+  filter: blur(0.5px);
 @media (max-width: 575px) {
     height: 35vh;
   }
@@ -135,20 +137,33 @@ const DetailBtn = styled.button`
 
 function MainImage({login}) {
   const navigate = useNavigate();
+  const accessToken = localStorage.getItem("access_token");
+  const memberId = localStorage.getItem("member_id");
   const images = [
     "/img/MainImage1.png",
     "/img/MainImage2.png",
-    "/img/MainImage1.png",
-    "/img/MainImage2.png",
+    "/img/MainImage3.png",
+    "/img/MainImage4.png",
   ];
 
-  const Login = () => {
-    if(login){
+
+  const logout = async () => {
+    try {
+      await axios.get(`http://3.36.169.209:8080/member/${memberId}/logout`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      localStorage.clear();
       navigate("/");
-    }else{
-    //로그인창으로 이동
-      navigate("/login");
+    } catch (error) {
+      if (error.response.status === 401) {
+        refreshAccessToken(memberId);
+      }
+      console.error("Failed to fetch user data:", error);
     }
+  };
+
+  const Login = () => {
+    navigate("/login");
   };
 
   const recommend = () => {
@@ -177,7 +192,7 @@ function MainImage({login}) {
               <NormalText onClick={() => {
               navigate("/mypage");
             }}>마이페이지</NormalText>
-            <NormalText onClick={Login}>로그아웃</NormalText>
+            <NormalText onClick={logout}>로그아웃</NormalText>
             </LoginLine>
             :
             <LoginButton onClick={Login}>로그인/회원가입</LoginButton>}
