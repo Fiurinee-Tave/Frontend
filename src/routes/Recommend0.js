@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import Loading from "../loading/Loading"
+import Loading from "../loading/Loading";
+import refreshAccessToken from "../axios";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -84,13 +85,13 @@ const RecommendBtn = styled.button`
 `;
 
 
-function Recommend0() {
+function Recommend0({ login }) {
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const recommend = () => {
-    navigate("/reco1");
-  };
+
+  const accessToken = localStorage.getItem("access_token");
+  const memberId = localStorage.getItem("member_id");
 
 
   const handleInputChange = (event) => {
@@ -101,34 +102,86 @@ function Recommend0() {
   const posetData = async () => {
     setLoading(true);
     try{
-      const response = await axios.post('http://3.36.169.209:8080/model/ment',
-      {
-        ment: inputValue
-      },
-      {
-         'Content-Type' : 'application/json'
+      if(login === false){
+        const response = await axios.post('http://3.36.169.209:8080/model/ment',
+          {
+            ment: inputValue
+          },
+          {
+           'Content-Type' : 'application/json'
+           
+          }
+        );
+        setLoading(false);
+
+        navigate("/reco1", {state : {
+          flower: response.data,
+          inputment : inputValue
+        }});
+
+      }else{
+
+        const response = await axios.post(`http://3.36.169.209:8080/model/${memberId}/ment`,
+          {
+            ment: inputValue
+          },
+          {
+            headers : {
+           'Content-Type' : 'application/json',
+           Authorization: `Bearer ${accessToken}`
+            }
+          }
+        );
+        setLoading(false);
+
+
+        navigate("/reco1/auth", {state : {
+          flower: response.data,
+          inputment : inputValue
+        }});
       }
-    );
+     
+      /*
+      const response = await axios.post('http://3.36.169.209:8080/model/ment',
+        {
+          ment: inputValue
+        },
+        {
+         'Content-Type' : 'application/json'
+        }
+      );
     console.log("데이터 보내기 성공1");
     setLoading(false);
     console.log(response); 
+    if(login){
+      navigate("/reco1/auth", {state : {
+        flower: response.data,
+        inputment : inputValue
+      }});
 
-    navigate("/reco1", {state : {
-      flower: response.data,
-      inputment : inputValue
-    }});
+    }else{
+
+      navigate("/reco1", {state : {
+        flower: response.data,
+        inputment : inputValue
+      }});
+    }
+      */
     
     }
     catch (error) {
+      if (error.response.status === 401) {
+        refreshAccessToken(memberId);
+      }
       console.error("데이터 보내기 실패", error);
     }
   };
 
   return (
     loading ? 
-    <Wrapper> <Header login={true} /> <Loading/> </Wrapper>:(
+    <Wrapper> <Header login={login} /> <Loading/> </Wrapper>:(
     <Wrapper>
-      <Header login={true} />
+      <Header login={login} />
       <Line>
         <Bigtitle>전해주고 싶은 멘트를 작성해주세요</Bigtitle>
         <Title>멘트에 어울리는 꽃 조합을 선물해드립니다.</Title>

@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   gap: 50px;
@@ -16,10 +16,11 @@ const Wrapper = styled.div`
 `;
 
 const Line2 = styled.div`
-  width: 100%;
+  width: 100vw;
   display: flex;
-  margin: 0 100px 0px 100px;
   justify-content: center;
+  gap:5vw;
+  padding: 3vh 9vw;
 `;
 
 const MobileLine = styled.div`
