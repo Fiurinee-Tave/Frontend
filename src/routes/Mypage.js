@@ -40,6 +40,20 @@ const Content = styled.div`
   }
 `;
 
+const TextArea = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin-bottom: 30px;
+
+  gap: 50px;
+
+  cursor: pointer;
+  @media (max-width: 575px) {
+    width: 90%;
+  }
+`;
+
 const DeleteAccount = styled.div`
   width: 100%;
   display: flex;
@@ -316,7 +330,10 @@ function Mypage() {
           settingTruePrefer={settingTruePrefer}
           settingFalsePrefer={settingFalsePrefer}
         />
-        <DeleteAccount onClick={deleteUser}>회원탈퇴</DeleteAccount>
+        <TextArea>
+          <div onClick={() => alert("마케팅 수신 동의")}>마케팅 수신 동의</div>
+          <div onClick={deleteUser}>회원탈퇴</div>
+        </TextArea>
       </Content>
     </Wrapper>
   );
