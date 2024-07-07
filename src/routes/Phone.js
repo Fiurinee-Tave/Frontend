@@ -141,7 +141,7 @@ function Phone({ login }) {
 
   const sendNumber = async () => {
     try {
-      await axios.post(`http://3.36.169.209:8080/sms/send`, {
+      await axios.post(`https://emotionfeedback.site/sms/send`, {
         phoneNumber,
       });
     } catch (error) {
@@ -152,7 +152,7 @@ function Phone({ login }) {
   const checkNumber = async () => {
     try {
       await axios.post(
-        `http://3.36.169.209:8080/sms/prove/${localStorage.getItem(
+        `https://emotionfeedback.site/sms/prove/${localStorage.getItem(
           "member_id"
         )}`,
         {

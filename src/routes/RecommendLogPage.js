@@ -67,9 +67,12 @@ function RecommendLogPage() {
   const settingTruePrefer = async (order) => {
     console.log(order);
     try {
-      await axios.get(`http://3.36.169.209:8080/member/${memberId}/${order}`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
+      await axios.get(
+        `https://emotionfeedback.site/member/${memberId}/${order}`,
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
 
       fetchTotalData();
     } catch (error) {
@@ -84,7 +87,7 @@ function RecommendLogPage() {
     console.log(order);
     try {
       await axios.delete(
-        `http://3.36.169.209:8080/member/${memberId}/${order}`,
+        `https://emotionfeedback.site/member/${memberId}/${order}`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
@@ -103,14 +106,14 @@ function RecommendLogPage() {
     console.log("total");
     try {
       const info1 = await axios.get(
-        `http://3.36.169.209:8080/member/${memberId}/recommend`,
+        `https://emotionfeedback.site/member/${memberId}/recommend`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
       );
 
       const info2 = await axios.get(
-        `http://3.36.169.209:8080/member/${memberId}/harmony`,
+        `https://emotionfeedback.site/member/${memberId}/harmony`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
@@ -144,14 +147,14 @@ function RecommendLogPage() {
     console.log("like");
     try {
       const info1 = await axios.get(
-        `http://3.36.169.209:8080/member/${memberId}/prefer/recommend`,
+        `https://emotionfeedback.site/member/${memberId}/prefer/recommend`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
       );
 
       const info2 = await axios.get(
-        `http://3.36.169.209:8080/member/${memberId}/prefer/harmony`,
+        `https://emotionfeedback.site/member/${memberId}/prefer/harmony`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }

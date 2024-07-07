@@ -56,9 +56,12 @@ function Header({ login }) {
 
   const logout = async () => {
     try {
-      await axios.get(`http://3.36.169.209:8080/member/${memberId}/logout`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
+      await axios.get(
+        `https://emotionfeedback.site/member/${memberId}/logout`,
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
       localStorage.clear();
       navigate("/");
     } catch (error) {

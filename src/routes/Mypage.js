@@ -79,7 +79,7 @@ function Mypage() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://3.36.169.209:8080/member/${memberId}`,
+        `https://emotionfeedback.site/member/${memberId}`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
@@ -98,14 +98,14 @@ function Mypage() {
   const fetchReco = async () => {
     try {
       const info1 = await axios.get(
-        `http://3.36.169.209:8080/member/${memberId}/recommend/recent`,
+        `https://emotionfeedback.site/member/${memberId}/recommend/recent`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
       );
 
       const info2 = await axios.get(
-        `http://3.36.169.209:8080/member/${memberId}/harmony/recent`,
+        `https://emotionfeedback.site/member/${memberId}/harmony/recent`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
@@ -138,7 +138,7 @@ function Mypage() {
   const addAnniversary = async (name, date, type) => {
     try {
       await axios.post(
-        `http://3.36.169.209:8080/member/${memberId}/anniversary`,
+        `https://emotionfeedback.site/member/${memberId}/anniversary`,
         {
           name,
           date,
@@ -162,7 +162,7 @@ function Mypage() {
   const modifyAnniversary = async (name, date, type) => {
     try {
       await axios.put(
-        `http://3.36.169.209:8080/member/${memberId}/anniversary/${modal.id}`,
+        `https://emotionfeedback.site/member/${memberId}/anniversary/${modal.id}`,
         {
           name,
           date,
@@ -190,7 +190,7 @@ function Mypage() {
     }
     try {
       await axios.delete(
-        `http://3.36.169.209:8080/member/${memberId}/anniversary/${modal.id}`,
+        `https://emotionfeedback.site/member/${memberId}/anniversary/${modal.id}`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
@@ -219,7 +219,7 @@ function Mypage() {
   const modifyProfileImg = async (img, color) => {
     try {
       await axios.put(
-        `http://3.36.169.209:8080/member/${memberId}/image`,
+        `https://emotionfeedback.site/member/${memberId}/image`,
         {
           flowerCode: img,
           backgroundCode: color,
@@ -240,9 +240,12 @@ function Mypage() {
   const settingTruePrefer = async (order) => {
     console.log(order);
     try {
-      await axios.get(`http://3.36.169.209:8080/member/${memberId}/${order}`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
+      await axios.get(
+        `https://emotionfeedback.site/member/${memberId}/${order}`,
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
 
       fetchReco();
     } catch (error) {
@@ -256,7 +259,7 @@ function Mypage() {
   const settingFalsePrefer = async (order) => {
     try {
       await axios.delete(
-        `http://3.36.169.209:8080/member/${memberId}/${order}`,
+        `https://emotionfeedback.site/member/${memberId}/${order}`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
@@ -277,9 +280,12 @@ function Mypage() {
       return;
     }
     try {
-      await axios.get(`http://3.36.169.209:8080/member/${memberId}/resign`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
+      await axios.get(
+        `https://emotionfeedback.site/member/${memberId}/resign`,
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
 
       localStorage.clear();
       navigate("/");
