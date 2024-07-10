@@ -198,8 +198,10 @@ function RecommendLogItem({ info, settingTruePrefer, settingFalsePrefer }) {
   const handleLike = () => {
     if (info.prefer === true) {
       settingFalsePrefer(info.order);
+      console.log(info.order, "T => F");
     } else {
       settingTruePrefer(info.order);
+      console.log(info.order, "F => T");
     }
   };
 

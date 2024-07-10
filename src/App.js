@@ -9,8 +9,6 @@ import RecommendLogPage from "./routes/RecommendLogPage";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import Phone from "./routes/Phone";
-import { useState, useEffect } from "react";
-import axios from "axios";
 
 const GlobalStyles = createGlobalStyle`
   ${reset};

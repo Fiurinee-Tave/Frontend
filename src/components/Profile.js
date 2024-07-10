@@ -65,6 +65,13 @@ const UserImg = styled.img`
   width: 60%;
   height: 60%;
   border-radius: 10px;
+
+  //iphone SE => width:375px;
+  @media (max-width: 575px) {
+    width: 50%;
+    height: 80%;
+    border-radius: 10px;
+  }
 `;
 
 const UserInfoContainer = styled.div`
