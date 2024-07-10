@@ -103,7 +103,7 @@ function Recommend0({ login }) {
     setLoading(true);
     try{
       if(login === false){
-        const response = await axios.post('http://3.36.169.209:8080/model/ment',
+        const response = await axios.post('https://emotionfeedback.site/model/ment',
           {
             ment: inputValue
           },
@@ -121,7 +121,7 @@ function Recommend0({ login }) {
 
       }else{
 
-        const response = await axios.post(`http://3.36.169.209:8080/model/${memberId}/ment`,
+        const response = await axios.post(`https://emotionfeedback.site/model/${memberId}/ment`,
           {
             ment: inputValue
           },
