@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
-import FlowerDetail from "../components/FlowerDetail";
+import RecoFlowerDetail from "../components/RecoFlowerDetail";
 import FlowerItem from "../components/FlowerItem";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
@@ -60,9 +60,9 @@ const Line2 = styled.div`
   gap: 30px;
   width: 62vw;
   @media (max-width: 575px) {
-    gap: 3vw;
-    width: 90vw;
+    gap: 5vw;
     flex:1;
+
   }
 `;
 
@@ -70,20 +70,26 @@ const MediaLine1 = styled.div`
   display: flex;
   align-items: center;
   flex:1;
+  justify-content: center;
+  gap:6vw;
+  width: 50%;
 `;
 
 const ImageBox = styled.div`
   display: flex;
   flex:1;
-  height:40vh;
   justify-content: center;
   position: relative;
+  width: 100%;
+  padding-bottom:100%;
+  position: relative;
   @media (max-width: 575px) {
-    height:20vh;
-    weight:45vw;
+    height:25vw;
+    aspect-ratio: 1;
   }
 
 `;
+//  
 
 const RecommendBtn = styled.button`
   background-color: rgba(255,255,255,0.8);
@@ -100,6 +106,16 @@ const RecommendBtn = styled.button`
      padding: 12px 25px;
   }
 `;
+
+const ImageLine = styled.div`
+  display: flex;
+  flex:1;
+  flex-direction: column;
+  align-items: center;
+  gap:1vh;
+  font-size: 25px;
+`;
+//padding-bottom:100%;
 
 
 function Recommend1({login}) {
@@ -142,7 +158,7 @@ function Recommend1({login}) {
     console.log(location.state?.flower[selectedImage].id);
     try{
       if(login === false){
-        const response = await axios.post('http://3.36.169.209:8080/model/'+location.state?.flower[selectedImage].id+'/non' ,
+        const response = await axios.post('https://emotionfeedback.site/model/'+location.state?.flower[selectedImage].id+'/non' ,
         {
           ment: location.state?.inputment
         },
@@ -161,7 +177,7 @@ function Recommend1({login}) {
         });
   
   }else{
-    const response = await axios.post(`http://3.36.169.209:8080/model/${memberId}/`+location.state?.flower[selectedImage].id ,
+    const response = await axios.post(`https://emotionfeedback.site/model/${memberId}/`+location.state?.flower[selectedImage].id ,
       {
         ment: location.state?.inputment
       },
@@ -194,10 +210,10 @@ function Recommend1({login}) {
 
   return (
     loading ? 
-    <Wrapper> <Header login={login} /> <Loading/> </Wrapper>:
+    <Wrapper> <Header login={login} disableClick={true}/> <Loading/> </Wrapper>:
     (
     <Wrapper>
-    <Header login={login}/>
+    <Header login={login} disableClick={true}/>
     <Line>
       <Bigtitle>추천하는 꽃 TOP 3</Bigtitle>
       <Title><Highlight>마음에 드는 꽃을 선택</Highlight>하고 하단의 버튼을 누르면<br/>
@@ -205,6 +221,7 @@ function Recommend1({login}) {
       {isDesktopOrMobile !== true?
       <Line2>
         {images.map((src, index) => (
+          <ImageLine>
         <ImageBox key={index}>
         <FlowerItem
         key={index}
@@ -215,18 +232,22 @@ function Recommend1({login}) {
         height="100%"
         width="100%"
         />     
-        <FlowerDetail
+        <RecoFlowerDetail
         selected={selectedImage === index}
         onClick={() => handleImageClick(index)}
         name={location.state?.flower[index].recommendFlower}
         period={location.state?.flower[index].period}
         flower_lang={location.state?.flower[index].flower_language}
         />
-        </ImageBox>   
+        
+        </ImageBox>  
+        {location.state?.flower[index].recommendFlower}
+        </ImageLine>
       ))}
+      
       </Line2> 
       :
-      <Line padding={'25px 50px'}>
+      <Line padding={'5px 5px'}>
         <MediaLine1>
         <ImageBox key={1}>
       <FlowerItem 
@@ -237,7 +258,7 @@ function Recommend1({login}) {
       height="100%" width="100%"
       media={window.innerWidth <= 575}
       />
-      <FlowerDetail
+      <RecoFlowerDetail
         selected={selectedImage === 1}
         onClick={() => handleImageClick(1)}
         name={location.state?.flower[1].recommendFlower}
@@ -246,7 +267,7 @@ function Recommend1({login}) {
         />
       </ImageBox>
       </MediaLine1>
-      <Line2>
+      <MediaLine1>
       {images.map((src, index) => (
         index !== 1 ?
         <ImageBox key={index}>
@@ -258,7 +279,7 @@ function Recommend1({login}) {
         height="100%" width="100%"
         media={window.innerWidth <= 575}
         />
-        <FlowerDetail
+        <RecoFlowerDetail
         selected={selectedImage === index}
         onClick={() => handleImageClick(index)}
         name={location.state?.flower[index].recommendFlower}
@@ -268,7 +289,7 @@ function Recommend1({login}) {
         </ImageBox> 
         : <></>
       ))}
-      </Line2>
+      </MediaLine1>
       </Line>
       }
       <RecommendBtn onClick={posetData} disabled={selectedImage === null}> 어울리는 꽃 조합 찾기 ➡ </RecommendBtn>

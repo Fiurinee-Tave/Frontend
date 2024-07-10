@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useState } from "react";
 
 const Wrapper = styled.div`
     position:absolute;
@@ -11,6 +10,7 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: center;
     opacity: 0;
+    border-radius: 5%;
     &:hover {
     opacity: 1;
     transform: translateY(0rem);
@@ -28,14 +28,14 @@ const Text = styled.div`
   }
 `;
 
-function FlowerDetail({height, width, fontsize, onClick, name, period, flower_lang }){
+function RecoFlowerDetail({height, width, fontsize, onClick, name, period, flower_lang }){
 
     return(<Wrapper height={height} width={width} onClick={onClick}>
-        <Text fontsize={fontsize}>이름 : {name}
-            <br/>개화시기 : {period}월
+        <Text fontsize={fontsize}>
+            개화시기 : {period}월
             <br/>꽃말 : {flower_lang}</Text>
     </Wrapper>);
 
 }
 
-export default FlowerDetail;
+export default RecoFlowerDetail;
