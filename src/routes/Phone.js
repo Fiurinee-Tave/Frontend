@@ -134,9 +134,11 @@ function Phone({ login }) {
         localStorage.setItem("refresh_token", refreshToken);
         localStorage.setItem("member_id", memberId);
 
-        navigate("/auth");
+        //navigate("/auth");
       }
     }
+
+    console.log("?");
   }, []);
 
   const sendNumber = async () => {

@@ -78,7 +78,7 @@ const KaKaoImage = styled.img`
 `;
 
 function Login() {
-  const kakaoLink = `http://3.36.169.209:8080/oauth2/authorization/kakao`;
+  const kakaoLink = `https://emotionfeedback.site/oauth2/authorization/kakao`;
 
   const onClickLogin = () => {
     window.location.href = kakaoLink;
