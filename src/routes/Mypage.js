@@ -10,6 +10,7 @@ import AnniversaryModal from "../components/AnniversaryModal";
 import axios from "axios";
 
 import refreshAccessToken from "../axios";
+import Marketing from "../components/Marketing";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -78,6 +79,7 @@ function Mypage() {
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("access_token");
   const memberId = localStorage.getItem("member_id");
+  const [marketing, setMarketing] = useState();
 
   useEffect(() => {
     if (localStorage.getItem("member_id") === null) {
@@ -98,6 +100,12 @@ function Mypage() {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
       );
+
+      if (response.data.alarm) {
+        setMarketing(false);
+      } else {
+        setMarketing(true);
+      }
 
       setUserInfo(response.data);
       setAnniversaries(response.data.anniversaries);
@@ -230,6 +238,15 @@ function Mypage() {
     setModal({ ...modal, open: false });
   };
 
+  const openMarketing = () => {
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeMarketing = () => {
+    document.body.style.overflow = "unset";
+    setMarketing(false);
+  };
+
   const modifyProfileImg = async (img, color) => {
     try {
       await axios.put(
@@ -313,6 +330,7 @@ function Mypage() {
 
   return (
     <Wrapper>
+      {marketing ? <Marketing closeMarketing={closeMarketing} /> : null}
       {modal.open ? (
         <AnniversaryModal
           closeModal={closeModal}
