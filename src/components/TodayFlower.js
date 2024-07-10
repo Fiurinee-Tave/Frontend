@@ -36,6 +36,7 @@ const FlowerImage = styled.img`
   width: 40%;
   height: 100%;
   border: 1px solid gray;
+  object-fit: cover;
 `;
 
 const FlowerInfo = styled.div`
@@ -81,7 +82,7 @@ const FlowerName = styled.div`
   }
 `;
 
-const Date = styled.div`
+const DateText = styled.div`
   font-size: 22px;
   @media (max-width: 575px) {
     font-size: 13px;
@@ -112,20 +113,22 @@ function TodayFlower(member) {
   });
 
   const fetchData = async () => {
-    const response = await axios.get(`http://3.36.169.209:8080/main/today`);
+    const response = await axios.get(`https://emotionfeedback.site/main/today`);
     //console.log(response);
     setFlowerData({
-      flowerName: response.data.Flower,
+      flowerName: response.data.flower,
       flowerPeriod: response.data.period,
       flowerLangu: response.data.flower_language,
       flowerImg: response.data.image,
     });
-    //console.log(response.data.period);
+    console.log(response.data);
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  const today = new Date();
 
   /*
     fetch("http://3.36.169.209:8080/main/today")
@@ -158,10 +161,10 @@ function TodayFlower(member) {
           <TopText>
             <ToText>to.</ToText>
             <FlowerName>{flowerData.flowerName}</FlowerName>
-            <Date>{flowerData.flowerPeriod}</Date>
+            <DateText>{today.getMonth() + 1}월 {today.getDate()}일</DateText>
           </TopText>
           <BottomText>
-            <Floriography>{flowerData.flowerLangu}</Floriography>
+            <Floriography>"{flowerData.flowerLangu}"</Floriography>
             <FromText>from.</FromText>
           </BottomText>
         </FlowerInfo>

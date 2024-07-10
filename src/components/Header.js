@@ -48,7 +48,7 @@ const NormalText = styled.div`
   }
 `;
 
-function Header({ login }) {
+function Header({ login, disableClick }) {
   const navigate = useNavigate();
 
   const accessToken = localStorage.getItem("access_token");
@@ -82,22 +82,26 @@ function Header({ login }) {
 
   return (
     <Wrapper>
-      <Logo onClick={mainPage}>fiurinee</Logo>
+      <Logo onClick={disableClick ? null :mainPage}>fiurinee</Logo>
       {login ? (
         <LoginUserText>
           <NormalText
             onClick={() => {
-              navigate("/mypage");
+              if (!disableClick) {
+                navigate("/mypage");
+              }
             }}
           >
             마이페이지
           </NormalText>
-          <NormalText onClick={logout}>로그아웃</NormalText>
+          <NormalText onClick={disableClick ? null : logout}>로그아웃</NormalText>
         </LoginUserText>
       ) : (
         <NormalText
           onClick={() => {
-            navigate("/login");
+            if (!disableClick) {
+              navigate("/login");
+            }
           }}
         >
           로그인/회원가입
