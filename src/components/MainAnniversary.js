@@ -147,17 +147,20 @@ function MainAnniversary({login,name}) {
 
     
   
-    const logout = async () => {
-      try {
-        await api.get(`http://3.36.169.209:8080/member/${memberId}/logout`, {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        });
-        localStorage.clear();
-        navigate("/");
-      } catch (error) {
-        console.error("Failed to fetch user data:", error);
-      }
-    };
+      const logout = async () => {
+        try {
+          await api.get(`https://emotionfeedback.site/member/${memberId}/logout`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          });
+          localStorage.clear();
+          navigate("/");
+        } catch (error) {
+          // if (error.response.status === 401) {
+          //   refreshAccessToken(memberId, logout);
+          // }
+          console.error("Failed to fetch user data:", error);
+        }
+      };
   
     const recommend = () => {
         navigate("/reco0/auth");
