@@ -165,6 +165,7 @@ function MainImage({login}) {
   ];
 
   const logout = async () => {
+    console.log("로그아웃1");
     try {
       
       await api.get(`https://emotionfeedback.site/member/${memberId}/logout`, {

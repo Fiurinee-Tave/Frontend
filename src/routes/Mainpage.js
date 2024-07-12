@@ -44,9 +44,10 @@ function Mainpage({ login }) {
   const [memberId0, setMemberId] = useState(null);
   const [userData, setUserData] = useState(null);
 
+  // && (refreshToken0 == null)
 
   useEffect(() => {
-    if (login && (refreshToken0 == null)) {
+    if (login) {
 
       const queryParams = new URLSearchParams(location.search);
       const accessToken = queryParams.get("access_token");
@@ -65,34 +66,33 @@ function Mainpage({ login }) {
 
         navigate("/auth");
 
+      }else{
+        setAccessToken(localStorage.getItem("access_token"));
+      setMemberId(localStorage.getItem("member_id"));
+      setRefreshToken(localStorage.getItem("refresh_token"));
       }
     }
   }, [login, location, navigate]);
 
   useEffect(() => {
-    if(login){
-      setAccessToken(localStorage.getItem("access_token"));
-      setMemberId(localStorage.getItem("member_id"));
-      setRefreshToken(localStorage.getItem("refresh_token"));
-  
-  const fetchData = async () => {
-    try {
-      const response = await api.get(
-        `https://emotionfeedback.site/member/${memberId0}/anniversary/zero-day`,
-        {
-          headers: { Authorization: `Bearer ${accessToken0}` },
+    const fetchData = async () => {
+      if (login && memberId0 && accessToken0) {
+        try {
+          const response = await api.get(
+            `https://emotionfeedback.site/member/${memberId0}/anniversary/zero-day`,
+            {
+              headers: { Authorization: `Bearer ${accessToken0}` },
+            }
+          );
+          setUserData(response.data);
+        } catch (error) {
+          console.error("Failed to fetch user data:", error);
         }
-      );
-      setUserData(response.data);
-    }catch (error) {
-        console.error("Failed to fetch user data:", error);
       }
     };
-    
-  
-  fetchData();
-    }
-}, [memberId0,accessToken0]);
+
+    fetchData();
+  }, [login, memberId0, accessToken0]);
 
 
   return (
