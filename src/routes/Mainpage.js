@@ -5,7 +5,10 @@ import FlowerShop from "../components/FlowerShop";
 import SeasonFlower from "../components/SeasonFlower";
 import { useMediaQuery } from "react-responsive";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
+import MainAnniversary from "../components/MainAnniversary";
+import axios from "axios";
+import api from "../axios";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -36,26 +39,65 @@ function Mainpage({ login }) {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const [accessToken0, setAccessToken] = useState(null);
+  const [refreshToken0, setRefreshToken] = useState(null);
+  const [memberId0, setMemberId] = useState(null);
+  const [userData, setUserData] = useState(null);
+
+
   useEffect(() => {
-    if (login) {
+    if (login && (refreshToken0 == null)) {
+
       const queryParams = new URLSearchParams(location.search);
       const accessToken = queryParams.get("access_token");
       const refreshToken = queryParams.get("refresh_token");
       const memberId = queryParams.get("member_id");
+
 
       if (accessToken) {
         localStorage.setItem("access_token", accessToken);
         localStorage.setItem("refresh_token", refreshToken);
         localStorage.setItem("member_id", memberId);
 
+        setAccessToken(accessToken);
+        setRefreshToken(refreshToken);
+        setMemberId(memberId);
+
         navigate("/auth");
+
       }
     }
-  }, []);
+  }, [login, location, navigate]);
+
+  useEffect(() => {
+    if(login){
+      setAccessToken(localStorage.getItem("access_token"));
+      setMemberId(localStorage.getItem("member_id"));
+      setRefreshToken(localStorage.getItem("refresh_token"));
+  
+  const fetchData = async () => {
+    try {
+      const response = await api.get(
+        `https://emotionfeedback.site/member/${memberId0}/anniversary/zero-day`,
+        {
+          headers: { Authorization: `Bearer ${accessToken0}` },
+        }
+      );
+      setUserData(response.data);
+    }catch (error) {
+        console.error("Failed to fetch user data:", error);
+      }
+    };
+    
+  
+  fetchData();
+    }
+}, [memberId0,accessToken0]);
+
 
   return (
     <Wrapper>
-      <MainImage login={login}/>
+      {(userData == null || userData[0].name == null) ?<MainImage login={login}/> : <MainAnniversary login={login} name={userData[0].name}/>}
       {isDesktopOrMobile !== true ? (
         <>
           <Line2>
