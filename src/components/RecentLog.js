@@ -48,7 +48,12 @@ const MovePageBtn = styled.button`
   }
 `;
 
-function RecentLog({ recentReco, settingTruePrefer, settingFalsePrefer }) {
+function RecentLog({
+  userName,
+  recentReco,
+  settingTruePrefer,
+  settingFalsePrefer,
+}) {
   const navigate = useNavigate();
   const [showRecent, setShowRecent] = useState();
 
@@ -56,7 +61,7 @@ function RecentLog({ recentReco, settingTruePrefer, settingFalsePrefer }) {
     if (Object.keys(recentReco).length === 0) {
       return;
     } else {
-      setShowRecent(recentReco);
+      setShowRecent([...recentReco].reverse());
     }
   }, [recentReco]);
 
@@ -78,6 +83,7 @@ function RecentLog({ recentReco, settingTruePrefer, settingFalsePrefer }) {
               info={v}
               settingTruePrefer={settingTruePrefer}
               settingFalsePrefer={settingFalsePrefer}
+              userName={userName}
             />
           ))
         )}

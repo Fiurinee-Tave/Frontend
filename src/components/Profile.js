@@ -8,7 +8,7 @@ import Anniversary from "./Anniversary";
 import IconCheck from "../icons/IconCheck";
 import ImgChange from "./ImgChange";
 
-import axios from "axios";
+//import axios from "axios";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -65,6 +65,13 @@ const UserImg = styled.img`
   width: 60%;
   height: 60%;
   border-radius: 10px;
+
+  //iphone SE => width:375px;
+  @media (max-width: 575px) {
+    width: 50%;
+    height: 80%;
+    border-radius: 10px;
+  }
 `;
 
 const UserInfoContainer = styled.div`
@@ -158,7 +165,7 @@ function Profile({ openModal, userInfo, anniversaries, modifyProfileImg }) {
         <ProfileContainer>
           <UserInfo>
             <BigText>"{userInfo.nickname}" Profile</BigText>
-            <MiddleText>2002.07.27</MiddleText>
+            {/* <MiddleText>2002.07.27</MiddleText> */}
           </UserInfo>
           {imgChange ? (
             <UserImgContainer
@@ -207,7 +214,7 @@ function Profile({ openModal, userInfo, anniversaries, modifyProfileImg }) {
           <UserInfoContainer>
             <UserInfo>
               <BigText>"{userInfo.nickname}" Profile</BigText>
-              <MiddleText>2002.07.27</MiddleText>
+              {/* <MiddleText>2002.07.27</MiddleText> */}
             </UserInfo>
             {imgChange ? (
               <ImgChange

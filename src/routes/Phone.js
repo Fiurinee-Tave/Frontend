@@ -2,7 +2,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Timer from "../components/Timer";
-import axios from "axios";
+//import axios from "axios";
+import api from "../axios";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -134,16 +135,20 @@ function Phone({ login }) {
         localStorage.setItem("refresh_token", refreshToken);
         localStorage.setItem("member_id", memberId);
 
-        //navigate("/auth");
+        navigate("/phone");
+      } else {
+        if (localStorage.getItem("member_id")) {
+          navigate("/auth");
+        } else {
+          navigate("/");
+        }
       }
     }
-
-    console.log("?");
   }, []);
 
   const sendNumber = async () => {
     try {
-      await axios.post(`https://emotionfeedback.site/sms/send`, {
+      await api.post(`https://emotionfeedback.site/sms/send`, {
         phoneNumber,
       });
     } catch (error) {
@@ -153,7 +158,7 @@ function Phone({ login }) {
 
   const checkNumber = async () => {
     try {
-      await axios.post(
+      await api.post(
         `https://emotionfeedback.site/sms/prove/${localStorage.getItem(
           "member_id"
         )}`,
@@ -215,7 +220,7 @@ function Phone({ login }) {
             <NormalText>인증번호</NormalText>
             <InputNumber
               type="text"
-              maxlength="4"
+              maxLength="4"
               onChange={(e) =>
                 setCertificateNum(e.target.value.replace(/[^0-9]/g, ""))
               }

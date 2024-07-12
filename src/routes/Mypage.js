@@ -7,9 +7,10 @@ import Header from "../components/Header";
 import Profile from "../components/Profile";
 import RecentLog from "../components/RecentLog";
 import AnniversaryModal from "../components/AnniversaryModal";
-import axios from "axios";
+//import axios from "axios";
 
-import refreshAccessToken from "../axios";
+//import refreshAccessToken from "../axios";
+import api from "../axios";
 import Marketing from "../components/Marketing";
 
 const Wrapper = styled.div`
@@ -51,21 +52,21 @@ const TextArea = styled.div`
 
   cursor: pointer;
   @media (max-width: 575px) {
-    width: 90%;
+    gap: 20px;
   }
 `;
 
-const DeleteAccount = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: end;
-  margin-bottom: 30px;
+// const DeleteAccount = styled.div`
+//   width: 100%;
+//   display: flex;
+//   justify-content: end;
+//   margin-bottom: 30px;
 
-  cursor: pointer;
-  @media (max-width: 575px) {
-    width: 90%;
-  }
-`;
+//   cursor: pointer;
+//   @media (max-width: 575px) {
+//     width: 90%;
+//   }
+// `;
 
 function Mypage() {
   const [modal, setModal] = useState({
@@ -79,7 +80,10 @@ function Mypage() {
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("access_token");
   const memberId = localStorage.getItem("member_id");
-  const [marketing, setMarketing] = useState();
+  const [marketing, setMarketing] = useState({
+    open: null,
+    type: null,
+  });
 
   useEffect(() => {
     if (localStorage.getItem("member_id") === null) {
@@ -92,41 +96,41 @@ function Mypage() {
     }
   }, []);
 
+  useEffect(() => {
+    if (userInfo.alarm === false) {
+      document.body.style.overflow = "hidden";
+      setMarketing({ open: true, type: false });
+    } else if (userInfo.alarm === true) {
+      setMarketing({ open: false, type: true });
+    }
+  }, [userInfo.alarm]);
+
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        `https://emotionfeedback.site/member/${memberId}`,
-        {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        }
-      );
-
-      if (response.data.alarm) {
-        setMarketing(false);
-      } else {
-        setMarketing(true);
-      }
+      const response = await api.get(`/member/${memberId}`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
 
       setUserInfo(response.data);
       setAnniversaries(response.data.anniversaries);
     } catch (error) {
-      if (error.response.status === 401) {
-        refreshAccessToken(memberId);
-      }
+      // if (error.response.status === 401) {
+      //   refreshAccessToken(memberId, fetchData);
+      // }
       console.error("Failed to fetch user data:", error);
     }
   };
 
   const fetchReco = async () => {
     try {
-      const info1 = await axios.get(
+      const info1 = await api.get(
         `https://emotionfeedback.site/member/${memberId}/recommend/recent`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
       );
 
-      const info2 = await axios.get(
+      const info2 = await api.get(
         `https://emotionfeedback.site/member/${memberId}/harmony/recent`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -150,16 +154,16 @@ function Mypage() {
 
       setRecentReco(mergeRecentReco(info1.data, info2.data));
     } catch (error) {
-      if (error.response.status === 401) {
-        refreshAccessToken(memberId);
-      }
+      // if (error.response.status === 401) {
+      //   refreshAccessToken(memberId, fetchReco);
+      // }
       console.error("Failed to fetch user recommend data:", error);
     }
   };
 
   const addAnniversary = async (name, date, type) => {
     try {
-      await axios.post(
+      await api.post(
         `https://emotionfeedback.site/member/${memberId}/anniversary`,
         {
           name,
@@ -174,16 +178,16 @@ function Mypage() {
       fetchData();
       closeModal();
     } catch (error) {
-      if (error.response.status === 401) {
-        refreshAccessToken(memberId);
-      }
+      // if (error.response.status === 401) {
+      //   refreshAccessToken(memberId, addAnniversary);
+      // }
       console.error("Failed to add user anniversary:", error);
     }
   };
 
   const modifyAnniversary = async (name, date, type) => {
     try {
-      await axios.put(
+      await api.put(
         `https://emotionfeedback.site/member/${memberId}/anniversary/${modal.id}`,
         {
           name,
@@ -197,9 +201,9 @@ function Mypage() {
       fetchData();
       closeModal();
     } catch (error) {
-      if (error.response.status === 401) {
-        refreshAccessToken(memberId);
-      }
+      // if (error.response.status === 401) {
+      //   refreshAccessToken(memberId, modifyAnniversary);
+      // }
       console.error("Failed to add user anniversary:", error);
     }
   };
@@ -211,7 +215,7 @@ function Mypage() {
       return;
     }
     try {
-      await axios.delete(
+      await api.delete(
         `https://emotionfeedback.site/member/${memberId}/anniversary/${modal.id}`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -221,9 +225,9 @@ function Mypage() {
       fetchData();
       closeModal();
     } catch (error) {
-      if (error.response.status === 401) {
-        refreshAccessToken(memberId);
-      }
+      // if (error.response.status === 401) {
+      //   refreshAccessToken(memberId, deleteAnniversary);
+      // }
       console.error("Failed to add user anniversary:", error);
     }
   };
@@ -240,16 +244,18 @@ function Mypage() {
 
   const openMarketing = () => {
     document.body.style.overflow = "hidden";
+
+    setMarketing({ ...marketing, open: true });
   };
 
   const closeMarketing = () => {
     document.body.style.overflow = "unset";
-    setMarketing(false);
+    setMarketing({ ...marketing, open: false });
   };
 
   const modifyProfileImg = async (img, color) => {
     try {
-      await axios.put(
+      await api.put(
         `https://emotionfeedback.site/member/${memberId}/image`,
         {
           flowerCode: img,
@@ -261,17 +267,36 @@ function Mypage() {
       );
       fetchData();
     } catch (error) {
-      if (error.response.status === 401) {
-        refreshAccessToken(memberId);
-      }
+      // if (error.response.status === 401) {
+      //   refreshAccessToken(memberId, modifyProfileImg);
+      // }
       console.error("Failed to add user profile image:", error);
     }
   };
 
-  const settingTruePrefer = async (order) => {
-    console.log(order);
+  const changeMarketing = async (alarm) => {
     try {
-      await axios.get(
+      await api.put(
+        `https://emotionfeedback.site/member/${memberId}/alarm`,
+        {
+          alarm,
+        },
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
+      fetchData();
+    } catch (error) {
+      // if (error.response.status === 401) {
+      //   refreshAccessToken(memberId, changeMarketing);
+      // }
+      console.error("Failed to change marketing:", error);
+    }
+  };
+
+  const settingTruePrefer = async (order) => {
+    try {
+      await api.get(
         `https://emotionfeedback.site/member/${memberId}/${order}`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -280,16 +305,16 @@ function Mypage() {
 
       fetchReco();
     } catch (error) {
-      if (error.response.status === 401) {
-        refreshAccessToken(memberId);
-      }
+      // if (error.response.status === 401) {
+      //   refreshAccessToken(memberId, settingTruePrefer);
+      // }
       console.error("Failed to add user profile image:", error);
     }
   };
 
   const settingFalsePrefer = async (order) => {
     try {
-      await axios.delete(
+      await api.delete(
         `https://emotionfeedback.site/member/${memberId}/${order}`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -298,9 +323,9 @@ function Mypage() {
 
       fetchReco();
     } catch (error) {
-      if (error.response.status === 401) {
-        refreshAccessToken(memberId);
-      }
+      // if (error.response.status === 401) {
+      //   refreshAccessToken(memberId, settingFalsePrefer);
+      // }
       console.error("Failed to add user profile image:", error);
     }
   };
@@ -311,26 +336,29 @@ function Mypage() {
       return;
     }
     try {
-      await axios.get(
-        `https://emotionfeedback.site/member/${memberId}/resign`,
-        {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        }
-      );
+      await api.get(`https://emotionfeedback.site/member/${memberId}/resign`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
 
       localStorage.clear();
       navigate("/");
     } catch (error) {
-      if (error.response.status === 401) {
-        refreshAccessToken(memberId);
-      }
+      // if (error.response.status === 401) {
+      //   refreshAccessToken(memberId, deleteUser);
+      // }
       console.error("Failed to delete user", error);
     }
   };
 
   return (
     <Wrapper>
-      {marketing ? <Marketing closeMarketing={closeMarketing} /> : null}
+      {marketing.open ? (
+        <Marketing
+          closeMarketing={closeMarketing}
+          changeMarketing={changeMarketing}
+          marketing={marketing}
+        />
+      ) : null}
       {modal.open ? (
         <AnniversaryModal
           closeModal={closeModal}
@@ -350,12 +378,15 @@ function Mypage() {
           modifyProfileImg={modifyProfileImg}
         />
         <RecentLog
+          userName={userInfo.nickname}
           recentReco={recentReco}
           settingTruePrefer={settingTruePrefer}
           settingFalsePrefer={settingFalsePrefer}
         />
         <TextArea>
-          <div onClick={() => alert("마케팅 수신 동의")}>마케팅 수신 동의</div>
+          <div onClick={openMarketing}>
+            {marketing.type ? "마케팅 수신 동의 철회" : "마케팅 수신 동의"}
+          </div>
           <div onClick={deleteUser}>회원탈퇴</div>
         </TextArea>
       </Content>
