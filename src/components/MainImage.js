@@ -85,6 +85,7 @@ const Detail = styled.div`
   position: absolute;
   top: 300px;
   left: 300px;
+  text-shadow: 3px 4px 6px gray;
   @media (max-width: 575px) {
     left: 60px;
     top: 120px;
@@ -124,7 +125,7 @@ const DetailBtn = styled.button`
   background-color: #fff3f3;
   border-style: dashed;
   border-color: gray;
-    font-family: "Gowun Batang", serif;
+  font-family: "Gowun Batang", serif;
   font-weight: 400;
   font-style: normal;
     @media (max-width: 575px) {
