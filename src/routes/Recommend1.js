@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import axios from 'axios';
 import Loading from "../loading/Loading";
-import refreshAccessToken from "../axios";
+import api from "../axios";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -128,6 +128,7 @@ function Recommend1({login}) {
   const memberId = localStorage.getItem("member_id");
 
   const location = useLocation();
+
   console.log("추천 1로 넘어왔다"); 
   console.log(location);
 
@@ -177,7 +178,7 @@ function Recommend1({login}) {
         });
   
   }else{
-    const response = await axios.post(`https://emotionfeedback.site/model/${memberId}/`+location.state?.flower[selectedImage].id ,
+    const response = await api.post(`https://emotionfeedback.site/model/${memberId}/`+location.state?.flower[selectedImage].id ,
       {
         ment: location.state?.inputment
       },
@@ -196,15 +197,10 @@ function Recommend1({login}) {
             recoflower:response.data
           }
         });
-  }
-
-    
+      }
     }
     catch (error) {
-      if (error.response.status === 401) {
-        refreshAccessToken(memberId);
-      }
-      console.error("데이터 보내기 실패", error);
+      console.error("Failed to fetch user data:", error);
     }
   };
 

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import Loading from "../loading/Loading";
-import refreshAccessToken from "../axios";
+import api from "../axios";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 `;
 
 const Line = styled.div`
-padding: 20vh 10vw;
+padding: 17vh 10vw;
 width: 100%;
 display: flex;
 flex-direction: column;
@@ -29,6 +29,7 @@ gap: 50px;
 const Bigtitle = styled.div`
   font-size:45px;
   font-weight:590;
+  text-align: center;
   @media (max-width: 575px) {
     font-size: 20.3px;
   }
@@ -40,7 +41,25 @@ const Title = styled.div`
     font-size: 13.3px;
   }
 `;
-//padding:30px;
+
+const Line2 = styled.div`
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 25px;
+`;
+
+const Text = styled.div`
+  font-size:22px;
+  font-weight:590;
+ 
+  @media (max-width: 575px) {
+    font-size: 12px;
+  }
+`;
+// color: rgb(88,88,88);
 
 const Input = styled.textarea`
   type="text";
@@ -57,6 +76,9 @@ const Input = styled.textarea`
    font-family: "Gowun Batang", serif;
   font-weight: 400;
   font-style: normal;
+  &::placeholder {
+    color: rgb(88,88,88);
+  }
   @media (max-width: 575px) {
     height:55px;
     font-size:15px;
@@ -93,6 +115,8 @@ function Recommend0({ login }) {
   const accessToken = localStorage.getItem("access_token");
   const memberId = localStorage.getItem("member_id");
 
+  console.log(memberId);
+
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -121,7 +145,7 @@ function Recommend0({ login }) {
 
       }else{
 
-        const response = await axios.post(`https://emotionfeedback.site/model/${memberId}/ment`,
+        const response = await api.post(`https://emotionfeedback.site/model/${memberId}/ment`,
           {
             ment: inputValue
           },
@@ -143,21 +167,27 @@ function Recommend0({ login }) {
     
     }
     catch (error) {
-      if (error.response.status === 401) {
-        refreshAccessToken(memberId);
-      }
-      console.error("데이터 보내기 실패", error);
+
+      console.error("Failed to fetch user data:", error);
     }
   };
+    
+  //        <Text>ex) 친구가 어제 드디어 취업을 해서 꽃을 선물하려해</Text>
 
+  //defaultValue={`\nex) 친구가 어제 드디어 취업을 해서\n꽃을 선물하려해`} 
+
+  //
   return (
     loading ? 
     <Wrapper> <Header login={login} /> <Loading/> </Wrapper>:(
     <Wrapper>
       <Header login={login} />
       <Line>
-        <Bigtitle>전해주고 싶은 멘트를 작성해주세요</Bigtitle>
-        <Title>멘트에 어울리는 꽃 조합을 선물해드립니다.</Title>
+        <Bigtitle>꽃을 선물하고 싶은 상황을 작성해 주세요</Bigtitle>
+        <Line2>
+        <Title>상황에 어울리는 꽃 조합을 선물해 드립니다.</Title>
+        <Text>ex) 친구가 어제 드디어 취업을 해서 꽃을 선물하려 해</Text>
+        </Line2>
         <Input value={inputValue}
           onChange={handleInputChange} maxlength='50'></Input>
         <RecommendBtn onClick={posetData} disabled={inputValue === ''}> 꽃 추천받으러 가기 ➡ </RecommendBtn>
