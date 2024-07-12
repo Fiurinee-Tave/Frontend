@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import refreshAccessToken from "../axios";
+//import axios from "axios";
+//import refreshAccessToken from "../axios";
+
+import api from "../axios";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -56,18 +58,15 @@ function Header({ login, disableClick }) {
 
   const logout = async () => {
     try {
-      await axios.get(
-        `https://emotionfeedback.site/member/${memberId}/logout`,
-        {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        }
-      );
+      await api.get(`https://emotionfeedback.site/member/${memberId}/logout`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
       localStorage.clear();
       navigate("/");
     } catch (error) {
-      if (error.response.status === 401) {
-        refreshAccessToken(memberId);
-      }
+      // if (error.response.status === 401) {
+      //   refreshAccessToken(memberId, logout);
+      // }
       console.error("Failed to fetch user data:", error);
     }
   };

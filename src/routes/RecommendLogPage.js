@@ -2,8 +2,10 @@ import Header from "../components/Header";
 import styled from "styled-components";
 import RecommendLogItem from "../items/RecommendLogItem";
 
-import axios from "axios";
-import refreshAccessToken from "../axios";
+//import axios from "axios";
+//import refreshAccessToken from "../axios";
+
+import api from "../axios";
 
 import { useState, useEffect } from "react";
 
@@ -65,9 +67,8 @@ function RecommendLogPage() {
   }, [likeMode]);
 
   const settingTruePrefer = async (order) => {
-    console.log(order);
     try {
-      await axios.get(
+      await api.get(
         `https://emotionfeedback.site/member/${memberId}/${order}`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -76,17 +77,16 @@ function RecommendLogPage() {
 
       fetchTotalData();
     } catch (error) {
-      if (error.response.status === 401) {
-        refreshAccessToken(memberId);
-      }
+      // if (error.response.status === 401) {
+      //   refreshAccessToken(memberId, settingTruePrefer);
+      // }
       console.error("Failed to add user profile image:", error);
     }
   };
 
   const settingFalsePrefer = async (order) => {
-    console.log(order);
     try {
-      await axios.delete(
+      await api.delete(
         `https://emotionfeedback.site/member/${memberId}/${order}`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -95,24 +95,23 @@ function RecommendLogPage() {
 
       fetchTotalData();
     } catch (error) {
-      if (error.response.status === 401) {
-        refreshAccessToken(memberId);
-      }
+      // if (error.response.status === 401) {
+      //   refreshAccessToken(memberId, settingFalsePrefer);
+      // }
       console.error("Failed to add user profile image:", error);
     }
   };
 
   const fetchTotalData = async () => {
-    console.log("total");
     try {
-      const info1 = await axios.get(
+      const info1 = await api.get(
         `https://emotionfeedback.site/member/${memberId}/recommend`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
       );
 
-      const info2 = await axios.get(
+      const info2 = await api.get(
         `https://emotionfeedback.site/member/${memberId}/harmony`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -136,24 +135,23 @@ function RecommendLogPage() {
 
       setRecomment(mergeRecentReco(info1.data, info2.data));
     } catch (error) {
-      if (error.response.status === 401) {
-        refreshAccessToken(memberId);
-      }
+      // if (error.response.status === 401) {
+      //   refreshAccessToken(memberId, fetchTotalData);
+      // }
       console.error("Failed to fetch user recommend data:", error);
     }
   };
 
   const fetchLikeData = async () => {
-    console.log("like");
     try {
-      const info1 = await axios.get(
+      const info1 = await api.get(
         `https://emotionfeedback.site/member/${memberId}/prefer/recommend`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
       );
 
-      const info2 = await axios.get(
+      const info2 = await api.get(
         `https://emotionfeedback.site/member/${memberId}/prefer/harmony`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -177,9 +175,9 @@ function RecommendLogPage() {
 
       setRecomment(mergeRecentReco(info1.data, info2.data));
     } catch (error) {
-      if (error.response.status === 401) {
-        refreshAccessToken(memberId);
-      }
+      // if (error.response.status === 401) {
+      //   refreshAccessToken(memberId, fetchLikeData);
+      // }
       console.error("Failed to fetch user recommend data:", error);
     }
   };
@@ -202,14 +200,16 @@ function RecommendLogPage() {
       <Container>
         {recommend === undefined
           ? "추천기록이 없습니다."
-          : recommend.map((v, i) => (
-              <RecommendLogItem
-                key={i}
-                info={v}
-                settingTruePrefer={settingTruePrefer}
-                settingFalsePrefer={settingFalsePrefer}
-              />
-            ))}
+          : recommend
+              .reverse()
+              .map((v, i) => (
+                <RecommendLogItem
+                  key={i}
+                  info={v}
+                  settingTruePrefer={settingTruePrefer}
+                  settingFalsePrefer={settingFalsePrefer}
+                />
+              ))}
       </Container>
     </Wrapper>
   );

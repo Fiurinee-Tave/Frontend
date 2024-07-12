@@ -68,6 +68,8 @@ const LoginButton = styled.button`
   background-color: white;
   width: 400px;
 
+  cursor: pointer;
+
   @media (max-width: 575px) {
     width: 250px;
   }

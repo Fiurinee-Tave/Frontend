@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 
 import { format } from "date-fns";
 
-import axios from "axios";
+//import axios from "axios";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -171,6 +171,14 @@ const DeleteButton = styled.button`
   cursor: pointer;
 `;
 
+const guide = [
+  "생일은 1년마다 반복됩니다.",
+  "연인은 100일, 1년마다 반복됩니다.",
+  "배우자는 1년마다 반복됩니다.",
+  "가족은 1년마다 반복됩니다.",
+  "기타는 1년마다 반복됩니다.",
+];
+
 function AnniversaryModal({
   closeModal,
   modal,
@@ -275,7 +283,9 @@ function AnniversaryModal({
                 </CategoryItem>
               ))}
             </SelectItem>
-            <GuideText>*생일은 1년마다 반복됩니다.</GuideText>
+            {category.map((v, i) =>
+              v.selected ? <GuideText key={i}>{guide[i]}</GuideText> : null
+            )}
           </SelectContainer>
           <SelectContainer>
             <SelectTitle>#이름</SelectTitle>
@@ -328,7 +338,9 @@ function AnniversaryModal({
                 </CategoryItem>
               ))}
             </SelectItem>
-            <GuideText>*생일은 1년마다 반복됩니다.</GuideText>
+            {category.map((v, i) =>
+              v.selected ? <GuideText key={i}>{guide[i]}</GuideText> : null
+            )}
           </SelectContainer>
           <SelectContainer>
             <SelectTitle>#이름</SelectTitle>
