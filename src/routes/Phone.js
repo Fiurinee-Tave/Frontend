@@ -93,6 +93,8 @@ const Button = styled.button`
   width: 100px;
   height: 30px;
 
+  cursor: pointer;
+
   @media (max-width: 575px) {
     width: 250px;
   }
