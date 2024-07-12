@@ -51,56 +51,82 @@ const TopText = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 1vh;
+  @media (max-width: 575px) {
+    gap: 2vw;
+  }
 `;
 
 const BottomText = styled.div`
-  padding: 10px;
+  padding: 1vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: end;
-  gap: 10px;
+  gap: 1vh;
+    @media (max-width: 575px) {
+    gap: 1vw;
+    padding: 1vw;
+  }
 `;
 
 const ToText = styled.div`
-  font-size: 22px;
+  font-size: 2.5vw;
   color: #959090;
+  font-family: "Italianno", cursive;
+  font-weight: 400;
+  font-style: normal;
   @media (max-width: 575px) {
-    font-size: 16px;
+    font-size: 4vw;
   }
 `;
 
 const FlowerName = styled.div`
   width: 100%;
-  padding: 10px 0;
-  font-size: 27px;
+  padding: 0 0 1vh 0;
+  font-size: 1.6vw;
+  font-weight: 500;
   border-bottom: 1px solid black;
   @media (max-width: 575px) {
-    font-size: 18px;
-    padding: 5px 0;
+    font-size: 3vw;
+    padding: 0 0 1.5vw 0;
   }
 `;
+
+const Name = styled.div`
+  font-size: 1.4vw;
+  font-weight: 550;
+  @media (max-width: 575px) {
+    font-size: 2vw;
+  }
+`;
+
 
 const DateText = styled.div`
-  font-size: 22px;
+  font-size: 1.3vw;
+  line-height:1.2;
+  color: gray;
   @media (max-width: 575px) {
-    font-size: 13px;
+    font-size: 1.9vw;
   }
 `;
+//color: gray;
 
 const Floriography = styled.div`
-  font-size: 20px;
+  font-size: 1.3vw;
   @media (max-width: 575px) {
-    font-size: 10px;
+    font-size: 2.1vw;
   }
 `;
 
 const FromText = styled.div`
-  font-size: 22px;
+  font-size: 2vw;
   color: #959090;
+  font-family: "Italianno", cursive;
+  font-weight: 400;
+  font-style: normal;
   @media (max-width: 575px) {
-    font-size: 16px;
+     font-size: 3vw;
   }
 `;
 
@@ -110,6 +136,7 @@ function TodayFlower(member) {
     flowerPeriod: "",
     flowerLangu: "",
     flowerImg: "",
+    flowerExplain:"",
   });
 
   const fetchData = async () => {
@@ -120,8 +147,9 @@ function TodayFlower(member) {
       flowerPeriod: response.data.period,
       flowerLangu: response.data.flower_language,
       flowerImg: response.data.image,
+      flowerExplain: response.data.explain,
     });
-    console.log(response.data);
+    console.log(response.data.explain);
   };
 
   useEffect(() => {
@@ -129,25 +157,8 @@ function TodayFlower(member) {
   }, []);
 
   const today = new Date();
-
-  /*
-    fetch("http://3.36.169.209:8080/main/today")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-
-        setFlowerData({
-          flowerName: data.Flower,
-          flowerPeriod: data.period,
-          flowerLangu: data.flower_language,
-          flowerImg: data.image
-        });
-
-        //console.log("여기 플라워 뜬다 :  ",flowerImg);
-      })
-      .catch((error) => console.error("Error:", error));
-  }, []
-   */
+  //{flowerData.flowerExplain}
+  //{today.getMonth() + 1}월 {today.getDate()}일
 
   return (
     <Wrapper>
@@ -160,8 +171,12 @@ function TodayFlower(member) {
         <FlowerInfo>
           <TopText>
             <ToText>to.</ToText>
-            <FlowerName>{flowerData.flowerName}</FlowerName>
-            <DateText>{today.getMonth() + 1}월 {today.getDate()}일</DateText>
+            <FlowerName>{today.getMonth() + 1}월 {today.getDate()}일</FlowerName>
+            <Name>{flowerData.flowerName}</Name>
+            <DateText>
+              <br/>
+              "{flowerData.flowerExplain}"
+            </DateText>
           </TopText>
           <BottomText>
             <Floriography>"{flowerData.flowerLangu}"</Floriography>

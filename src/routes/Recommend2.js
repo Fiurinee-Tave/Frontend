@@ -211,7 +211,7 @@ function Recommend2({login}) {
       {login?
       <>
       <JoinBtn onClick={join}>마이페이지로 이동</JoinBtn>
-      <JoinText>* 마이페이지로 이동 후, 추천 받은 꽃을 저장할 수 있습니다 :) </JoinText>
+      <JoinText>* 마이페이지로 이동 후, 추천받은 꽃을 저장할 수 있습니다 :) </JoinText>
       </>
       :
       <>

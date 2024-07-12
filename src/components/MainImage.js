@@ -8,7 +8,9 @@ import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import axios from "axios";
-import refreshAccessToken from "../axios";
+import api from "../axios";
+import Guide from "./Guide";
+import { useEffect, useState } from "react";
 
 SwiperCore.use([Autoplay, Navigation, Pagination]);
 
@@ -32,10 +34,23 @@ const ImageSlide = styled.img`
   object-fit: cover;
   opacity: 0.6;
   filter: blur(0.5px);
-@media (max-width: 575px) {
+  @media (max-width: 575px) {
     height: 35vh;
   }
 
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
 `;
 
 const LoginLine = styled.div`
@@ -140,6 +155,7 @@ function MainImage({login}) {
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("access_token");
   const memberId = localStorage.getItem("member_id");
+  const [showDetails, setShowDetails] = useState(false);
   const images = [
     "/img/MainImage1.png",
     "/img/MainImage2.png",
@@ -150,15 +166,12 @@ function MainImage({login}) {
 
   const logout = async () => {
     try {
-      await axios.get(`http://3.36.169.209:8080/member/${memberId}/logout`, {
+      await api.get(`https://emotionfeedback.site/model/${memberId}/logout`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       localStorage.clear();
       navigate("/");
     } catch (error) {
-      if (error.response.status === 401) {
-        refreshAccessToken(memberId);
-      }
       console.error("Failed to fetch user data:", error);
     }
   };
@@ -175,8 +188,16 @@ function MainImage({login}) {
     }
   };
 
+  const handleButtonClick = () => {
+    setShowDetails(true); // 버튼 클릭 시 상태 업데이트
+  };
+
+  const handleClose = () => {
+    setShowDetails(false); 
+  };
   return (
     <StyledImg>
+      
       <Swiper
         loop={true}
         spaceBetween={50}
@@ -188,7 +209,12 @@ function MainImage({login}) {
         {images.map((image, index) => (
           <SwiperSlide key={index}>
             <ImageSlide src={image} />
-            {login? 
+            
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      <Overlay>
+      {login? 
             <LoginLine>
               <NormalText onClick={() => {
               navigate("/mypage");
@@ -200,10 +226,9 @@ function MainImage({login}) {
             <RecommendBtn onClick={recommend}>선물할 꽃 추천받기</RecommendBtn>
             <Title>fiurinee</Title>
             <Detail>당신의 마음을 선물하세요</Detail>
-            <DetailBtn> ? </DetailBtn>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+            <DetailBtn onClick={handleButtonClick}> ? </DetailBtn>
+      </Overlay>
+      {showDetails && <Guide handleClose={handleClose}/>}
     </StyledImg>
   );
 }
