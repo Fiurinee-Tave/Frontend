@@ -67,7 +67,6 @@ function RecommendLogPage() {
   }, [likeMode]);
 
   const settingTruePrefer = async (order) => {
-    console.log(order);
     try {
       await api.get(
         `https://emotionfeedback.site/member/${memberId}/${order}`,
@@ -86,7 +85,6 @@ function RecommendLogPage() {
   };
 
   const settingFalsePrefer = async (order) => {
-    console.log(order);
     try {
       await api.delete(
         `https://emotionfeedback.site/member/${memberId}/${order}`,
@@ -105,7 +103,6 @@ function RecommendLogPage() {
   };
 
   const fetchTotalData = async () => {
-    console.log("total");
     try {
       const info1 = await api.get(
         `https://emotionfeedback.site/member/${memberId}/recommend`,
@@ -146,7 +143,6 @@ function RecommendLogPage() {
   };
 
   const fetchLikeData = async () => {
-    console.log("like");
     try {
       const info1 = await api.get(
         `https://emotionfeedback.site/member/${memberId}/prefer/recommend`,
@@ -204,14 +200,16 @@ function RecommendLogPage() {
       <Container>
         {recommend === undefined
           ? "추천기록이 없습니다."
-          : recommend.map((v, i) => (
-              <RecommendLogItem
-                key={i}
-                info={v}
-                settingTruePrefer={settingTruePrefer}
-                settingFalsePrefer={settingFalsePrefer}
-              />
-            ))}
+          : recommend
+              .reverse()
+              .map((v, i) => (
+                <RecommendLogItem
+                  key={i}
+                  info={v}
+                  settingTruePrefer={settingTruePrefer}
+                  settingFalsePrefer={settingFalsePrefer}
+                />
+              ))}
       </Container>
     </Wrapper>
   );

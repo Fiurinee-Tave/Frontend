@@ -56,17 +56,17 @@ const TextArea = styled.div`
   }
 `;
 
-const DeleteAccount = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: end;
-  margin-bottom: 30px;
+// const DeleteAccount = styled.div`
+//   width: 100%;
+//   display: flex;
+//   justify-content: end;
+//   margin-bottom: 30px;
 
-  cursor: pointer;
-  @media (max-width: 575px) {
-    width: 90%;
-  }
-`;
+//   cursor: pointer;
+//   @media (max-width: 575px) {
+//     width: 90%;
+//   }
+// `;
 
 function Mypage() {
   const [modal, setModal] = useState({
@@ -92,7 +92,6 @@ function Mypage() {
     } else {
       //회원의 접근일 경우 회원 정보 받아오기
       fetchData();
-
       fetchReco();
     }
   }, []);
@@ -137,9 +136,6 @@ function Mypage() {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
       );
-
-      console.log(info1.data);
-      console.log(info2.data);
 
       const mergeRecentReco = (main, sub) => {
         const mainMap = main.reduce((acc, item) => {
@@ -279,7 +275,6 @@ function Mypage() {
   };
 
   const changeMarketing = async (alarm) => {
-    console.log(alarm);
     try {
       await api.put(
         `https://emotionfeedback.site/member/${memberId}/alarm`,
@@ -290,7 +285,7 @@ function Mypage() {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
       );
-      //fetchData();
+      fetchData();
     } catch (error) {
       // if (error.response.status === 401) {
       //   refreshAccessToken(memberId, changeMarketing);
@@ -300,7 +295,6 @@ function Mypage() {
   };
 
   const settingTruePrefer = async (order) => {
-    console.log(order);
     try {
       await api.get(
         `https://emotionfeedback.site/member/${memberId}/${order}`,
@@ -384,12 +378,15 @@ function Mypage() {
           modifyProfileImg={modifyProfileImg}
         />
         <RecentLog
+          userName={userInfo.nickname}
           recentReco={recentReco}
           settingTruePrefer={settingTruePrefer}
           settingFalsePrefer={settingFalsePrefer}
         />
         <TextArea>
-          <div onClick={openMarketing}>마케팅 수신 동의</div>
+          <div onClick={openMarketing}>
+            {marketing.type ? "마케팅 수신 동의 철회" : "마케팅 수신 동의"}
+          </div>
           <div onClick={deleteUser}>회원탈퇴</div>
         </TextArea>
       </Content>

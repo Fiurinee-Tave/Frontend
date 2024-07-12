@@ -172,6 +172,7 @@ const WriterContainer = styled.div`
   display: flex;
   justify-content: end;
   align-items: center;
+  padding-right: 30px;
 `;
 
 const LikeContainer = styled.div`
@@ -188,20 +189,19 @@ const LikeContainer = styled.div`
   }
 `;
 
-function RecommendLogItem({ info, settingTruePrefer, settingFalsePrefer }) {
+function RecommendLogItem({
+  info,
+  settingTruePrefer,
+  settingFalsePrefer,
+  userName,
+}) {
   const isMobile = useMediaQuery({ query: "(max-width: 575px)" });
-
-  useEffect(() => {
-    console.log(info);
-  }, []);
 
   const handleLike = () => {
     if (info.prefer === true) {
       settingFalsePrefer(info.order);
-      console.log(info.order, "T => F");
     } else {
       settingTruePrefer(info.order);
-      console.log(info.order, "F => T");
     }
   };
 
@@ -225,7 +225,9 @@ function RecommendLogItem({ info, settingTruePrefer, settingFalsePrefer }) {
           <MentContainer>
             <SmallText>{info.inputMessage}</SmallText>
             <WriterContainer>
-              <GrayText style={{ fontSize: "11px" }}>writer.user</GrayText>
+              <GrayText style={{ fontSize: "11px" }}>
+                writer.{userName}
+              </GrayText>
             </WriterContainer>
           </MentContainer>
 
@@ -285,7 +287,9 @@ function RecommendLogItem({ info, settingTruePrefer, settingFalsePrefer }) {
             <MentContainer>
               <SmallText>{info.inputMessage}</SmallText>
               <WriterContainer>
-                <GrayText style={{ fontSize: "15px" }}>writer.user</GrayText>
+                <GrayText style={{ fontSize: "15px" }}>
+                  writer.{userName}
+                </GrayText>
               </WriterContainer>
             </MentContainer>
 

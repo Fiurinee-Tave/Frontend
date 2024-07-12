@@ -8,7 +8,7 @@ import Anniversary from "./Anniversary";
 import IconCheck from "../icons/IconCheck";
 import ImgChange from "./ImgChange";
 
-import axios from "axios";
+//import axios from "axios";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -165,7 +165,7 @@ function Profile({ openModal, userInfo, anniversaries, modifyProfileImg }) {
         <ProfileContainer>
           <UserInfo>
             <BigText>"{userInfo.nickname}" Profile</BigText>
-            <MiddleText>2002.07.27</MiddleText>
+            {/* <MiddleText>2002.07.27</MiddleText> */}
           </UserInfo>
           {imgChange ? (
             <UserImgContainer
@@ -214,7 +214,7 @@ function Profile({ openModal, userInfo, anniversaries, modifyProfileImg }) {
           <UserInfoContainer>
             <UserInfo>
               <BigText>"{userInfo.nickname}" Profile</BigText>
-              <MiddleText>2002.07.27</MiddleText>
+              {/* <MiddleText>2002.07.27</MiddleText> */}
             </UserInfo>
             {imgChange ? (
               <ImgChange

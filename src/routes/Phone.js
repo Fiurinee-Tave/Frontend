@@ -137,7 +137,11 @@ function Phone({ login }) {
 
         navigate("/phone");
       } else {
-        navigate("/");
+        if (localStorage.getItem("member_id")) {
+          navigate("/auth");
+        } else {
+          navigate("/");
+        }
       }
     }
   }, []);
