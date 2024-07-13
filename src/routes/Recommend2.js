@@ -29,9 +29,11 @@ const Bigtitle = styled.div`
   font-size:40px;
   font-weight:590vw;
   padding-top:4vh;
+  text-align: center;
   @media (max-width: 575px) {
-    font-size: 20.5px;
+    font-size: 5.5vw;
     padding-top:1.5vh;
+    line-height:1.2;
   }
 `;
 
@@ -87,8 +89,8 @@ const FlowerImage = styled.img`
   aspect-ratio: 1; 
   border-radius: 6%;
   @media (max-width: 575px) {
-    width: 22vh;
-    height: 22vh;
+    width: 20vh;
+    height: 20vh;
   }
 `;
 
@@ -97,7 +99,7 @@ const Height = styled.div`
   flex-direction: column;
   align-items: center;
   @media (max-width: 575px) {
-    gap:1.3vh;
+    gap:1.2vh;
     padding:10px 0px;
   }
 `;
@@ -121,7 +123,7 @@ const FlowerTitle = styled.div`
   font-size:25px;
   text-align:center;
     @media (max-width: 575px) {
-    font-size: 17px;
+    font-size: 4.2vw;
   }
 `;
 
@@ -129,6 +131,7 @@ const JoinText = styled.div`
   font-size:25px;
   @media (max-width: 575px) {
     font-size: 2vh;
+    line-height:1.2;
   }
 `;
 
@@ -220,7 +223,8 @@ function Recommend2({login}) {
     </Line>
     :
     <Height>
-      <Bigtitle>{location.state?.flower.flower_language}  "{location.state?.flower.recommendFlower}"</Bigtitle>
+      <Bigtitle>{location.state?.flower.flower_language}
+      <br/>"{location.state?.flower.recommendFlower}"</Bigtitle>
       <FlowerImage src={location.state?.flower.image} />
       <Line2>
       <Text>이름 : {location.state?.flower.recommendFlower}</Text>
