@@ -97,7 +97,7 @@ const Height = styled.div`
   flex-direction: column;
   align-items: center;
   @media (max-width: 575px) {
-    gap:10px;
+    gap:1.3vh;
     padding:10px 0px;
   }
 `;
@@ -111,9 +111,10 @@ const Text = styled.div`
   white-space: pre-wrap;
   text-align: ${props => props.center ? 'center' : 'left'};
   @media (max-width: 575px) {
-    font-size: 15px;
+    font-size: 3.6vw;
   }
 `;
+//15px
 
 
 const FlowerTitle = styled.div`
