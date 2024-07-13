@@ -28,7 +28,7 @@ const Line = styled.div`
   justify-content: center;
   gap: 20px;
   @media (max-width: 575px) {
-    gap: 23px;
+    gap: 8vw;
     padding: ${props => props.padding || '60px 50px'};
   }
 `;
@@ -57,12 +57,11 @@ const Highlight = styled.span`
 const Line2 = styled.div`
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 4vw;
   width: 62vw;
   @media (max-width: 575px) {
     gap: 5vw;
     flex:1;
-
   }
 `;
 
@@ -71,8 +70,17 @@ const MediaLine1 = styled.div`
   align-items: center;
   flex:1;
   justify-content: center;
-  gap:6vw;
-  width: 50%;
+  gap:10vw;
+  width: 100%;
+  font-size: 3.5vw;
+`;
+
+const TextBox = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 25vw;
+  gap:2vw;
 `;
 
 const ImageBox = styled.div`
@@ -81,15 +89,14 @@ const ImageBox = styled.div`
   justify-content: center;
   position: relative;
   width: 100%;
-  padding-bottom:100%;
+  aspect-ratio: 1;
   position: relative;
   @media (max-width: 575px) {
-    height:25vw;
+    width:27vw; 
     aspect-ratio: 1;
   }
-
 `;
-//  
+// padding-bottom:100%;
 
 const RecommendBtn = styled.button`
   background-color: rgba(255,255,255,0.8);
@@ -239,28 +246,32 @@ function Recommend1({login}) {
       </Line2> 
       :
       <Line padding={'5px 5px'}>
-        <MediaLine1>
+      <MediaLine1>
+        <TextBox>
         <ImageBox key={1}>
-      <FlowerItem 
-      key={1}
-      src={images[1]}
-      selected={selectedImage === 1}
-      onClick={() => handleImageClick(1)}
-      height="100%" width="100%"
-      media={window.innerWidth <= 575}
-      />
-      <RecoFlowerDetail
-        selected={selectedImage === 1}
-        onClick={() => handleImageClick(1)}
-        name={location.state?.flower[1].recommendFlower}
-        period={location.state?.flower[1].period}
-        flower_lang={location.state?.flower[1].flower_language}
+        <FlowerItem 
+          key={1}
+          src={images[1]}
+          selected={selectedImage === 1}
+          onClick={() => handleImageClick(1)}
+          height="100%" width="100%"
+          media={window.innerWidth <= 575}
+        />
+        <RecoFlowerDetail
+          selected={selectedImage === 1}
+          onClick={() => handleImageClick(1)}
+          name={location.state?.flower[1].recommendFlower}
+          period={location.state?.flower[1].period}
+          flower_lang={location.state?.flower[1].flower_language}
         />
       </ImageBox>
+      {location.state?.flower[1].recommendFlower}
+      </TextBox>
       </MediaLine1>
       <MediaLine1>
       {images.map((src, index) => (
         index !== 1 ?
+        <TextBox>
         <ImageBox key={index}>
         <FlowerItem 
         key={index}
@@ -278,6 +289,8 @@ function Recommend1({login}) {
         flower_lang={location.state?.flower[index].flower_language}
         />
         </ImageBox> 
+        {location.state?.flower[index].recommendFlower}
+        </TextBox>
         : <></>
       ))}
       </MediaLine1>

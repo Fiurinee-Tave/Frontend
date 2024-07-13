@@ -60,6 +60,12 @@ position: absolute;
   right: 50px;
   gap:30px;
   justify-content: center;
+  @media (max-width: 575px) {
+    font-size: 13px;
+    top: 15px;
+    right: 40px;
+    gap:15px;
+  }
 `;
 
 const LoginButton = styled.div`
@@ -68,6 +74,11 @@ const LoginButton = styled.div`
   top: 20px;
   right: 50px;
   text-size: 30px;
+   @media (max-width: 575px) {
+    font-size: 13px;
+    top: 15px;
+    right: 40px;
+  }
 `;
 
 const NormalText = styled.div`
@@ -75,7 +86,9 @@ const NormalText = styled.div`
  text-size: 30px;
  top: 20px;
   @media (max-width: 575px) {
-    font-size: 15px;
+    font-size: 13px;
+     top: 15px;
+    right: 40px;
   }
 `;
 

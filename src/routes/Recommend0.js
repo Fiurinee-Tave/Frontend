@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import Loading from "../loading/Loading";
 import api from "../axios";
+import { useMediaQuery } from "react-responsive";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -107,6 +108,7 @@ const RecommendBtn = styled.button`
 
 
 function Recommend0({ login }) {
+  const isDesktopOrMobile = useMediaQuery({ query: "(max-width:575px)" });
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -174,7 +176,11 @@ function Recommend0({ login }) {
     <Wrapper>
       <Header login={login} />
       <Line>
+      {isDesktopOrMobile !== true ? 
         <Bigtitle>꽃을 선물하고 싶은 상황을 작성해 주세요</Bigtitle>
+        :<Bigtitle>꽃을 선물하고 싶은 상황을
+          <br/>작성해 주세요</Bigtitle>
+        }
         <Line2>
         <Title>상황에 어울리는 꽃 조합을 선물해 드립니다.</Title>
         <Text>ex) 친구가 어제 드디어 취업을 해서 꽃을 선물하려 해</Text>
