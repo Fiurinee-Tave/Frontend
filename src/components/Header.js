@@ -46,7 +46,7 @@ const NormalText = styled.div`
   cursor: pointer;
 
   @media (max-width: 575px) {
-    font-size: 15px;
+    font-size: 13px;
   }
 `;
 
@@ -81,7 +81,7 @@ function Header({ login, disableClick }) {
 
   return (
     <Wrapper>
-      <Logo onClick={disableClick ? null :mainPage}>fiurinee</Logo>
+      <Logo onClick={disableClick ? null : mainPage}>fiurinee</Logo>
       {login ? (
         <LoginUserText>
           <NormalText
@@ -93,7 +93,9 @@ function Header({ login, disableClick }) {
           >
             마이페이지
           </NormalText>
-          <NormalText onClick={disableClick ? null : logout}>로그아웃</NormalText>
+          <NormalText onClick={disableClick ? null : logout}>
+            로그아웃
+          </NormalText>
         </LoginUserText>
       ) : (
         <NormalText

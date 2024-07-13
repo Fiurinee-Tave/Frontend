@@ -35,8 +35,8 @@ const PhoneContainer = styled.div`
 
   @media (max-width: 575px) {
     margin-top: 50px;
-    width: 300px;
-    height: 250px;
+    width: 350px;
+    height: 350px;
     gap: 30px;
   }
 `;
@@ -57,6 +57,10 @@ const Group = styled.div`
   justify-content: center;
   align-items: center;
   gap: 30px;
+
+  @media (max-width: 575px) {
+    width: 320px;
+  }
 `;
 
 const Section = styled.div`
@@ -80,6 +84,11 @@ const InputNumber = styled.input`
   border: 1px solid gray;
   text-align: center;
   outline: none;
+
+  @media (max-width: 575px) {
+    width: 150px;
+    font-size: 13px;
+  }
 `;
 
 const Button = styled.button`
@@ -96,7 +105,8 @@ const Button = styled.button`
   cursor: pointer;
 
   @media (max-width: 575px) {
-    width: 250px;
+    width: 80px;
+    font-size: 10px;
   }
 `;
 
@@ -106,6 +116,11 @@ const Count = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
+
+  @media (max-width: 575px) {
+    width: 80px;
+    font-size: 13px;
+  }
 `;
 
 const GuideText = styled.div`
@@ -139,11 +154,11 @@ function Phone({ login }) {
 
         navigate("/phone");
       } else {
-        if (localStorage.getItem("member_id")) {
-          navigate("/auth");
-        } else {
-          navigate("/");
-        }
+        // if (localStorage.getItem("member_id")) {
+        //   navigate("/auth");
+        // } else {
+        //   navigate("/");
+        // }
       }
     }
   }, []);

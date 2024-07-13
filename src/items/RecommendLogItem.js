@@ -292,7 +292,11 @@ function RecommendLogItem({
           </MobileImgContainer>
           <LikeContainer>
             <ToFrom>from.</ToFrom>
-            <IconLike prefer={info.prefer} />
+            <IconLike
+              prefer={info.prefer}
+              onClick={handleLike}
+              disabled={click}
+            />
           </LikeContainer>
         </RowText>
       </RecoContainer>
