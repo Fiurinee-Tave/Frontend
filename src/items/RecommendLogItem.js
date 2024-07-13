@@ -4,6 +4,8 @@ import IconLike from "../icons/IconLike";
 
 import { useMediaQuery } from "react-responsive";
 
+import { useState } from "react";
+
 const Wrapper = styled.div`
   width: 100%;
   height: 300px;
@@ -36,6 +38,7 @@ const ImgContainer = styled.div`
 const Img = styled.img`
   width: 100%;
   height: 100%;
+  object-fit: cover;
 `;
 
 const FlowerName = styled.div`
@@ -215,9 +218,24 @@ function RecommendLogItem({
   userName,
 }) {
   const isMobile = useMediaQuery({ query: "(max-width: 575px)" });
+  const [click, setClick] = useState(false);
 
-  const handleLike = () => {
-    if (info.prefer === true) {
+  const handleLike = async () => {
+    setClick(true);
+
+    try {
+      await checkPrefer(info.prefer);
+    } catch {
+      //console.log("실패")
+    }
+    //1초 후에
+    setTimeout(() => {
+      setClick(false);
+    }, 2000);
+  };
+
+  const checkPrefer = (prefer) => {
+    if (prefer) {
       settingFalsePrefer(info.order);
     } else {
       settingTruePrefer(info.order);
@@ -327,7 +345,11 @@ function RecommendLogItem({
 
             <LikeContainer>
               <ToFrom>from.</ToFrom>
-              <IconLike prefer={info.prefer} onClick={handleLike} />
+              <IconLike
+                prefer={info.prefer}
+                onClick={handleLike}
+                disabled={click}
+              />
             </LikeContainer>
           </MentLikeContainer>
         </DetailContainer>

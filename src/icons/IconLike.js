@@ -10,11 +10,13 @@ const Wrapper = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  cursor: pointer;
 `;
 
-function IconLike({ prefer, onClick }) {
+function IconLike({ prefer, onClick, disabled }) {
   return (
-    <Wrapper onClick={onClick}>
+    <Wrapper onClick={onClick} disabled={disabled}>
       <svg
         dataslot="icon"
         fill="none"
