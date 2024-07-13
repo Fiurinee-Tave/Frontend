@@ -7,6 +7,10 @@ const Count = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
+
+  @media (max-width: 575px) {
+    width: 80px;
+  }
 `;
 function Timer({ setText, setTimer }) {
   const initialTime = 300;
