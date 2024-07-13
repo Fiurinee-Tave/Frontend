@@ -54,9 +54,14 @@ const LikeBtn = styled.button`
 function RecommendLogPage() {
   const [recommend, setRecomment] = useState();
   const [likeMode, setLikeMode] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
 
   const accessToken = localStorage.getItem("access_token");
   const memberId = localStorage.getItem("member_id");
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (likeMode) {
@@ -65,6 +70,21 @@ function RecommendLogPage() {
       fetchTotalData();
     }
   }, [likeMode]);
+
+  const fetchData = async () => {
+    try {
+      const response = await api.get(`/member/${memberId}`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+
+      setUserInfo(response.data);
+    } catch (error) {
+      // if (error.response.status === 401) {
+      //   refreshAccessToken(memberId, fetchData);
+      // }
+      console.error("Failed to fetch user data:", error);
+    }
+  };
 
   const settingTruePrefer = async (order) => {
     try {
@@ -75,7 +95,11 @@ function RecommendLogPage() {
         }
       );
 
-      fetchTotalData();
+      if (likeMode) {
+        fetchLikeData();
+      } else {
+        fetchTotalData();
+      }
     } catch (error) {
       // if (error.response.status === 401) {
       //   refreshAccessToken(memberId, settingTruePrefer);
@@ -93,7 +117,11 @@ function RecommendLogPage() {
         }
       );
 
-      fetchTotalData();
+      if (likeMode) {
+        fetchLikeData();
+      } else {
+        fetchTotalData();
+      }
     } catch (error) {
       // if (error.response.status === 401) {
       //   refreshAccessToken(memberId, settingFalsePrefer);
@@ -208,6 +236,7 @@ function RecommendLogPage() {
                   info={v}
                   settingTruePrefer={settingTruePrefer}
                   settingFalsePrefer={settingFalsePrefer}
+                  userName={userInfo.nickname}
                 />
               ))}
       </Container>

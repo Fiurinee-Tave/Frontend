@@ -64,7 +64,7 @@ const BottomText = styled.div`
   flex-direction: column;
   align-items: end;
   gap: 1vh;
-    @media (max-width: 575px) {
+  @media (max-width: 575px) {
     gap: 1vw;
     padding: 1vw;
   }
@@ -101,10 +101,9 @@ const Name = styled.div`
   }
 `;
 
-
 const DateText = styled.div`
   font-size: 1.3vw;
-  line-height:1.2;
+  line-height: 1.2;
   color: gray;
   @media (max-width: 575px) {
     font-size: 1.9vw;
@@ -125,7 +124,7 @@ const FromText = styled.div`
   font-weight: 400;
   font-style: normal;
   @media (max-width: 575px) {
-     font-size: 3vw;
+    font-size: 3vw;
   }
 `;
 
@@ -135,7 +134,7 @@ function TodayFlower(member) {
     flowerPeriod: "",
     flowerLangu: "",
     flowerImg: "",
-    flowerExplain:"",
+    flowerExplain: "",
   });
 
   const fetchData = async () => {
@@ -148,7 +147,6 @@ function TodayFlower(member) {
       flowerImg: response.data.image,
       flowerExplain: response.data.explain,
     });
-
   };
 
   useEffect(() => {
@@ -168,11 +166,12 @@ function TodayFlower(member) {
         <FlowerInfo>
           <TopText>
             <ToText>to.</ToText>
-            <FlowerName>{today.getMonth() + 1}월 {today.getDate()}일</FlowerName>
+            <FlowerName>
+              {today.getMonth() + 1}월 {today.getDate()}일
+            </FlowerName>
             <Name>{flowerData.flowerName}</Name>
             <DateText>
-              <br/>
-              "{flowerData.flowerExplain}"
+              <br />"{flowerData.flowerExplain}"
             </DateText>
           </TopText>
           <BottomText>

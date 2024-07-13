@@ -4,8 +4,6 @@ import IconLike from "../icons/IconLike";
 
 import { useMediaQuery } from "react-responsive";
 
-import { useEffect } from "react";
-
 const Wrapper = styled.div`
   width: 100%;
   height: 300px;
@@ -35,9 +33,35 @@ const ImgContainer = styled.div`
   }
 `;
 
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
+`;
+
+const FlowerName = styled.div`
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+`;
+
 const SmallImgContainer = styled.div`
   width: 180px;
-  height: 100%;
+  height: 170px;
+  position: relative;
+
+  &:hover {
+    ${FlowerName} {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.6);
+
+      color: white;
+    }
+  }
 
   @media (max-width: 575px) {
     width: 100px;
@@ -61,11 +85,6 @@ const RecoContainer = styled.div`
     padding: 0;
     gap: 10px;
   }
-`;
-
-const Img = styled.img`
-  width: 100%;
-  height: 100%;
 `;
 
 const RecoTitle = styled.div`
@@ -246,9 +265,11 @@ function RecommendLogItem({
           <MobileImgContainer>
             <SmallImgContainer>
               <Img src={info.other[0].image} />
+              <FlowerName>{info.other[0].harmonyFlower}</FlowerName>
             </SmallImgContainer>
             <SmallImgContainer>
               <Img src={info.other[1].image} />
+              <FlowerName>{info.other[1].harmonyFlower}</FlowerName>
             </SmallImgContainer>
           </MobileImgContainer>
           <LikeContainer>
@@ -279,9 +300,11 @@ function RecommendLogItem({
         <DetailContainer>
           <SmallImgContainer>
             <Img src={info.other[0].image} />
+            <FlowerName>{info.other[0].harmonyFlower}</FlowerName>
           </SmallImgContainer>
           <SmallImgContainer>
             <Img src={info.other[1].image} />
+            <FlowerName>{info.other[1].harmonyFlower}</FlowerName>
           </SmallImgContainer>
           <MentLikeContainer>
             <MentContainer>
