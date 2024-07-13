@@ -7,7 +7,7 @@ import { useMediaQuery } from "react-responsive";
 const Wrapper = styled.div`
   width: 100%;
   background-image:url("/img/Recommend3.png");
-  min-height: 100vh;
+  min-height: 101vh;
   background-size:cover;
   flex-direction: column;
   align-items: center;
@@ -140,8 +140,6 @@ const Image = styled.img`
       width:105px;
   }
 `;
-//height:120px;
-//width:150px;
 
 const LeftSection = styled.div`
   flex: 1;
@@ -163,7 +161,6 @@ const RightSection = styled.div`
     width: 100%;
   }
 `;
-//gap: 15px;
 
 function Recommend2({login}) {
   const isDesktopOrMobile = useMediaQuery({query: '(max-width:575px)'});
@@ -195,7 +192,7 @@ function Recommend2({login}) {
             <Text>꽃말 : {location.state?.flower.flower_language}</Text>
             <Text>추천 멘트 : {location.state?.recoflower.recommendMent}</Text>
           </Line2>
-          <FlowerTitle>"{location.state?.flower.recommendFlower}"와 어울리는 조합</FlowerTitle>
+          <FlowerTitle>"{location.state?.flower.recommendFlower}" 어울리는 조합</FlowerTitle>
           <MiniWidth>
             <Height>
               <Image src={location.state?.recoflower.harmonyFlowers[0].image}/>
@@ -230,7 +227,7 @@ function Recommend2({login}) {
         <Text>꽃말 : {location.state?.flower.flower_language}</Text>
         <Text>추천 멘트 : {location.state?.recoflower.recommendMent}</Text>
       </Line2>
-      <FlowerTitle>"{location.state?.flower.recommendFlower}"와 어울리는 조합</FlowerTitle>
+      <FlowerTitle>"{location.state?.flower.recommendFlower}" 어울리는 조합</FlowerTitle>
       <Width>
           <Height>
           <Image src={location.state?.recoflower.harmonyFlowers[0].image}/>

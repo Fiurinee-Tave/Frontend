@@ -84,7 +84,6 @@ const Input = styled.textarea`
     font-size:15px;
   }
 `;
-//margin:40px;
 
 const RecommendBtn = styled.button`
   background-color: rgba(255,255,255,0.8);
@@ -114,9 +113,6 @@ function Recommend0({ login }) {
 
   const accessToken = localStorage.getItem("access_token");
   const memberId = localStorage.getItem("member_id");
-
-  console.log(memberId);
-
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -171,12 +167,7 @@ function Recommend0({ login }) {
       console.error("Failed to fetch user data:", error);
     }
   };
-    
-  //        <Text>ex) 친구가 어제 드디어 취업을 해서 꽃을 선물하려해</Text>
-
-  //defaultValue={`\nex) 친구가 어제 드디어 취업을 해서\n꽃을 선물하려해`} 
-
-  //
+  
   return (
     loading ? 
     <Wrapper> <Header login={login} /> <Loading/> </Wrapper>:(

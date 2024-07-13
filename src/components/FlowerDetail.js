@@ -23,7 +23,8 @@ const Text = styled.div`
   font-weight: 400;
   max-width: 70%;
   @media (max-width: 575px) {
-    font-size: 10px;
+    line-height: 1.5;
+    font-size: 9px;
   }
 `;
 
