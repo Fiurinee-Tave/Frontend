@@ -149,7 +149,7 @@ function MainAnniversary({login,name}) {
   
     const logout = async () => {
       try {
-        await api.get(`http://3.36.169.209:8080/member/${memberId}/logout`, {
+        await api.get(`https://emotionfeedback.site/member/${memberId}/logout`, {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
         localStorage.clear();

@@ -109,7 +109,6 @@ const DateText = styled.div`
     font-size: 1.9vw;
   }
 `;
-//color: gray;
 
 const Floriography = styled.div`
   font-size: 1.3vw;
@@ -148,7 +147,6 @@ function TodayFlower(member) {
       flowerImg: response.data.image,
       flowerExplain: response.data.explain,
     });
-    //console.log(response.data.explain);
   };
 
   useEffect(() => {
@@ -156,8 +154,6 @@ function TodayFlower(member) {
   }, []);
 
   const today = new Date();
-  //{flowerData.flowerExplain}
-  //{today.getMonth() + 1}월 {today.getDate()}일
 
   return (
     <Wrapper>

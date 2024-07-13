@@ -156,6 +156,7 @@ function MainImage({login}) {
   const accessToken = localStorage.getItem("access_token");
   const memberId = localStorage.getItem("member_id");
   const [showDetails, setShowDetails] = useState(false);
+  
   const images = [
     "/img/MainImage1.png",
     "/img/MainImage2.png",
@@ -163,10 +164,10 @@ function MainImage({login}) {
     "/img/MainImage4.png",
   ];
 
-
   const logout = async () => {
     try {
-      await api.get(`https://emotionfeedback.site/model/${memberId}/logout`, {
+      
+      await api.get(`https://emotionfeedback.site/member/${memberId}/logout`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       localStorage.clear();
@@ -202,8 +203,6 @@ function MainImage({login}) {
         loop={true}
         spaceBetween={50}
         slidesPerView={1}
-        //onSlideChange={() => console.log("slide change")}
-        //onSwiper={(swiper) => console.log(swiper)}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
       >
         {images.map((image, index) => (
