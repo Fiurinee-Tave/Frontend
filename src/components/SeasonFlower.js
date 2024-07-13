@@ -28,7 +28,7 @@ const InWrapper = styled.div`
   @media (max-width: 575px) {
     gap: 1vh;
     width: 70vw;
-    height: 38vh;
+    height: 33vh;
     padding: 20px 0.5vw 0px 0.5vw;
   }
 `;
@@ -50,7 +50,7 @@ const Line1 = styled.div`
   height: 78vh;
   position: relative;
   @media (max-width: 575px) {
-    height: 40vh;
+    height: 35vh;
   }
 `;
 
@@ -70,7 +70,8 @@ const Line2 = styled.div`
   flex-direction: column;
   position: relative;
   @media (max-width: 575px) {
-    height: 38vh;
+    height: 35vh;
+    gap: 2vh;
   }
 `;
 
@@ -80,6 +81,10 @@ const FlowerImage2 = styled.img`
   position: absolute;
   border: 2px solid gray;
   object-fit: cover;
+  @media (max-width: 575px) {
+    height: 16.5vh;
+  }
+
 `;
 
 const Image23 = styled.div`
@@ -96,6 +101,9 @@ const FlowerImage3 = styled.img`
   position: absolute;
   border: 2px solid gray;
   object-fit: cover;
+  @media (max-width: 575px) {
+    height: 16.5vh;
+  }
 `;
 
 const Line3 = styled.div`
@@ -106,7 +114,8 @@ const Line3 = styled.div`
   flex-direction: column;
   position: relative;
   @media (max-width: 575px) {
-    height: 39vh;
+    height: 35vh;
+    gap: 1vh;
   }
 `;
 
@@ -116,6 +125,7 @@ const Image4 = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
 `;
 
 const FlowerImage4 = styled.img`
@@ -124,6 +134,9 @@ const FlowerImage4 = styled.img`
   position: absolute;
   border: 2px solid gray;
   object-fit: cover;
+  @media (max-width: 575px) {
+    height: 22vh;
+  }
 `;
 
 const Image5 = styled.div`
@@ -140,6 +153,9 @@ const FlowerImage5 = styled.img`
   position: absolute;
   border: 2px solid gray;
   object-fit: cover;
+    @media (max-width: 575px) {
+    height: 11vh;
+  }
 `;
 
 function SeasonFlower(member) {
