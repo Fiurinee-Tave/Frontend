@@ -44,8 +44,6 @@ function Mainpage({ login }) {
   const [memberId0, setMemberId] = useState(null);
   const [userData, setUserData] = useState(null);
 
-  // && (refreshToken0 == null)
-
   useEffect(() => {
     if (login) {
 

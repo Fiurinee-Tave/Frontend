@@ -128,10 +128,6 @@ function Recommend1({login}) {
   const memberId = localStorage.getItem("member_id");
 
   const location = useLocation();
-
-  console.log("추천 1로 넘어왔다"); 
-  console.log(location);
-
   
   const images = [
     location.state?.flower[0].image,
@@ -156,7 +152,6 @@ function Recommend1({login}) {
 
   const posetData = async () => {
     setLoading(true);
-    console.log(location.state?.flower[selectedImage].id);
     try{
       if(login === false){
         const response = await axios.post('https://emotionfeedback.site/model/'+location.state?.flower[selectedImage].id+'/non' ,

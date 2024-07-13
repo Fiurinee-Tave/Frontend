@@ -165,19 +165,14 @@ function MainImage({login}) {
   ];
 
   const logout = async () => {
-    console.log("로그아웃1");
     try {
       
       await api.get(`https://emotionfeedback.site/member/${memberId}/logout`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       localStorage.clear();
-      console.log("로그아웃2");
       navigate("/");
     } catch (error) {
-      // if (error.response.status === 401) {
-      //   refreshAccessToken(memberId, logout);
-      // }
       console.error("Failed to fetch user data:", error);
     }
   };
@@ -208,8 +203,6 @@ function MainImage({login}) {
         loop={true}
         spaceBetween={50}
         slidesPerView={1}
-        //onSlideChange={() => console.log("slide change")}
-        //onSwiper={(swiper) => console.log(swiper)}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
       >
         {images.map((image, index) => (
