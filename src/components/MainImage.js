@@ -126,7 +126,7 @@ const RecommendBtn = styled.button`
   font-size: 20px;
   cursor: pointer;
   position: absolute;
-  right: 160px;
+  right: 350px;
   bottom: 15px;
   padding: 15px 25px;
   border-style: dashed;
@@ -136,7 +136,27 @@ const RecommendBtn = styled.button`
   font-style: normal;
   @media (max-width: 575px) {
     font-size: 10px;
-    padding: 8px 23px;
+    padding: 7px 16px;
+    right: 143px;
+  }
+`;
+
+const SearchBtn = styled.button`
+  background-color: #fff3f3;
+  font-size: 20px;
+  cursor: pointer;
+  position: absolute;
+  right: 170px;
+  bottom: 15px;
+  padding: 15px 25px;
+  border-style: dashed;
+  border-color: gray;
+    font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  font-style: normal;
+  @media (max-width: 575px) {
+    font-size: 10px;
+    padding: 7px 16px;
     right: 50px;
   }
 `;
@@ -202,6 +222,10 @@ function MainImage({login}) {
     }
   };
 
+  const SearchFlower = () => {
+    navigate("/searchflower");
+  }
+
   const handleButtonClick = () => {
     setShowDetails(true); // 버튼 클릭 시 상태 업데이트
   };
@@ -236,6 +260,7 @@ function MainImage({login}) {
             :
             <LoginButton onClick={Login}>로그인/회원가입</LoginButton>}
             <RecommendBtn onClick={recommend}>선물할 꽃 추천받기</RecommendBtn>
+            <SearchBtn onClick={SearchFlower}>꽃 백과사전</SearchBtn>
             <Title>fiurinee</Title>
             <Detail>당신의 마음을 선물하세요</Detail>
             <DetailBtn onClick={handleButtonClick}> ? </DetailBtn>

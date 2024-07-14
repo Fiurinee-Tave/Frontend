@@ -93,9 +93,10 @@ function Mainpage({ login }) {
   }, [login, memberId0, accessToken0]);
 
 
+  // 
   return (
     <Wrapper>
-      {(userData == null || userData[0].name == null) ?<MainImage login={login}/> : <MainAnniversary login={login} name={userData[0].name}/>}
+     {(userData == null || userData[0].name == null) ?<MainImage login={login}/> : <MainAnniversary login={login} name={userData[0].name}/>}
       {isDesktopOrMobile !== true ? (
         <>
           <Line2>

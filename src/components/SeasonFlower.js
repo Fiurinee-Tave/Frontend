@@ -115,7 +115,7 @@ const Line3 = styled.div`
   position: relative;
   @media (max-width: 575px) {
     height: 35vh;
-    gap: 1vh;
+    gap: 2vh;
   }
 `;
 
