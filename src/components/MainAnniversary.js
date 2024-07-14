@@ -34,7 +34,7 @@ const Image = styled.img`
     width: 28vw;
     height: 35vh;
     top: 0vh;
-    right: 9vw;
+    right: 7vw;
   }
 
 `;
@@ -114,7 +114,7 @@ const RecommendBtn = styled.button`
   font-style: normal;
   @media (max-width: 575px) {
     font-size: 2.5vw;
-    padding: 2vw 3vw;
+    padding: 2vw 2.6vw;
   }
 `;
 
@@ -127,6 +127,26 @@ const Detail = styled.div`
   @media (max-width: 575px) {
     top: 17vh;
     font-size: 2.5vw;
+  }
+`;
+
+const SearchBtn = styled.button`
+  background-color: #fff3f3;
+  font-size: 20px;
+  cursor: pointer;
+  position: absolute;
+  left: 25vw;
+  bottom: 6vh;
+  padding: 15px 25px;
+  border-style: dashed;
+  border-color: gray;
+    font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  font-style: normal;
+  @media (max-width: 575px) {
+    left: 37vw;
+    font-size: 2.5vw;
+    padding: 2vw 2.6vw;
   }
 `;
 
@@ -165,6 +185,10 @@ function MainAnniversary({login,name}) {
 
     const today = new Date();
 
+    const SearchFlower = () => {
+      navigate("/searchflower");
+    }
+
   
     return (
       <StyledImg>
@@ -182,6 +206,7 @@ function MainAnniversary({login,name}) {
               <NormalText onClick={logout}>로그아웃</NormalText>
               </LoginLine>
               <RecommendBtn onClick={recommend}>선물할 꽃 추천받기</RecommendBtn>
+              <SearchBtn onClick={SearchFlower}>꽃 백과사전</SearchBtn>
               <Title>fiurinee</Title>
       </StyledImg>
     );
