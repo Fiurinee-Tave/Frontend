@@ -109,8 +109,8 @@ function SearchFlower() {
         `https://emotionfeedback.site/dictionary?page=${page}`
       );
 
-      console.log(response.data);
       setFlowers(response.data);
+      setText("");
     } catch (error) {
       // if (error.response.status === 401) {
       //   refreshAccessToken(memberId, fetchData);
@@ -129,8 +129,8 @@ function SearchFlower() {
         `https://emotionfeedback.site/dictionary/search?name=${text}`
       );
 
-      console.log(response.data);
       setFlowers(response.data);
+      setText("");
     } catch (error) {
       // if (error.response.status === 401) {
       //   refreshAccessToken(memberId, fetchData);
