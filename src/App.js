@@ -9,6 +9,7 @@ import RecommendLogPage from "./routes/RecommendLogPage";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import Phone from "./routes/Phone";
+import SearchFlower from "./routes/SearchFlower";
 
 const GlobalStyles = createGlobalStyle`
   ${reset};
@@ -50,6 +51,7 @@ function App() {
           path="/mypage/recommend_log"
           element={<RecommendLogPage />}
         ></Route>
+        <Route path="/searchflower" element={<SearchFlower />}></Route>
       </Routes>
     </Router>
   );
