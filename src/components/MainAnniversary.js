@@ -173,7 +173,7 @@ function MainAnniversary({login,name}) {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
         localStorage.clear();
-        navigate("/");
+        navigate("/", { state: { fromLogout: true } });
       } catch (error) {
         console.error("Failed to fetch user data:", error);
       }

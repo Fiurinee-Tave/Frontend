@@ -73,24 +73,27 @@ function Mainpage({ login }) {
   }, [login, location, navigate]);
 
   useEffect(() => {
+
+    if(location.state?.fromLogout){
+      setUserData(null);
+    }else if(login && memberId0 && accessToken0){
     const fetchData = async () => {
-      if (login && memberId0 && accessToken0) {
-        try {
-          const response = await api.get(
-            `https://emotionfeedback.site/member/${memberId0}/anniversary/zero-day`,
-            {
-              headers: { Authorization: `Bearer ${accessToken0}` },
-            }
-          );
-          setUserData(response.data);
-        } catch (error) {
-          console.error("Failed to fetch user data:", error);
-        }
+      try {
+        const response = await api.get(
+          `https://emotionfeedback.site/member/${memberId0}/anniversary/zero-day`,
+          {
+            headers: { Authorization: `Bearer ${accessToken0}` },
+          }
+        );
+        setUserData(response.data);
+      } catch (error) {
+        console.error("Failed to fetch user data:", error);
       }
     };
 
     fetchData();
-  }, [login, memberId0, accessToken0]);
+  }
+  }, [login, memberId0, accessToken0,location.state]);
 
 
   // 
