@@ -11,15 +11,16 @@
 | [<img src="https://item.kakaocdn.net/do/296cc3e891afb5542018b43229eb30ccac8e738cb631e72fdb9a96b36413984e" height=150 width=150> <br/> @moon0727](https://github.com/moon0727) | [<img src="https://item.kakaocdn.net/do/296cc3e891afb5542018b43229eb30ccac8e738cb631e72fdb9a96b36413984e" height=150 width=150> <br/> @Yeong-si](https://github.com/Yeong-si) | 
 
 ## 📂컴포넌트 트리
+![컴포넌트트리 (2)](https://github.com/user-attachments/assets/4830957a-46f9-4519-8bc9-fafc1c433070)
 
 
 ## 👭🏻역할 분담
-# 김문희
+### 김문희
 - 마이페이지, 로그인페이지, 추천기록 상세 페이지, 꽃 백과사전 페이지, 액세스 토큰 재발급
 
 <br>
 
-# 이시영
+### 이시영
 - 메인페이지, 추천1 페이지, 추천2 페이지, 추천3 페이지, 가이드 창, AWS 배포
 
 ## 📅 개발 기간
