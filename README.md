@@ -13,7 +13,7 @@
 <br/>
 
 ## 📂컴포넌트 트리
-![컴포넌트트리 (2)](https://github.com/user-attachments/assets/4830957a-46f9-4519-8bc9-fafc1c433070)
+![컴포넌트트리 (1)](https://github.com/user-attachments/assets/13cc20df-ed90-4fc1-8282-456a39e00963)
 
 <br/>
 
