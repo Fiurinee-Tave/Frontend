@@ -141,7 +141,9 @@ function SearchFlower() {
 
   return (
     <Wrapper>
-      <Header />
+      <Header
+        login={localStorage.getItem("member_id") === null ? false : true}
+      />
       <SearchBar>
         <SearchInput
           type="text"
