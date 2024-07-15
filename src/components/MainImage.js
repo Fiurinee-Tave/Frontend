@@ -174,8 +174,9 @@ const DetailBtn = styled.button`
   border-style: dashed;
   border-color: gray;
   font-family: "Gowun Batang", serif;
-  font-weight: 400;
+  font-weight: 600;
   font-style: normal;
+  color:rgb(77,77,77);
     @media (max-width: 575px) {
     font-size: 10px;
     width:30px;
@@ -183,6 +184,8 @@ const DetailBtn = styled.button`
     right: 15px;
   }
 `;
+
+
 
 function MainImage({login}) {
   const navigate = useNavigate();
@@ -263,7 +266,9 @@ function MainImage({login}) {
             <SearchBtn onClick={SearchFlower}>꽃 백과사전</SearchBtn>
             <Title>fiurinee</Title>
             <Detail>당신의 마음을 선물하세요</Detail>
-            <DetailBtn onClick={handleButtonClick}> ? </DetailBtn>
+            <DetailBtn onClick={handleButtonClick}>
+              ?
+            </DetailBtn>
       </Overlay>
       {showDetails && <Guide handleClose={handleClose}/>}
     </StyledImg>

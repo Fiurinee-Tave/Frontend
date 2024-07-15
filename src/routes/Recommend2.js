@@ -70,6 +70,7 @@ const Width = styled.div`
   padding:0 12vw;
   @media (max-width: 575px) {
     gap:6vw;
+    padding:0 6vw;
   }
 `;
 
@@ -100,7 +101,7 @@ const Height = styled.div`
   align-items: center;
   @media (max-width: 575px) {
     gap:1.2vh;
-    padding:10px 0px;
+    padding:7px 0px;
   }
 `;
 
@@ -113,7 +114,7 @@ const Text = styled.div`
   white-space: pre-wrap;
   text-align: ${props => props.center ? 'center' : 'left'};
   @media (max-width: 575px) {
-    font-size: 3.6vw;
+    font-size: 3.4vw;
   }
 `;
 //15px
