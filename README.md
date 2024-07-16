@@ -8,7 +8,7 @@
 ## 🧑🏻‍💻프론트 팀원
 |**김문희**|**이시영**|
 |:-----:|:-----:|
-| [<img src="https://item.kakaocdn.net/do/296cc3e891afb5542018b43229eb30ccac8e738cb631e72fdb9a96b36413984e" height=150 width=150> <br/> @moon0727](https://github.com/moon0727) | [<img src="https://item.kakaocdn.net/do/296cc3e891afb5542018b43229eb30ccac8e738cb631e72fdb9a96b36413984e" height=150 width=150> <br/> @Yeong-si](https://github.com/Yeong-si) | 
+| [<img src="https://github.com/user-attachments/assets/edf6bf3b-0885-477f-82ff-e55efe0d9643" height=150 width=150> <br/> @moon0727](https://github.com/moon0727) | [<img src="https://github.com/user-attachments/assets/85cf4229-7e6e-49a2-a378-1816cac3bcc2" height=150 width=150> <br/> @Yeong-si](https://github.com/Yeong-si) | 
 
 <br/>
 
