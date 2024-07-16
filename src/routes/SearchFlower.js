@@ -5,6 +5,7 @@ import FlowerItem from "../items/FlowerItem";
 import PageNumber from "../components/PageNumber";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useMediaQuery } from "react-responsive";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -30,6 +31,11 @@ const SearchBar = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: 1px 1px 1px gray;
+
+  @media (max-width: 575px) {
+    width: 300px;
+    font-size: 15px;
+  }
 `;
 
 const SearchInput = styled.input`
@@ -45,6 +51,13 @@ const Container = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 50px;
+
+
+  @media (max-width: 575px) {
+    width: 90%;
+    flex-direction: column;
+
+  }
 `;
 
 const NoResult = styled.div`
@@ -53,6 +66,8 @@ const NoResult = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  
 `;
 
 const NullItem = styled.div`
@@ -65,6 +80,7 @@ function SearchFlower() {
   const [flowers, setFlowers] = useState();
   const [searchMode, setSearchMode] = useState(false);
   const [text, setText] = useState("");
+  const isMobile = useMediaQuery({ query: "(max-width: 575px)" });
 
   useEffect(() => {
     if (page > 0) {
@@ -154,7 +170,9 @@ function SearchFlower() {
         />
         <IconSearch top={true} clickSearch={handleSearch} />
       </SearchBar>
-      {searchMode ? (
+      {isMobile ? flowers === undefined || flowers.length === 0 ?<NoResult>검색한 꽃이 없습니다</NoResult> : <Container>
+            {flowers && flowers.map((v, i) => <FlowerItem info={v} key={i} />)}
+          </Container> : searchMode ? (
         flowers === undefined || flowers.length === 0 ? (
           <NoResult>검색한 꽃이 없습니다</NoResult>
         ) : flowers &&
@@ -177,7 +195,8 @@ function SearchFlower() {
           {flowers && flowers.map((v, i) => <FlowerItem info={v} key={i} />)}
           <NullItem />
         </Container>
-      )}
+      )
+      }
 
       <PageNumber page={page} handlePage={handlePage} searchMode={searchMode} />
     </Wrapper>
