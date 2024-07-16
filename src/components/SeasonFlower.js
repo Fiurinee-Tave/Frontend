@@ -5,7 +5,7 @@ import FlowerDetail from "../components/FlowerDetail";
 
 const Wrapper = styled.div`
   width: 100vw;
-  height: 90vh;
+  height: 115vh;
   display: flex;
   padding: 3vh 12vw;
   align-items: center;
@@ -26,7 +26,7 @@ const InWrapper = styled.div`
   justify-content: center;
   padding: 20px 0.5vw 10px 0.5vw;
   @media (max-width: 575px) {
-    gap: 1vw;
+    gap: 1vh;
     width: 70vw;
     height: 38vh;
     padding: 20px 0.5vw 0px 0.5vw;
@@ -50,7 +50,7 @@ const Line1 = styled.div`
   height: 78vh;
   position: relative;
   @media (max-width: 575px) {
-    height: 45vh;
+    height: 40vh;
   }
 `;
 
@@ -58,17 +58,19 @@ const FlowerImage1 = styled.img`
   width: 100%;
   height: 100%;
   position: absolute;
+  border: 2px solid gray;
+  object-fit: cover;
 `;
 
 const Line2 = styled.div`
   flex: 1.2;
   height: 76vh;
-  gap: 2vh;
+  gap: 4vh;
   display: flex;
   flex-direction: column;
   position: relative;
   @media (max-width: 575px) {
-    height: 44vh;
+    height: 38vh;
   }
 `;
 
@@ -76,6 +78,8 @@ const FlowerImage2 = styled.img`
   width: 100%;
   height: 50%;
   position: absolute;
+  border: 2px solid gray;
+  object-fit: cover;
 `;
 
 const Image23 = styled.div`
@@ -90,6 +94,8 @@ const FlowerImage3 = styled.img`
   width: 100%;
   height: 50%;
   position: absolute;
+  border: 2px solid gray;
+  object-fit: cover;
 `;
 
 const Line3 = styled.div`
@@ -100,7 +106,7 @@ const Line3 = styled.div`
   flex-direction: column;
   position: relative;
   @media (max-width: 575px) {
-    height: 44vh;
+    height: 39vh;
   }
 `;
 
@@ -116,6 +122,8 @@ const FlowerImage4 = styled.img`
   width: 100%;
   height: 67%;
   position: absolute;
+  border: 2px solid gray;
+  object-fit: cover;
 `;
 
 const Image5 = styled.div`
@@ -130,6 +138,8 @@ const FlowerImage5 = styled.img`
   width: 100%;
   height: 33%;
   position: absolute;
+  border: 2px solid gray;
+  object-fit: cover;
 `;
 
 function SeasonFlower(member) {
@@ -140,10 +150,8 @@ function SeasonFlower(member) {
   const [seasonData4, setSeasonData4] = useState([]);
 
   const fetchData = async () => {
-    const response = await axios.get(`http://3.36.169.209:8080/main/season`);
+    const response = await axios.get(`https://emotionfeedback.site/main/season`);
 
-    //console.log(response.data);
-    //console.log(response.data[0]);
     setSeasonData0(response.data[0]);
     setSeasonData1(response.data[1]);
     setSeasonData2(response.data[2]);
