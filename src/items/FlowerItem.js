@@ -10,6 +10,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media (max-width: 575px) {
+  width: 100%;
+  }
 `;
 
 const Image = styled.img`

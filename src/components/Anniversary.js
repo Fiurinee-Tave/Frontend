@@ -54,7 +54,7 @@ const AddEventBtn = styled.button`
 
   @media (max-width: 575px) {
     width: 100px;
-    font-size: 12px;
+    font-size: 10px;
   }
 `;
 

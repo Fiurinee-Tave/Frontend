@@ -8,6 +8,11 @@ const Wrapper = styled.div`
   align-items: center;
   gap: 10px;
   color: gray;
+
+  @media (max-width: 575px) {
+    flex-wrap: wrap;
+    
+  }
 `;
 
 const PageButton = styled.button`
