@@ -31,11 +31,11 @@ api.interceptors.response.use(
 
     // 401 에러가 발생했을 경우
     if (error.response.status === 401 && !originalRequest._retry) {
-      console.log("401 발생");
+      //console.log("401 발생");
       originalRequest._retry = true;
       try {
         // refresh token을 사용해 access token을 재발급 받기
-        console.log("accesstoken 재발급");
+        //console.log("accesstoken 재발급");
         const refreshToken = localStorage.getItem("refresh_token");
 
         const response = await axios.get(
@@ -48,7 +48,7 @@ api.interceptors.response.use(
         if (response.status === 200) {
           // 새로운 access token, refresh token 저장
 
-          console.log("accesstoken, refreshtoken 저장");
+          //console.log("accesstoken, refreshtoken 저장");
 
           const newAccessToken = response.data.accessToken;
           const newRefreshToken = response.data.refreshToken;

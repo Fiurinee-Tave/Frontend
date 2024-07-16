@@ -149,6 +149,10 @@ const AddButton = styled.button`
   font-style: normal;
 
   cursor: pointer;
+
+  @media (max-width: 575px) {
+    font-size: 14px;
+  }
 `;
 
 const DeleteButton = styled.button`
@@ -169,6 +173,10 @@ const DeleteButton = styled.button`
   font-style: normal;
 
   cursor: pointer;
+
+  @media (max-width: 575px) {
+    font-size: 14px;
+  }
 `;
 
 const guide = [
