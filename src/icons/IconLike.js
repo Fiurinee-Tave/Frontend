@@ -27,9 +27,10 @@ function IconLike({ prefer, onClick, disabled }) {
         aria-hidden="true"
         style={
           prefer === true
-            ? { fill: "#EA8989", color: "#EA8989" }
-            : { color: "#EA8989" }
+            ? { fill: "#EA8989", color: "#EA8989", width: "100%", height: "100%" }
+            : { color: "#EA8989", width: "100%", height: "100%" }
         }
+        
       >
         <path
           strokeLinecap="round"
