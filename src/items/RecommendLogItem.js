@@ -18,10 +18,10 @@ const Wrapper = styled.div`
   box-shadow: 2px 2px 2px #858585;
 
   @media (max-width: 575px) {
-    height: 430px;
+    height: 400px;
     flex-direction: column;
     padding: 10px;
-    gap: 20px;
+    gap: 10px;
   }
 `;
 
@@ -30,7 +30,7 @@ const ImgContainer = styled.div`
   height: 100%;
 
   @media (max-width: 575px) {
-    width: 180px;
+    width: 170px;
     //height: 100%;
   }
 `;
@@ -110,7 +110,7 @@ const MiddleText = styled.div`
   font-size: 20px;
 
   @media (max-width: 575px) {
-    font-size: 18px;
+    font-size: 16px;
   }
 `;
 
@@ -124,6 +124,7 @@ const SmallText = styled.div`
 const GrayText = styled.div`
   font-size: 20px;
   color: #959090;
+  
 
   @media (max-width: 575px) {
     font-size: 15px;
@@ -149,8 +150,8 @@ const RowText = styled.div`
   justify-content: center;
   align-items: center;
   @media (max-width: 575px) {
-    justify-content: space-between;
-    align-items: end;
+    //justify-content: space-between;
+    //align-items: end;
   }
 `;
 
@@ -178,6 +179,7 @@ const DetailContainer = styled.div`
 const MobileImgContainer = styled.div`
   display: flex;
   gap: 10px;
+  height: 100%;
 `;
 
 const MentLikeContainer = styled.div`
@@ -189,7 +191,7 @@ const MentLikeContainer = styled.div`
   justify-content: space-between;
   
   @media (max-width: 575px) {
-    width: calc(100% - 10px - 180px);
+    width: 40%;
     justify-content: space-around;
   }
 `;
@@ -219,6 +221,38 @@ const LikeContainer = styled.div`
   @media (max-width: 575px) {
     width: 80px;
   }
+`;
+
+const MobileSceiont1 = styled.div`
+  width: 100%;
+  height: 170px;
+  //border: 1px solid red;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items; center;
+`;
+
+const MobileSection2 = styled.div`
+  width: 100%;
+  //height: 170px;
+  //border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  //justify-content: space-between;
+  align-items; center;
+`;
+
+const MobileSection3 = styled.div`
+  width: 100%;
+  //height: 130px;
+  
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  
+  align-items: end;
 `;
 
 function RecommendLogItem({
@@ -255,6 +289,63 @@ function RecommendLogItem({
   return isMobile ? (
     <Wrapper>
       <RecoTitle>
+        <RowText>
+          <ToFrom>to.</ToFrom>
+          <MiddleText>
+            {info.recommendFlower}
+            {`(${info.flower_language})`}
+          </MiddleText>
+        </RowText>
+        <GrayText>{info.create_at}</GrayText>
+      </RecoTitle>
+      <MobileSceiont1>
+        <ImgContainer>
+          <Img src={info.image} />
+        </ImgContainer>
+        <MentLikeContainer>
+          <MentContainer>
+            <SmallText>{info.inputMessage}</SmallText>
+            <WriterContainer>
+              <GrayText style={{ fontSize: "11px" }}>
+                writer.{userName}
+              </GrayText>
+            </WriterContainer>
+          </MentContainer>
+
+          <MentContainer>
+            <SmallText>{info.recommendMessage}</SmallText>
+            <WriterContainer>
+              <GrayText style={{ fontSize: "11px" }}>writer.fiurinee</GrayText>
+            </WriterContainer>
+          </MentContainer>
+        </MentLikeContainer>
+      </MobileSceiont1>
+      
+      <MobileSection2>
+      <GrayText>어울리는 꽃</GrayText>
+      <MobileSection3>
+        <MobileImgContainer>
+            <SmallImgContainer>
+              <Img src={info.other[0].image} />
+              <FlowerName>{info.other[0].harmonyFlower}</FlowerName>
+            </SmallImgContainer>
+            <SmallImgContainer>
+              <Img src={info.other[1].image} />
+              <FlowerName>{info.other[1].harmonyFlower}</FlowerName>
+            </SmallImgContainer>
+          </MobileImgContainer>
+          <LikeContainer>
+            <ToFrom>from.</ToFrom>
+            <IconLike
+              prefer={info.prefer}
+              onClick={handleLike}
+              disabled={click}
+            />
+          </LikeContainer>
+      </MobileSection3>
+      
+      </MobileSection2>
+      {/* <RecoTitle>
         <RowText>
           <ToFrom>to.</ToFrom>
           <MiddleText>
@@ -309,7 +400,7 @@ function RecommendLogItem({
             />
           </LikeContainer>
         </RowContainer>
-      </RecoContainer>
+      </RecoContainer> */}
     </Wrapper>
   ) : (
     <Wrapper>
