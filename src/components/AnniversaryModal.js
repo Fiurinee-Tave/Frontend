@@ -115,6 +115,8 @@ const NameInput = styled.input`
   font-family: "Gowun Batang", serif;
   font-weight: 400;
   font-style: normal;
+
+  width: 100%;
 `;
 
 const GuideText = styled.div`
