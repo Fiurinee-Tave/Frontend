@@ -21,7 +21,7 @@ const Wrapper = styled.div`
     height: 430px;
     flex-direction: column;
     padding: 10px;
-    gap: 10px;
+    gap: 20px;
   }
 `;
 
@@ -31,7 +31,7 @@ const ImgContainer = styled.div`
 
   @media (max-width: 575px) {
     width: 180px;
-    height: 200px;
+    //height: 100%;
   }
 `;
 
@@ -84,9 +84,11 @@ const RecoContainer = styled.div`
 
   @media (max-width: 575px) {
     width: 100%;
-    height: calc(100% - 40px - 200px - 30px);
+    height: 300px;
     padding: 0;
     gap: 10px;
+    justify-content: center;
+    //align-items: center;
   }
 `;
 
@@ -152,6 +154,13 @@ const RowText = styled.div`
   }
 `;
 
+const RowContainer = styled.div`
+display: flex;
+gap: 10px;
+justify-content: space-between;
+align-items: end;
+`;
+
 const DetailContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -178,6 +187,7 @@ const MentLikeContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  
   @media (max-width: 575px) {
     width: calc(100% - 10px - 180px);
     justify-content: space-around;
@@ -186,7 +196,7 @@ const MentLikeContainer = styled.div`
 
 const MentContainer = styled.div`
   width: 100%;
-  height: 33%;
+  //height: 33%;
   text-align: center;
 `;
 
@@ -279,7 +289,7 @@ function RecommendLogItem({
 
       <RecoContainer>
         <GrayText>어울리는 꽃</GrayText>
-        <RowText>
+        <RowContainer>
           <MobileImgContainer>
             <SmallImgContainer>
               <Img src={info.other[0].image} />
@@ -298,7 +308,7 @@ function RecommendLogItem({
               disabled={click}
             />
           </LikeContainer>
-        </RowText>
+        </RowContainer>
       </RecoContainer>
     </Wrapper>
   ) : (

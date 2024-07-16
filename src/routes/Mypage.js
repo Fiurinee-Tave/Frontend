@@ -53,6 +53,7 @@ const TextArea = styled.div`
   cursor: pointer;
   @media (max-width: 575px) {
     gap: 20px;
+    font-size: 14px;
   }
 `;
 
