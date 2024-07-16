@@ -111,6 +111,7 @@ const RecommendBtn = styled.button`
   @media (max-width: 575px) {
      font-size: 13px;
      padding: 12px 25px;
+     margin: 0;
   }
 `;
 
@@ -121,6 +122,17 @@ const ImageLine = styled.div`
   align-items: center;
   gap:1vh;
   font-size: 25px;
+`;
+
+const DetailText = styled.div`
+  font-size: 10px;
+  text-align: center;
+`;
+
+const Detail = styled.div`
+  align-items: center;
+  flex: 1;
+  justify-content: center;
 `;
 //padding-bottom:100%;
 
@@ -216,6 +228,7 @@ function Recommend1({login}) {
       <Bigtitle>추천하는 꽃 TOP 3</Bigtitle>
       <Title><Highlight>마음에 드는 꽃을 선택</Highlight>하고 하단의 버튼을 누르면<br/>
       해당 꽃과 <Highlight>어울리는 꽃다발 조합</Highlight>을 추천받을 수 있습니다.</Title>
+
       {isDesktopOrMobile !== true?
       <Line2>
         {images.map((src, index) => (
@@ -296,7 +309,12 @@ function Recommend1({login}) {
       </MediaLine1>
       </Line>
       }
-      <RecommendBtn onClick={posetData} disabled={selectedImage === null}> 어울리는 꽃 조합 찾기 ➡ </RecommendBtn>
+      {isDesktopOrMobile !== true? <RecommendBtn onClick={posetData} disabled={selectedImage === null}> 어울리는 꽃 조합 찾기 ➡ </RecommendBtn>:
+        <Detail>
+        <RecommendBtn onClick={posetData} disabled={selectedImage === null}> 어울리는 꽃 조합 찾기 ➡ </RecommendBtn>
+        <DetailText><br/>* 더블 클릭 시 버튼이 활성화됩니다</DetailText>
+        </Detail>
+      }
     </Line>
   </Wrapper>
   ));
